@@ -1,0 +1,96 @@
+! check xmodmap for layout
+
+! this clears everything in the (caps) lock group. 
+! currently it contains caps lock simply, but as keysym
+! (names of keys are keysyms, they contain a code as well)
+! thus when pressing the key with the code it would still be in the lock group, 
+! despite not being symmed to Caps_Lock
+!clear lock
+! now we'll bind the keycode of capslock to the escape keysym replacing the old one
+!keycode 66 = Escape
+! and escape to capslock
+!keycode 9 = Caps_Lock
+! then we'll add Caps Lock to the modifier group Lock
+!add lock = Caps_Lock
+
+! ALT_L <-> CTRL_L
+! similarly, switching left alt and left control
+!remove control = Control_L
+!remove mod1 = Alt_L
+!keycode 37 = Alt_L
+!keycode 64 = Control_L
+!add control = Control_L
+!add mod1 = Alt_L
+!
+
+!! SHIFT_L -> ALT_GR
+!! ALT_GR -> HYPER
+!!remove mod1 = Alt_R
+!remove shift = Shift_R
+!! we also need to remove hyper from mod4, as for some 
+!! reason it is there together with the super key
+!remove mod4 = Hyper_L
+!keycode 62 = Alt_R
+!keycode 108 = Hyper_L
+!add mod1 = Alt_R
+!add mod3 = Hyper_L
+!
+!! CAPS_LOCK -> SUPER_L
+!clear lock
+!remove mod4 = Super_L
+!keycode 66 = Super_L
+!add mod4 = Super_L
+!
+!
+!! CONTROL_L -> SPACE
+!remove control = Control_L
+!keycode 65 = Control_L
+!add control = Control_L
+!keycode any = space
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! caps lock:    super_l
+! alt_r:        escape
+! shit_r:       alt_r
+!!!!! super_l:      hyper_l
+
+
+! lets clear the modifier groups so we can be sure about what is in there
+clear mod1
+clear mod3
+clear mod4
+! iso level 3 shift = alt_r, mode switch is yet another shift-like key
+clear mod5
+clear control
+clear lock
+clear shift
+
+
+! now we map our custom keysyms
+! space to control
+!keycode 65 = Control_L
+! caps_lock will have functionality of super_l
+keycode 66 = Super_L
+! alt_r will have functionality of escape
+keycode 108 = Escape
+! shift_r will have functionalty of alt_r
+keycode 62 = ISO_Level3_Shift
+
+
+! this is independent from the keycodes, no need to change here
+! and finally we assign modifier groups again
+! adding shit_l to the shift group
+add shift = Shift_L
+! adding control_l to the control group
+add control = Control_L
+! adding alt_l to the mod1 group
+add mod1 = Alt_L
+! adding hyper_l to the mod3 group
+add mod3 = Hyper_L
+!adding super_l to the mod4 group
+add mod4 = Super_L
+! adding alt_r to the mod5 group
+add mod5 = ISO_Level3_Shift
+remove Alt_R = Alt
