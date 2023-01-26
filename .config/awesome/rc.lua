@@ -203,6 +203,9 @@ screen.connect_signal("property::geometry", set_wallpaper)
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
 
+
+
+
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
@@ -217,7 +220,9 @@ local taglist_buttons = gears.table.join(
                                                   client.focus:toggle_tag(t)
                                               end
                                           end),
-                    awful.button({ }, 5, function(t) awful.tag.viewnext(t.screen) end),
+                    awful.button({ }, 5, function(t) 
+                        
+                        awful.tag.viewnext(t.screen) end),
                     awful.button({ }, 4, function(t) awful.tag.viewprev(t.screen) end)
                 )
 
@@ -259,7 +264,7 @@ awful.screen.connect_for_each_screen(
 
       -- Each screen has its own tag table.
       awful.tag(
- 	 {"1", "2", "3", "4", "5", "6", "7", "8", "9"}, s,
+ 	 {"1) AoC", "2) Env", "3) Misc", "4) AI", "5) Lang", "6) Peon", "", "", ""}, s,
  	 awful.layout.layouts[1]
       )
 
@@ -434,9 +439,10 @@ for i = 1, 9 do
       globalkeys, -- View tag only.
       awful.key(
 	 {modkey}, "#" .. i + 9, function()
-	    local screen = awful.screen.focused()
-	    local tag = screen.tags[i]
-	    if tag then tag:view_only() end
+        for s in screen do
+            local tag = s.tags[i]
+            if tag then tag:view_only() end
+        end
 	 end, {description = "view tag #" .. i, group = "tag"}
       ), -- Toggle tag display.
       awful.key(
