@@ -6,7 +6,8 @@
 
 " my custom bindings:
 " , <leader>
-" F2 - surround in hashtag block
+" F1 - surround in hashtag block
+" F2 - silent compile+/run
 " F3 - compile and run (e.g. java, c, go)
 " F4 - nerdtree file explorer
 " F5 - next tab
@@ -81,7 +82,7 @@ set ruler
 set encoding=utf-8
 " i like unicode.
 
-set relativenumber
+set number relativenumber
 " enables relative line number on left side
 "augroup numbertoggle
 "  autocmd!
@@ -223,7 +224,7 @@ set hlsearch
 ""#### misc bindings ########################################
 ""###########################################################
 
-nnoremap <F2> :center 80<cr>hhv0r#A<space><esc>40A#<esc>d80<bar>YppVr#kk.
+nnoremap <F1> :center 80<cr>hhv0r#A<space><esc>40A#<esc>d80<bar>YppVr#kk.
 " quick comment/hashtag block around text as seen in this vimrc
 
 let mapleader = ","
@@ -285,7 +286,7 @@ func! CompileRunGcc()
     elseif &filetype == 'sh'
         exec "!time bash %"
     elseif &filetype == 'python'
-        exec "!time python %"
+        exec ":FloatermNew --autoclose=0 python3 %"
     elseif &filetype == 'html'
         exec "!firefox % &"
     elseif &filetype == 'go'
@@ -299,6 +300,35 @@ func! CompileRunGcc()
     endif
 endfunc
 
+map <F2> :call SilentRun()<CR>
+func! SilentRun()
+    exec "w"
+    if &filetype == 'c'
+        exec "!gcc % -o %<"
+        exec "!time ./%<"
+    elseif &filetype == 'cpp'
+        exec "!g++ % -o %<"
+        exec "!time ./%<"
+    elseif &filetype == 'java'
+        exec "!javac %"
+        exec "!time java -cp %:p:h %:t:r"
+    elseif &filetype == 'sh'
+        exec "!time bash %"
+    elseif &filetype == 'python'
+        exec ":silent!!{python3 %}>/dev/null  2>&1 &"
+        exec ":redraw!"
+    elseif &filetype == 'html'
+        exec "!firefox % &"
+    elseif &filetype == 'go'
+        exec "!go build %<"
+        exec "!time go run %"
+    elseif &filetype == 'mkd'
+        exec "!~/.vim/markdown.pl % > %.html &"
+        exec "!firefox %.html &"
+    elseif &filetype == 'tex'
+        :VimtexCompile
+    endif
+endfunc
 ""########################################################
 ""######## vundle ########################################
 ""########################################################
@@ -423,7 +453,7 @@ filetype plugin indent on
 
 " using single click for opening files etc in nerdtree
 let NERDTreeMouseMode=3
-colorscheme Atelier_ForestDark
+"colorscheme Atelier_ForestDark
 
 
 
@@ -441,8 +471,18 @@ let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
 "
 "
 " PY
-Plugin 'vim-python/python-syntax'
-let g:python_highlight_all = 1
+"Plugin 'vim-python/python-syntax'
+"let g:python_highlight_all = 1
+Plugin 'dense-analysis/ale'
+"Plugin 'nvie/vim-flake8'
+
+Plugin 'voldikss/vim-floaterm'
+let g:floaterm_keymap_new = '<Leader>ft'
+let g:floaterm_keymap_toggle = '<Leader>t'
+
+
+
+let g:ale_linters = {'python': ['flake8']}
 
 colorscheme SerialExperimentsLain
 command R !./%
