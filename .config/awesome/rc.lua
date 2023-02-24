@@ -232,13 +232,6 @@ local function create_wibox(s)
                          awful.button({ }, 4, function ()
                                                   awful.client.focus.byidx(-1)
                                               end))
-    -- Create the wibox
-    s.mywibox = awful.wibar({
-		position = beautiful.wibar_position,
-		screen = s,
-		height = beautiful.wibar_height,
-		bg = "#00000000"
-	})
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist {
         screen  = s,
@@ -268,7 +261,12 @@ local function create_wibox(s)
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "bottom", screen = s })
+    s.mywibox = awful.wibar({
+		position = beautiful.wibar_position,
+		screen = s,
+		height = beautiful.wibar_height,
+		bg = "#00000000"
+	})
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -319,7 +317,7 @@ awful.screen.connect_for_each_screen(
 
       -- Each screen has its own tag table.
       awful.tag(
- 	 {"1: AoC", "2: Env", "3: Misc", "4: AI", "5: Lang", "6: Peon", "", "", ""}, s,
+ 	 {"1: Music", "2: Env",  "3: Chill", "4: CybSec", "5: AI", "6: Code", "7: Work", "", ""}, s,
  	 awful.layout.layouts[1]
       )
    end
