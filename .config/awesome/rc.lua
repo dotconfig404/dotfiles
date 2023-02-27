@@ -68,6 +68,8 @@ modkey = "Mod4"
 --################################################################################
 
 function snap_edge(c, where, geom)
+   c.floating = true
+   c.maximized = false
    local sg = screen[c.screen].geometry -- screen geometry
    local sw = screen[c.screen].workarea -- screen workarea
    local workarea = {
@@ -136,8 +138,6 @@ function snap_edge(c, where, geom)
       c:geometry(cg)
       return
    end
-   c.floating = true
-   if c.maximized then c.maximized = false end
    c:geometry(cg)
    awful.placement.no_offscreen(c)
    return
@@ -177,6 +177,7 @@ local function create_wibox(s)
        }
     )
     
+
     mylauncher = awful.widget.launcher(
        {image = beautiful.awesome_icon, menu = mymainmenu}
     )
@@ -189,8 +190,18 @@ local function create_wibox(s)
     mykeyboardlayout = awful.widget.keyboardlayout()
 
     -- Create a textclock widget
+    local calendar_widget = require("calendar")
     mytextclock = wibox.widget.textclock()
-    
+    local cw = calendar_widget({
+        placement = 'top_right',
+        previous_month_button = 1,
+        next_month_button = 3,
+    })
+    mytextclock:connect_signal("button::press",
+        function(_, _, _, button)
+            if button == 1 then cw.toggle() end
+        end)
+
     -- Create a wibox for each screen and add it
     local taglist_buttons = gears.table.join(
                         awful.button({ }, 1, function(t) t:view_only() end),
