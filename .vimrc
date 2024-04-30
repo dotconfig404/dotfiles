@@ -415,6 +415,9 @@ let g:syntastic_sol_checkers = ['solc', 'solium']
 """ use together with: Plugin 'majutsushi/tagbar'
 """----------
 
+Plugin 'LnL7/vim-nix'
+" nix lang support
+
 call vundle#end()
 filetype plugin indent on
 
