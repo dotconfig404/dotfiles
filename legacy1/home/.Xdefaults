@@ -1,0 +1,52 @@
+! normal settings
+Xft.dpi:        96
+Xft.antialias:  true
+Xft.rgba:      	rgb
+Xft.hinting:    true
+Xft.hintstyle:  hintslight
+
+! other settings
+URxvt.geometry: 90x25+180+200
+
+! URxvt.cursorColor:yellow
+URxvt.scrollBar:true
+URxvt.saveLines:6000
+URxvt.preeditType:Root
+
+! open URL in browser
+URxvt.urlLauncher: firefox
+URxvt.matcher.button: 1
+!URxvt.perl-ext-common: matcher
+
+! normal font
+URxvt.font:xft:DejaVu Sans Mono:pixelsize=14:antialias=true,xft:WenQuanYi Micro Hei Mono:pixelsize=14
+! bold font
+URxvt.boldFont:xft:DejaVu Sans Mono:pixelsize=14:Bold,xft:WenQuanYi Micro Hei Mono:pixelsize=14:Bold
+
+*foreground:   #c5c8c6
+*background:   #1d1f21
+*cursorColor:  #aeafad
+*color0:       #000000
+*color1:       #912226
+*color2:       #778900
+*color3:       #ae7b00
+*color4:       #1d2594
+*color5:       #682a9b
+*color6:       #2b6651
+*color7:       #929593
+*color8:       #666666
+*color9:       #cc6666
+*color10:      #b5bd68
+*color11:      #f0c674
+*color12:      #81a2be
+*color13:      #b294bb
+*color14:      #8abeb7
+*color15:      #ecebec
+
+
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.iso14755: False
+URxvt.perl-ext-common: default,clipboard,matcher
+! The first line binds ^+shift+V to “clipboard” extension and the second line disables iso14755 mode. Look at the last line in the above code make sure that your .Xdefaults or .Xresources does not already contain URxvt.perl-ext-common  line. If it does then just add “clipboard” to it, copy rest of the lines and you are done.
+! To copy the text just select the text with mouse and it will automatically be copied to your clipboard then you can paste the text anywhere you want with Coltrol + V.
+! To paste the text in URxvt simply use Control + Shift + V.
