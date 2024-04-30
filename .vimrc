@@ -6,8 +6,7 @@
 
 " my custom bindings:
 " , <leader>
-" F1 - surround in hashtag block
-" F2 - silent compile+/run
+" F2 - surround in hashtag block
 " F3 - compile and run (e.g. java, c, go)
 " F4 - nerdtree file explorer
 " F5 - next tab
@@ -57,6 +56,9 @@ set smarttab
 set shiftround
 " when indenting rounds the indetn to a multiple of shiftwidth
 
+autocmd FileType html inoremap <Space><Space> <Esc>/<++><Enter>"_c4l
+autocmd FileType html inoremap ;i <em></em><Space><++><Esc>FeT>i
+
 " set colorcolumn=72
 
 hi CursorLine   cterm=NONE ctermbg=brown ctermfg=lightgray guibg=brown guifg=white
@@ -101,10 +103,10 @@ set nocompatible
 " needed to disable vi compability and enable vim features
 " and used as a system-wide vimrc. in user vimrc not needed.
 
-set visualbell
+"set visualbell
 " stop annoying bell sound
 
-set scrolloff=999
+set scrolloff=5
 " set scrolloff=999
 " when scrolling x lines are visible. 999 -> cursors always centered.
 
@@ -140,9 +142,6 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 " highlight trailing space
-
-
-" centered cursor
 
 ""#####################################################################
 ""######### session management ########################################
@@ -224,7 +223,7 @@ set hlsearch
 ""#### misc bindings ########################################
 ""###########################################################
 
-nnoremap <F1> :center 80<cr>hhv0r#A<space><esc>40A#<esc>d80<bar>YppVr#kk.
+nnoremap <F2> :center 80<cr>hhv0r#A<space><esc>40A#<esc>d80<bar>YppVr#kk.
 " quick comment/hashtag block around text as seen in this vimrc
 
 let mapleader = ","
@@ -286,7 +285,7 @@ func! CompileRunGcc()
     elseif &filetype == 'sh'
         exec "!time bash %"
     elseif &filetype == 'python'
-        exec ":FloatermNew --autoclose=0 python3 %"
+        exec "!time python2.7 %"
     elseif &filetype == 'html'
         exec "!firefox % &"
     elseif &filetype == 'go'
@@ -300,35 +299,6 @@ func! CompileRunGcc()
     endif
 endfunc
 
-map <F2> :call SilentRun()<CR>
-func! SilentRun()
-    exec "w"
-    if &filetype == 'c'
-        exec "!gcc % -o %<"
-        exec "!time ./%<"
-    elseif &filetype == 'cpp'
-        exec "!g++ % -o %<"
-        exec "!time ./%<"
-    elseif &filetype == 'java'
-        exec "!javac %"
-        exec "!time java -cp %:p:h %:t:r"
-    elseif &filetype == 'sh'
-        exec "!time bash %"
-    elseif &filetype == 'python'
-        exec ":silent!!{python3 %}>/dev/null  2>&1 &"
-        exec ":redraw!"
-    elseif &filetype == 'html'
-        exec "!firefox % &"
-    elseif &filetype == 'go'
-        exec "!go build %<"
-        exec "!time go run %"
-    elseif &filetype == 'mkd'
-        exec "!~/.vim/markdown.pl % > %.html &"
-        exec "!firefox %.html &"
-    elseif &filetype == 'tex'
-        :VimtexCompile
-    endif
-endfunc
 ""########################################################
 ""######## vundle ########################################
 ""########################################################
@@ -351,7 +321,7 @@ Plugin 'Shougo/neosnippet-snippets'
 Plugin 'VundleVim/Vundle.vim'
 " load actual vundle manager
 
-"Plugin 'Raimondi/delimitMate'
+Plugin 'Raimondi/delimitMate'
 " automatic parantheses brackets etc closing
 
 Plugin 'ctrlpvim/ctrlp.vim'
@@ -445,47 +415,12 @@ let g:syntastic_sol_checkers = ['solc', 'solium']
 """ use together with: Plugin 'majutsushi/tagbar'
 """----------
 
-" gsls syntax highlighting
-Plugin 'tikhomirov/vim-glsl'
-
 call vundle#end()
 filetype plugin indent on
 
+" if using a colorscheme from the plugin, this needs to go in the end
+colorscheme kalahari
+
 " using single click for opening files etc in nerdtree
 let NERDTreeMouseMode=3
-"colorscheme Atelier_ForestDark
-
-
-
-" ################################################################################
-" ##################################### HTML #####################################
-" ################################################################################
-
-Plugin 'alvan/vim-closetag'
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
-
-"autocmd FileType html inoremap <Space><Space> <Esc>/<++><Enter>"_c4l
-"autocmd FileType html inoremap ;i <em></em><Space><++><Esc>FeT>i
-" for html you can enter ;i to make a <em> tag and then double space to get
-" behind that tag, one example of many possibilities
-"
-"
-" PY
-"Plugin 'vim-python/python-syntax'
-"let g:python_highlight_all = 1
-Plugin 'dense-analysis/ale'
-"Plugin 'nvie/vim-flake8'
-
-Plugin 'voldikss/vim-floaterm'
-let g:floaterm_keymap_new = '<Leader>ft'
-let g:floaterm_keymap_toggle = '<Leader>t'
-
-
-
-let g:ale_linters = {'python': ['flake8']}
-
-colorscheme SerialExperimentsLain
-command R !./%
-
-
-
+colorscheme torte
