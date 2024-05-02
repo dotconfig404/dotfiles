@@ -6,8 +6,11 @@
 # $1 = command name
 # $2 = package name
 install() {
+    echo "-----------------------------"
+    echo "Attempting to install $2"
     if command -v $1 &> /dev/null; then
         echo "$2 ($1) is already installed. "
+        echo "-----------------------------"
         return 0
     else
         source /etc/os-release
@@ -20,6 +23,7 @@ install() {
             ;;
             *)
                 echo "Could not find distro name..."
+                echo "-----------------------------"
                 return 1
             ;;
         esac
@@ -28,12 +32,14 @@ install() {
 
 # just symlink the appropiate dotfiles
 dot() {
+    echo "-----------------------------"
     echo "Attempting to stow package $1"
     if stow $1; then
         echo "Success!"
+        echo "-----------------------------"
         return 0
     else
-        read -p "Failure, do you want to try the super git hack? Y/n" response
+        read -p "Failure, do you want to try the super git hack? Y/n " response
         case "$response" in 
             [nN])
                 return 1
@@ -44,6 +50,7 @@ dot() {
                 ;;
         esac
         echo "Success (possibly. maybe. OK, probably.)"
+        echo "-----------------------------"
     fi
 }
 
