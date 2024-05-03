@@ -1,43 +1,59 @@
-# install function
-## 1) checks if command (arg 1) exists, if so skip installation 
-## 2) checks for distro and then installs it using package name (arg 2) 
-# $1 = command name
-# $2 = package name
-install() {
-    echo "-----------------------------"
-    echo "Attempting to install $2"
-    if command -v $1 &> /dev/null; then
-        echo "$2 ($1) is already installed. "
-        echo "-----------------------------"
-        return 0
-    else
-        source /etc/os-release
-        case $NAME in 
-            "Arch Linux")
-                sudo pacman --noconfirm -S $2
+echo_in() {
+    local color="$1"
+    local message="$2"
+    local no_color="\033[0m" 
+    local color_code
+
+    case $color in
+        green)
+            color_code="\033[38;2;0;255;0;48;2;0;0;0m" 
             ;;
-            "Debian"|"Ubuntu")
-                sudo apt install -y $2
+        red)
+            color_code="\033[38;2;255;30;30;48;2;0;0;0m"  
             ;;
-            *)
-                echo "Could not find distro name..."
-                echo "-----------------------------"
-                return 1
+        blue)
+            color_code="\033[38;2;0;100;255;48;2;0;0;0m" 
             ;;
-        esac
-    fi
+    esac
+
+    echo -e "${color_code}${message}${no_color}"
 }
 
-# just symlink the appropiate dotfiles
+
+install() {
+    local software="$1"
+    source /etc/os-release
+
+    echo_in green "Installing $software"
+    case $NAME in 
+        "Arch Linux")
+            local key="${software}[arch]"
+            local packages="${!key}" 
+            sudo pacman -S $packages --noconfirm
+        ;;
+        "Debian"|"Ubuntu")
+            local key="${software}[debian]"
+            local packages="${!key}"  
+            sudo apt install $packages -y
+        ;;
+        *)
+            echo_in red "Could not find distro name..." >&2
+            echo "-----------------------------"
+            return 1
+        ;;
+    esac
+    echo_in green "$software is installed"
+}
+
+
 dot() {
-    echo "-----------------------------"
-    echo "Attempting to stow package $1"
+    echo_in green "Stowing $1"
     if stow $1; then
-        echo "Success!"
-        echo "-----------------------------"
+        echo "$1 is stowed."
         return 0
     else
-        read -p "Failure, do you want to try the super git hack? Y/n " response
+        echo_in red "Failure, do you want to try the super git hack? Remember to git commit your dotfiles. Y/n" >&2
+        read -p " " response
         case "$response" in 
             [nN])
                 return 1
@@ -47,20 +63,52 @@ dot() {
                 git restore .
                 ;;
         esac
-        echo "Success (possibly. maybe. OK, probably.)"
-        echo "-----------------------------"
+        echo_in green "Should be good now. "
     fi
 }
+
+# We are using associative arrays, which are only available from bash 4.0
+# and we are using the nameref feature which is only available from bash
+# version 4.3
+if [ "${BASH_VERSINFO[0]}" -lt 4 ] || [ "${BASH_VERSINFO[0]}" -eq 4 -a "${BASH_VERSINFO[1]}" -lt 3 ]; then
+    echo_in red "This script requires Bash version 4.3 or greater." >&2
+    exit 1
+fi
 
 
 # bash
 dot bash
 
 # zsh
-install zsh zsh
+declare -A zsh=(
+    [arch]="zsh"
+    [debian]="zsh"
+)
+install zsh
 dot zsh
 
 # vim
-install vim vim 
+declare -A vim=(
+    [arch]="gvim"
+    [debian]="vim"
+)
+install vim
+dot vim
 
-# oh shit, need different recover dot for each distro? ok. we need a bit of restructuing. 
+# tmux
+declare -A tmux=(
+    [arch]="tmux"
+    [debian]="tmux"
+)
+install $tmux
+dot tmux
+
+# i3
+declare -A i3=(
+    [arch]="i3-wm i3lock jgmenu nitrogen xcape"
+    [debian]="i3 i3lock jgmenu nitrogen xcape"
+)
+install i3
+dot i3
+#dot jgmenu
+#dot nitrogen
