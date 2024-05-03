@@ -109,8 +109,8 @@ dot tmux
 
 # i3
 declare -A i3=(
-    [arch]="i3-wm i3lock jgmenu nitrogen xcape"
-    [debian]="i3 i3lock jgmenu nitrogen xcape"
+    [arch]="i3-wm i3lock jgmenu nitrogen xcape i3blocks"
+    [debian]="i3 i3lock jgmenu nitrogen xcape i3blocks"
 )
 install i3
 dot i3

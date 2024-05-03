@@ -135,7 +135,7 @@ bindsym $mod+Shift+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 
 #Screenshot
-bindsym $mod+p exec scrot  ~/Pictures/Screenshots/screenshot_%Y_%m_%d_%H_%M_%S.png
+#bindsym $mod+p exec scrot  ~/Pictures/Screenshots/screenshot_%Y_%m_%d_%H_%M_%S.png
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -184,7 +184,7 @@ bar {
 
 #exec emacs --daemon
 
-#exec nitrogen --restore
+exec nitrogen --restore
 # wallpaper
 
 exec setxkbmap eu
