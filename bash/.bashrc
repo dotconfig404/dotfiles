@@ -12,7 +12,7 @@ HISTSIZE=100000
 HISTFILESIZE=-1
 HISTTIMEFORMAT=`echo -e $GREEN[0m[%F %T] $NO_COLOR`
 # [ \t]* ignores stuff with space in front
-HISTIGNORE=`ls:ls -l:pwd:clear:ll:la:ls -al:[ \t]*`
+HISTIGNORE="ls:ls -l:pwd:clear:ll:la:ls -al:[ \t]*"
 # on exit append to histfile instead of overwriting
 shopt -s histappend
 
@@ -28,3 +28,5 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+# this needs to be at the end, i think
+eval "$(starship init bash)"
