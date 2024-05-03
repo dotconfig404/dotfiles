@@ -104,7 +104,7 @@ declare -A tmux=(
     [arch]="tmux"
     [debian]="tmux"
 )
-install $tmux
+install tmux
 dot tmux
 
 # i3
