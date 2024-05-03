@@ -24,7 +24,7 @@ install() {
     local software="$1"
     source /etc/os-release
 
-    echo_in green "Installing $software"
+    echo_in blue "Installing $software"
     case $NAME in 
         "Arch Linux")
             local key="${software}[arch]"
@@ -47,12 +47,12 @@ install() {
 
 
 dot() {
-    echo_in green "Stowing $1"
+    echo_in blue  "Stowing $1"
     if stow $1; then
-        echo "$1 is stowed."
+        echo_in green "$1 is stowed."
         return 0
     else
-        echo_in blue "Sths off, do you want to try the super git hack? Remember to git commit your dotfiles. Y/n" >&2
+        echo_in blue "Can't stow, do you want to try the super git hack? Remember to git commit your dotfiles. Y/n" >&2
         read -p " " response
         case "$response" in 
             [nN])
