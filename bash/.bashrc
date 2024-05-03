@@ -28,5 +28,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+setxkbmap eu
+
 # this needs to be at the end, i think
 eval "$(starship init bash)"
