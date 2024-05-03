@@ -116,3 +116,4 @@ install i3
 dot i3
 #dot jgmenu
 #dot nitrogen
+dot fonts

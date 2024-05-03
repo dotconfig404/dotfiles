@@ -28,7 +28,7 @@
 #floating_modifier Mod4
 #new_window normal
 #new_float 1pixel
-font pango: DejaVu Sans 10
+font pango: DejaVu Sans 11
 
 #..........
 # colors
@@ -55,9 +55,9 @@ floating_modifier $mod
 bindsym $mod+d exec dmenu_run
 
 # start a terminal
-bindsym $mod+Return exec urxvt
+bindsym $mod+Return exec konsole 
 # kill focused window
-bindsym $mod+q kill
+bindsym $mod+Shift+q kill
 
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -131,7 +131,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+#bindsym $mod+Shift+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 
 #Screenshot
@@ -187,7 +187,7 @@ bar {
 exec nitrogen --restore
 # wallpaper
 
-exec setxkbmap eu
+exec --no-startup-id "setxkbmap eu"
 #exec bash /home/freddy/startup.sh
 
 
