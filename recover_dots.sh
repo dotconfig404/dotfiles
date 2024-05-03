@@ -52,7 +52,7 @@ dot() {
         echo "$1 is stowed."
         return 0
     else
-        echo_in red "Failure, do you want to try the super git hack? Remember to git commit your dotfiles. Y/n" >&2
+        echo_in blue "Sths off, do you want to try the super git hack? Remember to git commit your dotfiles. Y/n" >&2
         read -p " " response
         case "$response" in 
             [nN])
