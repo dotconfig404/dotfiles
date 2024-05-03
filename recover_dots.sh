@@ -78,10 +78,12 @@ fi
 
 # bash
 curl -sS https://starship.rs/install.sh | sh
+dot starship
 dot bash
 
 # zsh
 #curl -sS https://starship.rs/install.sh | sh
+#dot starship
 declare -A zsh=(
     [arch]="zsh"
     [debian]="zsh"
