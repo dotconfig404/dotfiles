@@ -19,15 +19,10 @@
 # windows
 #..........
 
-#force_focus_wrapping yes # forces popup on same window
-#new_window pixel 4
-#new_float 1pixel
-
-# font for window titles. ISO 10646 = Unicode
-#font -*-anorexia-medium-*-*-*-11-*-*-*-*-*-iso10646-1
-#floating_modifier Mod4
-#new_window normal
-#new_float 1pixel
+# remove titlebar
+default_border pixel 2
+default_floating_border pixel 2
+# we have a title bar in stacked/tabbed mode, setting font here:
 font pango: DejaVu Sans 11
 
 #..........
@@ -35,7 +30,7 @@ font pango: DejaVu Sans 11
 #..........
 
 #class			        border	backgr. text    indicator child_border
-client.focused         	#aaaaaa #1010bb #bbbbbb #12be12
+client.focused         	#aaaaaa #102210 #44bb44 #101088
 client.focused_inactive #101010 #191919 #bbbb10 #101010
 client.unfocused        #101010 #191919 #999999 #101010
 client.urgent           #cd989a #cd989a #2e3436 #cd989a
@@ -52,10 +47,11 @@ floating_modifier $mod
 #...........
 #
 #dmenu
-bindsym $mod+d exec dmenu_run
+bindsym $mod+space exec dmenu_run
+# why on EARTH is space not fucking captilazible??! fucking cruel.
 
 # start a terminal
-bindsym $mod+Return exec konsole 
+bindsym $mod+Return exec kitty
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -72,10 +68,10 @@ bindsym $mod+Right focus right
 
 # move focused window
 # alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # split in horizontal orientation
 bindsym $mod+x split h
@@ -93,10 +89,10 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+#bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+#bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -168,9 +164,9 @@ bindsym $mod+r mode "resize"
 bar {
     mode dock
     workspace_buttons yes
-    tray_output none
+    #tray_output primary
     status_command i3blocks
-    bindsym button3 exec jgmenu
+    bindsym button3 exec --no-startup-id jgmenu_run
     colors {
         background #101010
         statusline #10bb10
@@ -191,4 +187,5 @@ exec --no-startup-id "setxkbmap eu"
 #exec bash /home/freddy/startup.sh
 
 
-bindsym $mod+Escape exec i3lock
+bindsym $mod+Escape exec i3lock -c 000000
+bindsym $mod+Shift+S exec i3lock -c 000000; systemctl suspend
