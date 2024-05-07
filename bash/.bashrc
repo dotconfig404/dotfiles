@@ -30,5 +30,10 @@ alias l='ls -CF'
 
 setxkbmap eu
 
+# taken from arch wiki
+# solution for weird ssh issue upon entering backspace while connected via ssh
+#[ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh" ]
+
+
 # this needs to be at the end, i think
 eval "$(starship init bash)"

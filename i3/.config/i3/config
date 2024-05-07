@@ -20,7 +20,7 @@
 #..........
 
 # remove titlebar
-default_border pixel 2
+default_border pixel 3
 default_floating_border pixel 2
 # we have a title bar in stacked/tabbed mode, setting font here:
 font pango: DejaVu Sans 11
@@ -30,7 +30,7 @@ font pango: DejaVu Sans 11
 #..........
 
 #class			        border	backgr. text    indicator child_border
-client.focused         	#aaaaaa #102210 #44bb44 #101088
+client.focused         	#aaaaaa #336633 #44bb44 #101088
 client.focused_inactive #101010 #191919 #bbbb10 #101010
 client.unfocused        #101010 #191919 #999999 #101010
 client.urgent           #cd989a #cd989a #2e3436 #cd989a
@@ -51,7 +51,7 @@ bindsym $mod+space exec dmenu_run
 # why on EARTH is space not fucking captilazible??! fucking cruel.
 
 # start a terminal
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec konsole
 # kill focused window
 bindsym $mod+Shift+q kill
 
