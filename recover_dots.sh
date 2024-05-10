@@ -117,3 +117,12 @@ dot i3
 #dot jgmenu
 #dot nitrogen
 dot fonts
+
+
+# konsole
+declare -A konsole=(
+    [arch]="konsole"
+    [debian]="konsole"
+)
+install konsole
+dot konsole
