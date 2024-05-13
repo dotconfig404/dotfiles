@@ -24,7 +24,7 @@ install() {
     local software="$1"
     source /etc/os-release
 
-    echo_in blue "Installing $software"
+    echo_in blue "Installing $software. "
     case $NAME in 
         "Arch Linux")
             local key="${software}[arch]"
@@ -34,22 +34,30 @@ install() {
         "Debian"|"Ubuntu")
             local key="${software}[debian]"
             local packages="${!key}"  
+            
+            # for the rare case of using ubuntu specific packages...
+            local ubuntu_key="${software}[ubuntu]"
+            local ubuntu_packages="${!ubuntu_key}"
+            if [[ "$NAME" == "Ubuntu" && ! -z "$ubuntu_packages" ]]; then
+                packages="$ubuntu_packages"
+            fi
+
             sudo apt install $packages -y
         ;;
         *)
-            echo_in red "Could not find distro name..." >&2
+            echo_in red "Could not find distro name. " >&2
             echo "-----------------------------"
             return 1
         ;;
     esac
-    echo_in green "$software is installed"
+    echo_in green "$software is installed. "
 }
 
 
 dot() {
     echo_in blue  "Stowing $1"
     if stow $1; then
-        echo_in green "$1 is stowed."
+        echo_in green "$1 is stowed. "
         return 0
     else
         echo_in blue "Can't stow, do you want to try the super git hack? Remember to git commit your dotfiles. Y/n" >&2
@@ -79,6 +87,9 @@ fi
 # -----------------------------------------------------------------------------
 # -----------------------------------------------------------------------------
 # -----------------------------------------------------------------------------
+# init and essentials:
+
+
 
 # finnicky distro-specific setup, e.g. yay for arch
 #distro_specific_software() { #    source /etc/os-release
@@ -176,25 +187,86 @@ if [ "$1" == "konsole" ] || [ "$1" == "" ]; then
     dot konsole
 fi
 
+# ---------------------------------------- not version controlled stuff/ private
+# make sure we have the _private directory:
+if [ ! -d "_private" ]; then
+    echo_in red "Setup _private first. "
+    exit 1
+fi
 
 # firefox
-if [ "$1" == "firefox" ]; then
-    declare -A _private=(
+if [ "$1" == "firefox" ] || [ "$1" == "" ];  then
+    declare -A firefox=(
         [arch]="firefox"
         [debian]="firefox"
     )
     install firefox
-    dot firefox
+    echo_in blue "Stowing firefox. "
+    stow -d _private -t ~ firefox
+    echo_in green "Firefox is stowed. "
 fi
 
+# thunderbird
+if [ "$1" == "thunderbird" ] || [ "$1" == "" ];  then
+    declare -A thunderbird=(
+        [arch]="thunderbird"
+        [debian]="thunderbird"
+    )
+    install thunderbird
+    echo_in blue "Stowing thunderbird. "
+    stow -d _private -t ~ thunderbird
+    echo_in green "Thunderbird is stowed. "
+fi
 
-# email, browsers, etc
-#if [ "$1" == "_private" ]; then
-#    declare -A _private=(
-#        [arch]="firefox thunderbird"
-#        [debian]="firefox thunderbird"
-#    )
-#    install _private
-#    dot _private 
-#fi
+# chromium
+if [ "$1" == "chromium" ] || [ "$1" == "" ];  then
+    declare -A chromium=(
+        [arch]="chromium"
+        [debian]="chromium"
+        # as of ubuntu 22.04, snap version is broken (aka the version that is
+        # in the official ubuntu repository) is broken. see more:
+        # https://askubuntu.com/questions/1412097/chrome-or-chromium-can-not-use-ibus
+        # screw that though, just not gonna use it then. 
+        [ubuntu]="firefox"
+    )
+    install chromium
+    echo_in blue "Stowing chromium. "
+    stow -d _private -t ~ chromium
+    echo_in green "Chromium is stowed. "
+fi
 
+# brave
+# getting a bit messier now
+# install instructions from https://brave.com/linux/ and  https://github.com/Jguer/yay?tab=readme-ov-file#installation
+if [ "$1" == "brave" ] || [ "$1" == "" ];  then
+    source /etc/os-release
+
+    echo_in blue "Installing brave. "
+    case $NAME in 
+        "Arch Linux")
+            echo_in blue "First, installing yay. "
+            if ! command -v yay &> /dev/null; then
+                pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si && cd .. && rm -rf yay-bin
+            fi
+            echo_in green "yay is installed. "
+            # --noconfirm flag needs confirmation (of existence)
+            yay -S --noconfirm brave-bin
+        ;;
+        "Debian"|"Ubuntu")
+            sudo apt install curl -y
+            sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+            echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+            sudo apt update -y
+            sudo apt install brave-browser -y
+        ;;
+        *)
+            echo_in red "Could not find distro name. " >&2
+            echo "-----------------------------"
+            return 1
+        ;;
+    esac
+    echo_in green "$software is installed. "
+    echo_in blue "Stowing brave. "
+    stow -d _private -t ~ brave 
+    echo_in green "Brave is stowed. "
+fi
