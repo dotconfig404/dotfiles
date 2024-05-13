@@ -121,8 +121,15 @@ dot fonts
 
 # konsole
 declare -A konsole=(
-    [arch]="konsole"
-    [debian]="konsole"
+    # kconfig/libkf5config-bin for kwriteconfig5
+    [arch]="konsole kconfig"
+    [debian]="konsole libkf5config-bin"
 )
 install konsole
+kwriteconfig5 --file konsolerc --group "MainWindow" --group "Toolbar sessionToolbar" --key "IconSize" "16"
+kwriteconfig5 --file konsolerc --group "Toolbar sessionToolbar" --key "IconSize" "16"
+kwriteconfig5 --file konsolerc --group "UiSettings" --key "ColorScheme" "Breeze Dark"
+kwriteconfig5 --file konsolerc --group "UiSettings" --key "WindowColorScheme" "Breeze Dark"
+kwriteconfig5 --file konsolerc --group "TabBar" --key "CloseTabButton" "None"
+kwriteconfig5 --file konsolerc --group "TabBar" --key "TabBarVisibility" "AlwaysHideTabBar"
 dot konsole
