@@ -184,7 +184,7 @@ if [ "$1" == "firefox" ]; then
         [debian]="firefox"
     )
     install firefox
-    #dot _private/firefox
+    dot firefox
 fi
 
 
