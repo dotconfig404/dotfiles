@@ -80,6 +80,32 @@ fi
 # -----------------------------------------------------------------------------
 # -----------------------------------------------------------------------------
 
+# finnicky distro-specific setup, e.g. yay for arch
+#distro_specific_software() { #    source /etc/os-release
+#    echo_in blue "Installing distro-specific software."
+#    case $NAME in 
+#        "Arch Linux")
+#            echo_in blue "Installing yay. "
+#            if ! command -v yay &> /dev/null; then
+#                pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si && cd .. && rm -rf yay-bin
+#            fi
+#            echo_in green "yay is installed. "
+#        ;;
+#        "Debian"|"Ubuntu")
+#            echo "Nothing to do for deb based distros."
+#        ;;
+#        *)
+#            echo_in red "Could not find distro name..." >&2
+#            echo "-----------------------------"
+#            return 1
+#        ;;
+#    esac
+#    echo_in green "Distro-specific software is good to go."
+#}
+#if [ "$1" == "_essentials" ] || [ "$1" == "" ]; then
+#    distro_specific_software
+#fi
+
 # bash
 if [ "$1" == "bash" ] || [ "$1" == "" ]; then
     curl -sS https://starship.rs/install.sh | sh
@@ -150,13 +176,25 @@ if [ "$1" == "konsole" ] || [ "$1" == "" ]; then
     dot konsole
 fi
 
-# email, browsers, etc
-if [ "$1" == "_private" ]; then
+
+# firefox
+if [ "$1" == "firefox" ]; then
     declare -A _private=(
-        [arch]="firefox thunderbird"
-        [debian]="firefox thunderbird"
+        [arch]="firefox"
+        [debian]="firefox"
     )
-    install _private
-    dot _private 
+    install firefox
+    #dot _private/firefox
 fi
+
+
+# email, browsers, etc
+#if [ "$1" == "_private" ]; then
+#    declare -A _private=(
+#        [arch]="firefox thunderbird"
+#        [debian]="firefox thunderbird"
+#    )
+#    install _private
+#    dot _private 
+#fi
 
