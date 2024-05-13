@@ -77,59 +77,71 @@ fi
 
 
 # bash
-curl -sS https://starship.rs/install.sh | sh
-dot starship
-dot bash
+if [ "$1" == "bash" ] || [ "$1" == "" ]; then
+    curl -sS https://starship.rs/install.sh | sh
+    dot starship
+    dot bash
+fi
 
 # zsh
-#curl -sS https://starship.rs/install.sh | sh
-#dot starship
-declare -A zsh=(
-    [arch]="zsh"
-    [debian]="zsh"
-)
-install zsh
-dot zsh
+if [ "$1" == "zsh" ] || [ "$1" == "" ]; then
+    #curl -sS https://starship.rs/install.sh | sh
+    #dot starship
+    declare -A zsh=(
+        [arch]="zsh"
+        [debian]="zsh"
+    )
+    install zsh
+    dot zsh
+fi
 
 # vim
-declare -A vim=(
-    [arch]="gvim"
-    [debian]="vim"
-)
-install vim
-dot vim
+if [ "$1" == "vim" ] || [ "$1" == "" ]; then
+    declare -A vim=(
+        [arch]="gvim"
+        [debian]="vim"
+    )
+    install vim
+    dot vim
+fi
 
 # tmux
-declare -A tmux=(
-    [arch]="tmux"
-    [debian]="tmux"
-)
-install tmux
-dot tmux
+if [ "$1" == "tmux" ] || [ "$1" == "" ]; then
+    declare -A tmux=(
+        [arch]="tmux"
+        [debian]="tmux"
+    )
+    install tmux
+    dot tmux
+fi
 
 # i3
-declare -A i3=(
-    [arch]="i3-wm i3lock jgmenu nitrogen xcape i3blocks"
-    [debian]="i3 i3lock jgmenu nitrogen xcape i3blocks"
-)
-install i3
-dot i3
-#dot jgmenu
-#dot nitrogen
-dot fonts
+if [ "$1" == "i3" ] || [ "$1" == "" ]; then
+    declare -A i3=(
+        [arch]="i3-wm i3lock jgmenu nitrogen xcape i3blocks"
+        [debian]="i3 i3lock jgmenu nitrogen xcape i3blocks"
+    )
+    install i3
+    dot i3
+    #dot jgmenu
+    #dot nitrogen
+    dot fonts
+fi
 
 
 # konsole
-declare -A konsole=(
-    # kconfig/libkf5config-bin for kwriteconfig5
-    [arch]="konsole kconfig"
-    [debian]="konsole libkf5config-bin"
-)
-install konsole
-kwriteconfig5 --file konsolerc --group "MainWindow" --group "Toolbar sessionToolbar" --key "IconSize" "16"
-kwriteconfig5 --file konsolerc --group "Toolbar sessionToolbar" --key "IconSize" "16"
-kwriteconfig5 --file konsolerc --group "UiSettings" --key "ColorScheme" "Breeze Dark"
-kwriteconfig5 --file konsolerc --group "UiSettings" --key "WindowColorScheme" "Breeze Dark"
-kwriteconfig5 --file konsolerc --group "TabBar" --key "CloseTabButton" "None"
-kwriteconfig5 --file konsolerc --group "TabBar" --key "TabBarVisibility" "AlwaysHideTabBar"
-dot konsole
+if [ "$1" == "konsole" ] || [ "$1" == "" ]; then
+    declare -A konsole=(
+        # kconfig/libkf5config-bin for kwriteconfig5
+        [arch]="konsole kconfig"
+        [debian]="konsole libkf5config-bin"
+    )
+    install konsole
+    kwriteconfig5 --file konsolerc --group "MainWindow" --group "Toolbar sessionToolbar" --key "IconSize" "16"
+    kwriteconfig5 --file konsolerc --group "Toolbar sessionToolbar" --key "IconSize" "16"
+    kwriteconfig5 --file konsolerc --group "UiSettings" --key "ColorScheme" "Breeze Dark"
+    kwriteconfig5 --file konsolerc --group "UiSettings" --key "WindowColorScheme" "Breeze Dark"
+    kwriteconfig5 --file konsolerc --group "TabBar" --key "CloseTabButton" "None"
+    kwriteconfig5 --file konsolerc --group "TabBar" --key "TabBarVisibility" "AlwaysHideTabBar"
+    dot konsole
+fi
