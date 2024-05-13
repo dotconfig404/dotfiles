@@ -76,6 +76,10 @@ if [ "${BASH_VERSINFO[0]}" -lt 4 ] || [ "${BASH_VERSINFO[0]}" -eq 4 -a "${BASH_V
 fi
 
 
+# -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+
 # bash
 if [ "$1" == "bash" ] || [ "$1" == "" ]; then
     curl -sS https://starship.rs/install.sh | sh
@@ -145,3 +149,14 @@ if [ "$1" == "konsole" ] || [ "$1" == "" ]; then
     kwriteconfig5 --file konsolerc --group "TabBar" --key "TabBarVisibility" "AlwaysHideTabBar"
     dot konsole
 fi
+
+# email, browsers, etc
+if [ "$1" == "_private" ]; then
+    declare -A _private=(
+        [arch]="firefox thunderbird"
+        [debian]="firefox thunderbird"
+    )
+    install _private
+    dot _private 
+fi
+
