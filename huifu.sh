@@ -35,7 +35,7 @@ error() {
 
 # arch based specific installation
 arch_install() {
-    echo_in blue "Installing: $1. "
+    echo_in blue "Installing:$1"
     if ! pacman -Q $1 &> /dev/null; then
         if [ $2 == "yay" ];then
             if ! yay -S --noconfirm $1; then
@@ -47,18 +47,18 @@ arch_install() {
             fi
         fi
     fi
-    echo_in green "Is installed: $1. "
+    echo_in green "Is installed:$1"
 }
 
 # debian based specific installation
 debian_install() {
-    echo_in blue "Installing: $1. "
+    echo_in blue "Installing:$1"
     if ! dpkg -s $1 &> /dev/null; then
         if ! sudo apt install -y $1; then
             error "Couldnt install $1 using apt. "
         fi
     fi
-    echo_in green "Is installed: $1. "
+    echo_in green "Is installed:$1"
 }
 
 # generic installer function, might have second argument (currently only for 
@@ -73,7 +73,7 @@ install() {
                 use_yay=0
                 ;;
             *)
-                package_list=$arg
+                package_list="$package_list $arg"
                 ;;
         esac
     done
@@ -81,13 +81,13 @@ install() {
     case $ID in
         "arch")
             if [ $use_yay ]; then
-                arch_install $package_list "yay"
+                arch_install "$package_list" "yay"
             else
-                arch_install $pacakge_list
+                arch_install "$package_list"
             fi
         ;;
         "debian"|"ubuntu")
-            debian_install $package_list
+            debian_install "$package_list"
         ;;
     esac
 }
@@ -249,7 +249,7 @@ dot $software
 software=i3
 packages[$software,arch]="i3-wm i3lock jgmenu nitrogen xcape i3blocks"
 packages[$software,debian]="i3 i3lock jgmenu nitrogen xcape i3blocks"
-packages[$software,ubuntu]=${packages[$software,debian]}
+packages[$software,ubuntu]="i3 i3lock jgmenu nitrogen xcape i3blocks" #${packages[$software,debian]}
 install ${packages[$software,$ID]}
 dot $software
 dot fonts
