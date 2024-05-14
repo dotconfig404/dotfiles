@@ -1,4 +1,4 @@
-# -----------------------------------------------------------------------------
+ -----------------------------------------------------------------------------
 # helper functions
 
 # pretty print with colors
@@ -64,8 +64,7 @@ debian_install() {
 # generic installer function, might have second argument (currently only for 
 # arch) if second parameter == yay, then arch installer will use yay instead
 install() {
-    local software=$1
-    local package_list=${packages[$software,$ID]}
+    local package_list=$1
 
     case $ID in
         "arch")
@@ -178,9 +177,9 @@ declare -A packages
 software=stow
 packages[$software,arch]="stow"
 packages[$software,debian]="stow"
-packages[$software,ubuntu]=${packages[$software,ubuntu]}
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]}
 install $software
-dot $software
 
 # -----------------------------------------------------------------------------
 # package specific from here on
@@ -201,8 +200,8 @@ dot starship
 software=zsh
 packages[$software,arch]="zsh"
 packages[$software,debian]="zsh"
-packages[$software,ubuntu]=${packages[$software,ubuntu]}
-install $software
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]}
 dot $software
 
 
@@ -210,8 +209,8 @@ dot $software
 software=vim
 packages[$software,arch]="vim"
 packages[$software,debian]="vim"
-packages[$software,ubuntu]=${packages[$software,ubuntu]}
-install $software
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]}
 dot $software
 
 
@@ -219,8 +218,8 @@ dot $software
 software=tmux
 packages[$software,arch]="tmux"
 packages[$software,debian]="tmux"
-packages[$software,ubuntu]=${packages[$software,ubuntu]}
-install $software
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]}
 dot $software
 
 
@@ -228,8 +227,8 @@ dot $software
 software=i3
 packages[$software,arch]="i3-wm i3lock jgmenu nitrogen xcape i3blocks"
 packages[$software,debian]="i3 i3lock jgmenu nitrogen xcape i3blocks"
-packages[$software,ubuntu]=${packages[$software,ubuntu]}
-install $software
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]}
 dot $software
 dot fonts
 
@@ -237,7 +236,7 @@ dot fonts
 software=konsole
 packages[$software,arch]="konsole kconfig"
 packages[$software,debian]="konsole libkf5config-bin"
-packages[$software,ubuntu]=${packages[$software,ubuntu]}
+packages[$software,ubuntu]=${packages[$software,debian]}
 # need to write ~/.config/konsolerc using kwriteconfig5, not suitable for version controlling
 # as it changes contents frequently (although not so bad if we wanna do it anyways)
 kwriteconfig5 --file konsolerc --group "MainWindow" --group "Toolbar sessionToolbar" --key "IconSize" "16"
@@ -246,5 +245,5 @@ kwriteconfig5 --file konsolerc --group "UiSettings" --key "ColorScheme" "Breeze 
 kwriteconfig5 --file konsolerc --group "UiSettings" --key "WindowColorScheme" "Breeze Dark"
 kwriteconfig5 --file konsolerc --group "TabBar" --key "CloseTabButton" "None"
 kwriteconfig5 --file konsolerc --group "TabBar" --key "TabBarVisibility" "AlwaysHideTabBar"
-install $software
+install ${packages[$software,$ID]}
 dot $software
