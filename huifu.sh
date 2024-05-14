@@ -179,7 +179,6 @@ packages[$software,arch]="stow"
 packages[$software,debian]="stow"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]}
-install $software
 
 # -----------------------------------------------------------------------------
 # package specific from here on
