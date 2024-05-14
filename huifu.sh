@@ -61,12 +61,11 @@ debian_install() {
     echo_in green "Is installed:$1"
 }
 
-# generic installer function, might have second argument (currently only for 
-# arch) if second parameter == yay, then arch installer will use yay instead
+# generic installer function, can add --yay to order yay usage on arch
 install() {
+    # check flags and get package list
     local package_list
     local use_yay=1
-    # check flags, might add --nix or --flatpak
     for arg in "$@"; do
         case $arg in
             --yay)
@@ -78,6 +77,7 @@ install() {
         esac
     done
 
+    # depending on distro and flags use specific installer functions
     case $ID in
         "arch")
             if [ $use_yay ]; then
@@ -175,6 +175,23 @@ if [ ! -d "_private" ]; then
     error "Setup _private first. "
 fi
 
+# Declare packages array
+# contains package list depending on software name and distro ID
+declare -A packages
+
+# We need stow to manage our symlinks
+software=stow
+packages[$software,arch]="stow"
+packages[$software,debian]="stow"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]}
+
+# git is also necessary for yay
+software=git
+packages[$software,arch]="git"
+packages[$software,debian]="git"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]}
 
 # Distro specific preparations
 echo_in blue "Doing distro specific preparations. "
@@ -187,17 +204,6 @@ case $NAME in
     *)
         echo_in green "No preparations to be done. "
 esac
-
-# Declare packages array
-# contains package list depending on software name and distro ID
-declare -A packages
-
-# We need stow to manage our symlinks
-software=stow
-packages[$software,arch]="stow"
-packages[$software,debian]="stow"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]}
 
 # -----------------------------------------------------------------------------
 # -------------------------------------
@@ -213,6 +219,7 @@ if ! command -v starship &> /dev/null; then
     curl -sS https://starship.rs/install.sh | sh
 fi
 dot starship
+
 
 # bash (needs starship)
 dot bash
@@ -253,6 +260,7 @@ packages[$software,ubuntu]="i3 i3lock jgmenu nitrogen xcape i3blocks" #${package
 install ${packages[$software,$ID]}
 dot $software
 dot fonts
+
 
 # konsole
 software=konsole
