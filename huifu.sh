@@ -83,27 +83,27 @@ install_yay() {
     # Yay dependencies 
     sudo pacman -Sy --needed git base-devel --noconfirm
     if [ $? -ne 0 ]; then
-        error "Failed to install necessary dependencies for yay."
+        error "Failed to install necessary dependencies for yay. "
     fi
 
     # Clone yay repo
     git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin
     if [ $? -ne 0 ]; then
-        error "Failed to clone yay repository."
+        error "Failed to clone yay repository. "
     fi
 
     # Change to the temporary directory and build yay
     pushd /tmp/yay-bin
     if ! makepkg -si --noconfirm; then
-        popd  # Go back to the original directory if makepkg fails
-        error "Failed to build and install yay."
+        popd  
+        error "Failed to build and install yay. "
     fi
-    popd  # Go back to the original directory on success
+    popd  
 
     # Clean up the yay build directory
     rm -rf /tmp/yay-bin
 
-    echo_in green "yay is installed successfully."
+    echo_in green "yay is installed. "
 }
 
 # stowing for versioned packages
@@ -140,7 +140,7 @@ priv_stow() {
 # associative arrays (which we use are available form 4.0 and nameref is 
 # available from 4.3
 if [ "${BASH_VERSINFO[0]}" -lt 4 ] || [ "${BASH_VERSINFO[0]}" -eq 4 -a "${BASH_VERSINFO[1]}" -lt 3 ]; then
-    echo_in red "This script requires Bash version 4.3 or greater." >&2
+    echo_in red "This script requires Bash version 4.3 or greater. " >&2
     exit 1
 fi
 
