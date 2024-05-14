@@ -1,4 +1,4 @@
- -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # helper functions
 
 # pretty print with colors
@@ -64,11 +64,27 @@ debian_install() {
 # generic installer function, might have second argument (currently only for 
 # arch) if second parameter == yay, then arch installer will use yay instead
 install() {
-    local package_list=$1
+    local package_list
+    local use_yay=1
+    # check flags, might add --nix or --flatpak
+    for arg in "$@"; do
+        case $arg in
+            --yay)
+                use_yay=0
+                ;;
+            *)
+                package_list=$arg
+                ;;
+        esac
+    done
 
     case $ID in
         "arch")
-            arch_install $package_list $2
+            if [ $use_yay ]; then
+                arch_install $package_list "yay"
+            else
+                arch_install $pacakge_list
+            fi
         ;;
         "debian"|"ubuntu")
             debian_install $package_list
@@ -129,8 +145,11 @@ dot() {
 
 # stowing for _private
 priv_stow() {
-    # setup this later
-    echo "hi"
+    echo_in blue  "Stowing $1"
+    if ! stow -d _private -t ~ $1; then
+        error "Cant stow $1, need manual intervention"
+    fi
+    echo_in green "$1 is stowed. "
 }
 
 # -----------------------------------------------------------------------------
@@ -181,21 +200,25 @@ packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]}
 
 # -----------------------------------------------------------------------------
+# -------------------------------------
 # package specific from here on
 
-# bash
+# starship and curl
+software=curl
+packages[$software,arch]="curl"
+packages[$software,debian]="curl"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]}
 if ! command -v starship &> /dev/null; then
     curl -sS https://starship.rs/install.sh | sh
 fi
 dot starship
+
+# bash (needs starship)
 dot bash
 
 
-# zsh
-if ! command -v starship &> /dev/null; then
-    curl -sS https://starship.rs/install.sh | sh
-fi
-dot starship
+# zsh (needs starship)
 software=zsh
 packages[$software,arch]="zsh"
 packages[$software,debian]="zsh"
@@ -246,3 +269,51 @@ kwriteconfig5 --file konsolerc --group "TabBar" --key "CloseTabButton" "None"
 kwriteconfig5 --file konsolerc --group "TabBar" --key "TabBarVisibility" "AlwaysHideTabBar"
 install ${packages[$software,$ID]}
 dot $software
+
+
+# -------------------------------------
+# _private packages
+
+# firefox
+software=firefox
+packages[$software,arch]="firefox"
+packages[$software,debian]="firefox"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]}
+priv_stow $software 
+
+
+# thunderbird
+software=thunderbird
+packages[$software,arch]="thunderbird"
+packages[$software,debian]="thunderbird"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]}
+priv_stow $software 
+
+
+# chromium
+software=chromium
+packages[$software,arch]="chromium"
+packages[$software,debian]="chromium"
+# on ubuntu using i3 this seems to be broken. ubuntu package for chromium is 
+# actually just a snap package and that has problems with ibus
+packages[$software,ubuntu]="chromium-browser"
+install ${packages[$software,$ID]}
+priv_stow $software 
+
+
+# brave
+software=brave
+packages[$software,arch]="brave-bin"
+packages[$software,debian]="brave-browser"
+packages[$software,ubuntu]="brave-browser"
+# setup repo for debian and ubuntu (if brave-browser not installed)
+if [ $ID == "ubuntu" ] || [ $ID == "debian" ];then
+    if ! command -v brave-browser > /dev/null; then
+            sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+            sudo apt update -y
+    fi
+fi
+install ${packages[$software,$ID]} --yay
+priv_stow $software 
