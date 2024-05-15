@@ -310,6 +310,10 @@ install ${packages[$software,$ID]}
 dot $software
 
 
+# gtk
+dot gtk
+
+
 # -------------------------------------
 # _private packages
 
