@@ -283,6 +283,15 @@ install ${packages[$software,$ID]}
 dot $software
 
 
+# awesomewm (needs lots of testing)
+software=awesome
+packages[$software,arch]="awesome"
+packages[$software,debian]="awesome"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]}
+dot $software
+
+
 # -------------------------------------
 # _private packages
 
