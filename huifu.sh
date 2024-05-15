@@ -292,6 +292,15 @@ install ${packages[$software,$ID]}
 dot $software
 
 
+# openbox (needs lots of testing)
+software=openbox
+packages[$software,arch]="openbox"
+packages[$software,debian]="openbox"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]}
+dot $software
+
+
 # -------------------------------------
 # _private packages
 
