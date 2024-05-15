@@ -301,6 +301,15 @@ install ${packages[$software,$ID]}
 dot $software
 
 
+# emacs (needs testing)
+software=emacs
+packages[$software,arch]="emacs"
+packages[$software,debian]="emacs"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]}
+dot $software
+
+
 # -------------------------------------
 # _private packages
 
