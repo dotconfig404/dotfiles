@@ -221,6 +221,10 @@ fi
 dot starship
 
 
+# profile
+dot profile
+
+
 # bash (needs starship)
 dot bash
 
