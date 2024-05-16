@@ -273,6 +273,7 @@ packages[$software,debian]="konsole libkf5config-bin"
 packages[$software,ubuntu]=${packages[$software,debian]}
 # need to write ~/.config/konsolerc using kwriteconfig5, not suitable for version controlling
 # as it changes contents frequently (although not so bad if we wanna do it anyways)
+kwriteconfig5 --file konsolerc --group "Desktop Entry" --key "DefaultProfile" "dotconfig.profile"
 kwriteconfig5 --file konsolerc --group "MainWindow" --group "Toolbar sessionToolbar" --key "IconSize" "16"
 kwriteconfig5 --file konsolerc --group "Toolbar sessionToolbar" --key "IconSize" "16"
 kwriteconfig5 --file konsolerc --group "UiSettings" --key "ColorScheme" "Breeze Dark"
