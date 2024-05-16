@@ -187,8 +187,6 @@ exec nitrogen --restore
 # wallpaper
 
 exec --no-startup-id "setxkbmap eu"
-#exec bash /home/freddy/startup.sh
-
 
 bindsym $mod+Escape exec i3lock -c 000000
 bindsym $mod+Shift+S exec i3lock -c 000000; systemctl suspend

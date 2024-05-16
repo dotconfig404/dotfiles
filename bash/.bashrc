@@ -1,4 +1,4 @@
-# If not running interactively, don't do anything
+
 case $- in
     *i*) ;;
       *) return;;
@@ -75,7 +75,7 @@ dps()  {
 dpsa() { dps -a $@; }
 
 # hack for now, fix kbd later
-setxkbmap eu
+#setxkbmap eu
 
 # taken from arch wiki
 # solution for weird ssh issue upon entering backspace while connected via ssh
