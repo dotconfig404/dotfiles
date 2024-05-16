@@ -264,6 +264,9 @@ packages[$software,ubuntu]="i3 i3lock jgmenu nitrogen xcape i3blocks" #${package
 install ${packages[$software,$ID]}
 dot $software
 dot fonts
+echo_in blue "rebuilding font cache"
+fc-cache -f
+echo_in green "font cache rebuilt"
 
 
 # konsole
