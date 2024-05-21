@@ -317,6 +317,15 @@ dot $software
 # gtk
 dot gtk
 
+# python dev
+#software=python
+#packages[$software,arch]="python"
+#packages[$software,debian]="python3-virtualenv"
+#packages[$software,ubuntu]=${packages[$software,debian]}
+#install ${packages[$software,$ID]}
+#dot $software
+
+
 
 # -------------------------------------
 # _private packages
