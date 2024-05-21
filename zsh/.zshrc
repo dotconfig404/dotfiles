@@ -21,10 +21,12 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+bindkey '^[[1;3D' backward-word 
+bindkey '^[[1;3C' forward-word
+
 if [ -d $HOME/.zshrc.d ]
 then
-    for f in $HOME/*.zsh
-    do
+    for f in $HOME/.zshrc.d/*.zsh; do
        source $f
     done
 fi
