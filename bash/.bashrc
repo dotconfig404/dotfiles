@@ -1,4 +1,5 @@
 
+# when running bash from scripts, dont run bashrc
 case $- in
     *i*) ;;
       *) return;;
