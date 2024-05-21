@@ -2,15 +2,13 @@
 [[ $- != *i* ]] && return
 
 # history file
-GREEN='\033[0;32m'
-NO_COLOR='\033[0m'
-HISTSIZE=100000
+HISTFILE=~/.zsh_history
+SAVEHIST=100000
 HISTFILESIZE=-1
-HISTTIMEFORMAT=`echo -e $GREEN[0m[%F %T] $NO_COLOR`
 # [ \t]* ignores stuff with space in front
 HISTIGNORE="ls:ls -l:pwd:clear:ll:la:ls -al:[ \t]*"
-# on exit append to histfile instead of overwriting
-shopt -s histappend
+# wrties history after each command and allows multiple zsh sessions
+setopt SHARE_HISTORY 
 
 # colors, colors, colors
 alias ls='ls --color=auto'
