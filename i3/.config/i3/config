@@ -181,12 +181,11 @@ bar {
 	}
 }
 
-#exec emacs --daemon
-
 exec nitrogen --restore
 # wallpaper
 
 exec --no-startup-id "setxkbmap eu"
+exec --no-startup-id "xcape -e 'Alt_L=Escape' &"
 
-bindsym $mod+Escape exec i3lock -c 000000
-bindsym $mod+Shift+S exec i3lock -c 000000; systemctl suspend
+bindsym $mod+Escape exec "i3lock -c 000000"
+bindsym $mod+Shift+S exec "i3lock -c 000000; systemctl suspend"
