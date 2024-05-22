@@ -319,13 +319,11 @@ dot $software
 dot gtk
 
 # python dev
-#software=python
-#packages[$software,arch]="python"
-#packages[$software,debian]="python3-virtualenv"
-#packages[$software,ubuntu]=${packages[$software,debian]}
-#install ${packages[$software,$ID]}
-#dot $software
-
+software=python
+packages[$software,arch]="python"
+packages[$software,debian]="python3 python3-venv"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]}
 
 
 # -------------------------------------
