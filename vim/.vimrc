@@ -418,6 +418,9 @@ let g:syntastic_sol_checkers = ['solc', 'solium']
 Plugin 'LnL7/vim-nix'
 " nix lang support
 
+Plugin 'pixelneo/vim-python-docstring'
+" vim docstrings
+
 call vundle#end()
 filetype plugin indent on
 
