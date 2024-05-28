@@ -31,4 +31,11 @@ then
     done
 fi
 
+# https://stackoverflow.com/a/54048138
+# potentially check link again if completion becomes too slow
+fpath=(~/.zshrc.d/completions $fpath)
+autoload -U compinit
+compinit
+zstyle ':completion:*' menu select=2
+
 eval "$(starship init zsh)"
