@@ -246,6 +246,8 @@ packages[$software,debian]="vim"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]}
 dot $software
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+vim -c 'PluginInstall' -c 'qa!'
 
 
 # tmux
