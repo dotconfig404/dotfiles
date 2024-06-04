@@ -327,12 +327,17 @@ packages[$software,debian]="python3 python3-venv"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]}
 
+# silversearcher
 software=silversearcher-ag
 packages[$software,arch]="the_silver_searcher"
 packages[$software,debian]="silversearcher-ag"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]}
 
+# mise
+if ! command -v mise &> /dev/null; then
+    curl https://mise.run | sh
+fi
 
 # -------------------------------------
 # _private packages
