@@ -327,6 +327,12 @@ packages[$software,debian]="python3 python3-venv"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]}
 
+software=silversearcher-ag
+packages[$software,arch]="the_silver_searcher"
+packages[$software,debian]="silversearcher-ag"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]}
+
 
 # -------------------------------------
 # _private packages
