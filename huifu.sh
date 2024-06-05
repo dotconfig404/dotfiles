@@ -338,6 +338,8 @@ install ${packages[$software,$ID]}
 # zsh and bash configs added
 if ! command -v mise &> /dev/null; then
     curl https://mise.run | sh
+    mise activate > ~/.bashrc.d/mise.sh
+    mise activate zsh > ~/.zshrc.d/mise.zsh
     mise use --global node
 fi
 
