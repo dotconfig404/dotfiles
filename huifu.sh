@@ -334,9 +334,11 @@ packages[$software,debian]="silversearcher-ag"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]}
 
-# mise
+# mise, node
+# zsh and bash configs added
 if ! command -v mise &> /dev/null; then
     curl https://mise.run | sh
+    mise use --global node
 fi
 
 # -------------------------------------
