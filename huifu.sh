@@ -335,7 +335,6 @@ packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]}
 
 # mise, node
-# zsh and bash configs added
 if ! command -v mise &> /dev/null; then
     curl https://mise.run | sh
     mise activate > ~/.bashrc.d/mise.sh
