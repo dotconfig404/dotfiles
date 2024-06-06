@@ -300,47 +300,46 @@ func! CompileRunGcc()
 endfunc
 
 ""########################################################
-""######## vundle ########################################
+""######## vim-plug ######################################
 ""########################################################
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin()
 " start of vundle plugin manager
 
 " latex in vim, quite good
-Plugin 'lervag/vimtex'
+Plug 'lervag/vimtex'
 
 " nice colors
-Plugin 'flazz/vim-colorschemes'
+Plug 'flazz/vim-colorschemes'
 
-Plugin 'Shougo/neocomplete'
+Plug 'Shougo/neocomplete'
 " keyword completion with a cache in current buffer
-Plugin 'Shougo/neosnippet'
-Plugin 'Shougo/neosnippet-snippets'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
 
-Plugin 'VundleVim/Vundle.vim'
+Plug 'VundleVim/Vundle.vim'
 " load actual vundle manager
 
-Plugin 'Raimondi/delimitMate'
+Plug 'Raimondi/delimitMate'
 " automatic parantheses brackets etc closing
 
-Plugin 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 " fuzzy search! toggle using.... ctrl-p. :-)
 " some alternatives worth looking at: unite and fzf
 
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 " used for file explorer on side
 " toggle using F3:
 nmap <F4> :NERDTreeToggle<CR>
 let NERDTreeDirArrows=0
 
 " turning nerd tree into a panel
-Bundle 'jistr/vim-nerdtree-tabs'
+Plug 'jistr/vim-nerdtree-tabs'
 
 " and adding some git functinality
-Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
-Plugin 'itchyny/lightline.vim'
+Plug 'itchyny/lightline.vim'
 " alternative to airline, much lighter.
 " setting theme:
 let g:lightline = {
@@ -348,7 +347,7 @@ let g:lightline = {
       \ }
 
 ""##### git and tmux ########################################
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 " awesome git support! adds commands like:
 " :GWrite (git add)
 " :GCommit (git commit)
@@ -356,23 +355,23 @@ Plugin 'tpope/vim-fugitive'
 " :Gread (git checkout <file>
 " :Gblame (git blame)
 
-Plugin 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 " shows which lines have been added, removed or modified
 " besides the numbers in git files.
 
-Plugin 'christoomey/vim-tmux-navigator'
+Plug 'christoomey/vim-tmux-navigator'
 " allows tmux to recognize vim in buffer and use vim bindings for movement
 " needs also a snippet or plugin in the tmux.conf
 
 
 ""#### syntax plugins ########################################
-Plugin 'vim-syntastic/syntastic'
+Plug 'vim-syntastic/syntastic'
 " actual syntax checker, unlike vims lexical scanning
 
-Plugin 'tomlion/vim-solidity'
+Plug 'tomlion/vim-solidity'
 " lexical highlighting for solidity
 
-Plugin 'dmdque/solidity.vim'
+Plug 'dmdque/solidity.vim'
 augroup quickfix
   autocmd!
   autocmd QuickFixCmdPost make nested copen
@@ -383,7 +382,7 @@ let g:syntastic_sol_checkers = ['solc', 'solium']
 ""################################################################################
 ""##################################### java #####################################
 ""################################################################################
-"Plugin 'artur-shaik/vim-javacomplete2'
+"Plug 'artur-shaik/vim-javacomplete2'
 "autocmd FileType java setlocal omnifunc=javacomplete#Complete
 " java autompletion for the omni menu
 " some recommended bindings:
@@ -409,19 +408,21 @@ let g:syntastic_sol_checkers = ['solc', 'solium']
 "map <F11> :cnext<Return>
 
 """----------
-""" Plugin 'xolox/vim-easytags' tag management and generation
+""" Plug 'xolox/vim-easytags' tag management and generation
 """ to be used at a later point perhaps, seems interesting.
 """ also other plugins of xolox might be of use.
-""" use together with: Plugin 'majutsushi/tagbar'
+""" use together with: Plug 'majutsushi/tagbar'
 """----------
 
-Plugin 'LnL7/vim-nix'
+Plug 'LnL7/vim-nix'
 " nix lang support
 
-Plugin 'pixelneo/vim-python-docstring'
+Plug 'pixelneo/vim-python-docstring'
 " vim docstrings
 
-call vundle#end()
+Plug 'neoclide/coc.vim', {'branch': 'release'}
+
+call plug#end()
 filetype plugin indent on
 
 " if using a colorscheme from the plugin, this needs to go in the end
