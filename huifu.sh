@@ -247,6 +247,7 @@ packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]}
 dot $software
 vim -c 'PlugInstall' -c 'qa!'
+vim -c 'CocInstall coc-pyright' -c 'qa!'
 
 
 # tmux

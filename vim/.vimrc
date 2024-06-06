@@ -420,7 +420,8 @@ Plug 'LnL7/vim-nix'
 Plug 'pixelneo/vim-python-docstring'
 " vim docstrings
 
-Plug 'neoclide/coc.vim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" conquerer of completion, rn for python
 
 call plug#end()
 filetype plugin indent on
