@@ -268,6 +268,84 @@ dot $software
 
 
 # vim
+
+# konsole
+software=konsole
+packages[$software,arch]="konsole kconfig"
+packages[$software,debian]="konsole libkf5config-bin"
+packages[$software,ubuntu]=${packages[$software,debian]}
+# need to write ~/.config/konsolerc using kwriteconfig5, not suitable for version controlling
+# as it changes contents frequently (although not so bad if we wanna do it anyways)
+kwriteconfig5 --file konsolerc --group "Desktop Entry" --key "DefaultProfile" "dotconfig.profile"
+kwriteconfig5 --file konsolerc --group "MainWindow" --group "Toolbar sessionToolbar" --key "IconSize" "16"
+kwriteconfig5 --file konsolerc --group "Toolbar sessionToolbar" --key "IconSize" "16"
+kwriteconfig5 --file konsolerc --group "UiSettings" --key "ColorScheme" "Breeze Dark"
+kwriteconfig5 --file konsolerc --group "UiSettings" --key "WindowColorScheme" "Breeze Dark"
+kwriteconfig5 --file konsolerc --group "TabBar" --key "CloseTabButton" "None"
+kwriteconfig5 --file konsolerc --group "TabBar" --key "TabBarVisibility" "AlwaysHideTabBar"
+install ${packages[$software,$ID]}
+dot $software
+
+
+# awesomewm (needs lots of testing)
+software=awesome
+packages[$software,arch]="awesome"
+packages[$software,debian]="awesome"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]}
+dot $software
+
+
+# openbox (needs lots of testing)
+software=openbox
+packages[$software,arch]="openbox"
+packages[$software,debian]="openbox"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]}
+dot $software
+
+
+# emacs (needs testing)
+software=emacs
+packages[$software,arch]="emacs"
+packages[$software,debian]="emacs"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]}
+dot $software
+
+
+# gtk
+dot gtk
+
+# python dev
+software=python
+packages[$software,arch]="python"
+packages[$software,debian]="python3 python3-venv"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]}
+
+# silversearcher
+software=silversearcher-ag
+packages[$software,arch]="the_silver_searcher"
+packages[$software,debian]="silversearcher-ag"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]}
+
+# mise, node
+if ! command -v mise &> /dev/null; then
+    curl https://mise.run | sh
+    mise activate > ~/.bashrc.d/mise.sh
+    mise activate zsh > ~/.zshrc.d/mise.zsh
+    mise use --global node
+fi
+
+# vim, for ubuntu and debian we'll use a ppa to get the latest...
+if [ $ID == "ubuntu" ] || [ $ID == "debian" ];then
+    if ! command -v vim > /dev/null; then
+        sudo add-apt-repository ppa:jonathonf/vim
+        sudo apt update
+    fi
+fi
 software=vim
 packages[$software,arch]="vim"
 packages[$software,debian]="vim"
@@ -372,8 +450,9 @@ if ! command -v mise &> /dev/null; then
 fi
 
 # nvim from source for ubuntu, as they have very wow out of date version
+# we need to revise this
 if ! command -v nvim &> /dev/null; then
-    case $ID in
+    case 
         "arch")
             sudo pacman install neovim
             ;;
