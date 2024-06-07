@@ -123,6 +123,31 @@ install_yay() {
     echo_in green "yay is installed. "
 }
 
+# yay installer function
+install_nvim() {
+    echo_in blue "Installing nvim. "
+
+    # Clone nvim repo
+    git clone https://github.com/neovim/neovim /tmp/nvim
+    if [ $? -ne 0 ]; then
+        error "Failed to clone nvim repository. "
+    fi
+
+    # Change to the temporary directory and build yay
+    pushd /tmp/nvim
+    make CMAKE_BUILD_TYPE=Release
+    if ! sudo make install; then
+        popd  
+        error "Failed to build and install nvim. "
+    fi
+    popd  
+
+    # Clean up the yay build directory
+    rm -rf /tmp/nvim
+
+    echo_in green "nvim is installed. "
+}
+
 # stowing for versioned packages
 dot() {
     echo_in blue  "Stowing $1"
@@ -196,14 +221,15 @@ install ${packages[$software,$ID]}
 
 # Distro specific preparations
 echo_in blue "Doing distro specific preparations. "
-case $NAME in 
-    "Arch Linux")
+case $ID in 
+    "arch")
         if ! command -v yay &> /dev/null; then
             install_yay
         fi
     ;;
     *)
         echo_in green "No preparations to be done. "
+    ;;
 esac
 
 # -----------------------------------------------------------------------------
@@ -248,6 +274,7 @@ install ${packages[$software,$ID]}
 dot $software
 vim -c 'PlugInstall' -c 'qa!'
 vim -c 'CocInstall coc-pyright' -c 'qa!'
+echo_in red "check if cocinstall really worked"
 
 
 # tmux
@@ -340,6 +367,19 @@ if ! command -v mise &> /dev/null; then
     mise activate > ~/.bashrc.d/mise.sh
     mise activate zsh > ~/.zshrc.d/mise.zsh
     mise use --global node
+fi
+
+# nvim from source for ubuntu, as they have very wow out of date version
+if ! command -v nvim &> /dev/null; then
+    case $ID in
+        "arch")
+            sudo pacman install neovim
+        ;;
+        *)
+            sudo apt-get install ninja-build gettext cmake unzip curl build-essential
+            install_nvim
+        ;;
+    esac
 fi
 
 # -------------------------------------
