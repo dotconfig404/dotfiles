@@ -123,7 +123,9 @@ install_yay() {
     echo_in green "yay is installed. "
 }
 
-# yay installer function
+# nvim installer function
+# somehow the print messages are not printed in order
+# almost as if this whole function is async
 install_nvim() {
     echo_in blue "Installing nvim. "
 
@@ -374,11 +376,11 @@ if ! command -v nvim &> /dev/null; then
     case $ID in
         "arch")
             sudo pacman install neovim
-        ;;
+            ;;
         *)
             sudo apt-get install ninja-build gettext cmake unzip curl build-essential
             install_nvim
-        ;;
+            ;;
     esac
 fi
 
