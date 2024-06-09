@@ -368,9 +368,10 @@ dot $software
 
 # i3
 software=i3
-packages[$software,arch]="i3-wm i3lock jgmenu nitrogen xcape i3blocks"
-packages[$software,debian]="i3 i3lock jgmenu nitrogen xcape i3blocks"
-packages[$software,ubuntu]="i3 i3lock jgmenu nitrogen xcape i3blocks" #${packages[$software,debian]}
+packages[$software,arch]="i3-wm i3lock jgmenu nitrogen xcape i3blocks network-manager-applet"
+# not sure about network manager applet
+packages[$software,debian]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-applet"
+packages[$software,ubuntu]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-gnome" #${packages[$software,debian]}
 install ${packages[$software,$ID]}
 dot $software
 dot fonts
@@ -452,7 +453,7 @@ fi
 # nvim from source for ubuntu, as they have very wow out of date version
 # we need to revise this
 if ! command -v nvim &> /dev/null; then
-    case 
+    case $ID in
         "arch")
             sudo pacman install neovim
             ;;
