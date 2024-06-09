@@ -600,8 +600,7 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 
 " if using a colorscheme from the plugin, this needs to go in the end
-colorscheme kalahari
+colorscheme xian
 
 " using single click for opening files etc in nerdtree
 let NERDTreeMouseMode=3
-colorscheme torte
