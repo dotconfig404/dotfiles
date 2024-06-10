@@ -207,6 +207,19 @@ fi
 # contains package list depending on software name and distro ID
 declare -A packages
 
+# Distro specific preparations
+echo_in blue "Doing distro specific preparations. "
+case $ID in 
+    "arch")
+        if ! command -v yay &> /dev/null; then
+            install_yay
+        fi
+    ;;
+    *)
+        echo_in green "No preparations to be done. "
+    ;;
+esac
+
 # We need stow to manage our symlinks
 software=stow
 packages[$software,arch]="stow"
@@ -220,19 +233,6 @@ packages[$software,arch]="git"
 packages[$software,debian]="git"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]}
-
-# Distro specific preparations
-echo_in blue "Doing distro specific preparations. "
-case $ID in 
-    "arch")
-        if ! command -v yay &> /dev/null; then
-            install_yay
-        fi
-    ;;
-    *)
-        echo_in green "No preparations to be done. "
-    ;;
-esac
 
 # -----------------------------------------------------------------------------
 # -------------------------------------
