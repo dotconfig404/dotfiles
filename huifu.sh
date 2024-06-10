@@ -304,16 +304,6 @@ packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]}
 dot $software
 
-
-# emacs (needs testing)
-software=emacs
-packages[$software,arch]="emacs"
-packages[$software,debian]="emacs"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]}
-dot $software
-
-
 # gtk
 dot gtk
 
@@ -334,9 +324,18 @@ install ${packages[$software,$ID]}
 # mise, node
 if ! command -v mise &> /dev/null; then
     curl https://mise.run | sh
-    mise activate > ~/.bashrc.d/mise.sh
-    mise activate zsh > ~/.zshrc.d/mise.zsh
+    ~/.local/bin/mise activate bash > ~/.bashrc.d/mise.sh
+    ~/.local/bin/mise activate zsh > ~/.zshrc.d/mise.zsh
+    # https://stackoverflow.com/a/13864829 check if var exists
+    if [ ${ZSH_VERSION+x} ];then
+        source ~/.zshrc.d/mise.zsh
+    elif [ ${BASH_VERSION+x} ];then
+        source ~/.bashrc.d/mise.sh
+    else
+        echo_in red "Could not activate mise, wrong shell?"
+    fi
     mise use --global node
+
 fi
 
 # vim, for ubuntu and debian we'll use a ppa to get the latest...
@@ -398,24 +397,6 @@ install ${packages[$software,$ID]}
 dot $software
 
 
-# awesomewm (needs lots of testing)
-software=awesome
-packages[$software,arch]="awesome"
-packages[$software,debian]="awesome"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]}
-dot $software
-
-
-# openbox (needs lots of testing)
-software=openbox
-packages[$software,arch]="openbox"
-packages[$software,debian]="openbox"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]}
-dot $software
-
-
 # emacs (needs testing)
 software=emacs
 packages[$software,arch]="emacs"
@@ -427,28 +408,6 @@ dot $software
 
 # gtk
 dot gtk
-
-# python dev
-software=python
-packages[$software,arch]="python"
-packages[$software,debian]="python3 python3-venv"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]}
-
-# silversearcher
-software=silversearcher-ag
-packages[$software,arch]="the_silver_searcher"
-packages[$software,debian]="silversearcher-ag"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]}
-
-# mise, node
-if ! command -v mise &> /dev/null; then
-    curl https://mise.run | sh
-    mise activate > ~/.bashrc.d/mise.sh
-    mise activate zsh > ~/.zshrc.d/mise.zsh
-    mise use --global node
-fi
 
 # nvim from source for ubuntu, as they have very wow out of date version
 # we need to revise this
