@@ -1,9 +1,9 @@
 
 # when running bash from scripts, dont run bashrc
-case $- in
-    *i*) ;;
-      *) return;;
-esac
+#case $- in
+#    *i*) ;;
+#      *) return;;
+#esac
 
 # every file in bashrc.d will be sourced into this file
 BASHRC_D=~/.bashrc.d
