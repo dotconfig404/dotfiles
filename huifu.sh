@@ -234,6 +234,11 @@ packages[$software,debian]="git"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]}
 
+# .local may not exist, we will need it here:
+if [ ! -d ~/.local ];then
+   mkdir ~/.local
+fi 
+
 # -----------------------------------------------------------------------------
 # -------------------------------------
 # package specific from here on
