@@ -423,7 +423,7 @@ Plug 'pixelneo/vim-python-docstring'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " conquerer of completion, rn for python
 
-Plug 'Exafunction/codeium.vim'
+"Plug 'Exafunction/codeium.vim'
 " copilot alternative 
 
 call plug#end()
