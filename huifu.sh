@@ -283,6 +283,14 @@ kwriteconfig5 --file konsolerc --group "UiSettings" --key "ColorScheme" "Breeze 
 kwriteconfig5 --file konsolerc --group "UiSettings" --key "WindowColorScheme" "Breeze Dark"
 kwriteconfig5 --file konsolerc --group "TabBar" --key "CloseTabButton" "None"
 kwriteconfig5 --file konsolerc --group "TabBar" --key "TabBarVisibility" "AlwaysHideTabBar"
+# ok, on arch we're using plasma 6, so need t check that somehow later
+kwriteconfig6 --file konsolerc --group "Desktop Entry" --key "DefaultProfile" "dotconfig.profile"
+kwriteconfig6 --file konsolerc --group "MainWindow" --group "Toolbar sessionToolbar" --key "IconSize" "16"
+kwriteconfig6 --file konsolerc --group "Toolbar sessionToolbar" --key "IconSize" "16"
+kwriteconfig6 --file konsolerc --group "UiSettings" --key "ColorScheme" "Breeze Dark"
+kwriteconfig6 --file konsolerc --group "UiSettings" --key "WindowColorScheme" "Breeze Dark"
+kwriteconfig6 --file konsolerc --group "TabBar" --key "CloseTabButton" "None"
+kwriteconfig6 --file konsolerc --group "TabBar" --key "TabBarVisibility" "AlwaysHideTabBar"
 install ${packages[$software,$ID]}
 dot $software
 
