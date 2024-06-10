@@ -1,3 +1,4 @@
+export PATH="/home/dotconfig/.local/bin:$PATH"
 export MISE_SHELL=zsh
 export __MISE_ORIG_PATH="$PATH"
 
@@ -5,7 +6,7 @@ mise() {
   local command
   command="${1:-}"
   if [ "$#" = 0 ]; then
-    command mise
+    command /home/dotconfig/.local/bin/mise
     return
   fi
   shift
@@ -14,16 +15,16 @@ mise() {
   deactivate|s|shell)
     # if argv doesn't contains -h,--help
     if [[ ! " $@ " =~ " --help " ]] && [[ ! " $@ " =~ " -h " ]]; then
-      eval "$(command mise "$command" "$@")"
+      eval "$(command /home/dotconfig/.local/bin/mise "$command" "$@")"
       return $?
     fi
     ;;
   esac
-  command mise "$command" "$@"
+  command /home/dotconfig/.local/bin/mise "$command" "$@"
 }
 
 _mise_hook() {
-  eval "$(mise hook-env -s zsh)";
+  eval "$(/home/dotconfig/.local/bin/mise hook-env -s zsh)";
 }
 typeset -ag precmd_functions;
 if [[ -z "${precmd_functions[(r)_mise_hook]+1}" ]]; then
@@ -39,7 +40,7 @@ if [ -z "${_mise_cmd_not_found:-}" ]; then
     [ -n "$(declare -f command_not_found_handler)" ] && eval "${$(declare -f command_not_found_handler)/command_not_found_handler/_command_not_found_handler}"
 
     function command_not_found_handler() {
-        if mise hook-not-found -s zsh -- "$1"; then
+        if /home/dotconfig/.local/bin/mise hook-not-found -s zsh -- "$1"; then
           _mise_hook
           "$@"
         elif [ -n "$(declare -f _command_not_found_handler)" ]; then

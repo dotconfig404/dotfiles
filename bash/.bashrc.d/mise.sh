@@ -1,11 +1,12 @@
-export MISE_SHELL=zsh
+export PATH="/home/dotconfig/.local/bin:$PATH"
+export MISE_SHELL=bash
 export __MISE_ORIG_PATH="$PATH"
 
 mise() {
   local command
   command="${1:-}"
   if [ "$#" = 0 ]; then
-    command mise
+    command /home/dotconfig/.local/bin/mise
     return
   fi
   shift
@@ -14,38 +15,37 @@ mise() {
   deactivate|s|shell)
     # if argv doesn't contains -h,--help
     if [[ ! " $@ " =~ " --help " ]] && [[ ! " $@ " =~ " -h " ]]; then
-      eval "$(command mise "$command" "$@")"
+      eval "$(command /home/dotconfig/.local/bin/mise "$command" "$@")"
       return $?
     fi
     ;;
   esac
-  command mise "$command" "$@"
+  command /home/dotconfig/.local/bin/mise "$command" "$@"
 }
 
 _mise_hook() {
-  eval "$(mise hook-env -s zsh)";
-}
-typeset -ag precmd_functions;
-if [[ -z "${precmd_functions[(r)_mise_hook]+1}" ]]; then
-  precmd_functions=( _mise_hook ${precmd_functions[@]} )
+  local previous_exit_status=$?;
+  eval "$(mise hook-env -s bash)";
+  return $previous_exit_status;
+};
+if [[ ";${PROMPT_COMMAND:-};" != *";_mise_hook;"* ]]; then
+  PROMPT_COMMAND="_mise_hook${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
 fi
-typeset -ag chpwd_functions;
-if [[ -z "${chpwd_functions[(r)_mise_hook]+1}" ]]; then
-  chpwd_functions=( _mise_hook ${chpwd_functions[@]} )
-fi
-
 if [ -z "${_mise_cmd_not_found:-}" ]; then
     _mise_cmd_not_found=1
-    [ -n "$(declare -f command_not_found_handler)" ] && eval "${$(declare -f command_not_found_handler)/command_not_found_handler/_command_not_found_handler}"
+    if [ -n "$(declare -f command_not_found_handle)" ]; then
+        _mise_cmd_not_found_handle=$(declare -f command_not_found_handle)
+        eval "${_mise_cmd_not_found_handle/command_not_found_handle/_command_not_found_handle}"
+    fi
 
-    function command_not_found_handler() {
-        if mise hook-not-found -s zsh -- "$1"; then
+    command_not_found_handle() {
+        if /home/dotconfig/.local/bin/mise hook-not-found -s bash -- "$1"; then
           _mise_hook
           "$@"
-        elif [ -n "$(declare -f _command_not_found_handler)" ]; then
-            _command_not_found_handler "$@"
+        elif [ -n "$(declare -f _command_not_found_handle)" ]; then
+            _command_not_found_handle "$@"
         else
-            echo "zsh: command not found: $1" >&2
+            echo "bash: command not found: $1" >&2
             return 127
         fi
     }
