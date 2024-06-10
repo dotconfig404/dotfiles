@@ -279,6 +279,7 @@ software=konsole
 packages[$software,arch]="konsole kconfig"
 packages[$software,debian]="konsole libkf5config-bin"
 packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]}
 # need to write ~/.config/konsolerc using kwriteconfig5, not suitable for version controlling
 # as it changes contents frequently (although not so bad if we wanna do it anyways)
 kwriteconfig5 --file konsolerc --group "Desktop Entry" --key "DefaultProfile" "dotconfig.profile"
@@ -296,7 +297,10 @@ kwriteconfig6 --file konsolerc --group "UiSettings" --key "ColorScheme" "Breeze 
 kwriteconfig6 --file konsolerc --group "UiSettings" --key "WindowColorScheme" "Breeze Dark"
 kwriteconfig6 --file konsolerc --group "TabBar" --key "CloseTabButton" "None"
 kwriteconfig6 --file konsolerc --group "TabBar" --key "TabBarVisibility" "AlwaysHideTabBar"
-install ${packages[$software,$ID]}
+# we do not want to symlink the whole konsole dir
+if [ ! -d ~/.local/share/konsole ];then
+   mkdir -p ~/.local/share/konsole 
+fi 
 dot $software
 
 

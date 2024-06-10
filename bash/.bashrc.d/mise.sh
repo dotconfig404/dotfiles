@@ -1,3 +1,4 @@
+export PATH="/home/dotconfig/.local/bin:$PATH"
 export MISE_SHELL=bash
 export __MISE_ORIG_PATH="$PATH"
 
