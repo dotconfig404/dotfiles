@@ -341,8 +341,8 @@ install ${packages[$software,$ID]}
 # mise, node
 if ! command -v mise &> /dev/null; then
     curl https://mise.run | sh
-    ~/.local/bin/mise activate bash > ~/.bashrc.d/mise.sh
-    ~/.local/bin/mise activate zsh > ~/.zshrc.d/mise.zsh
+    echo 'export PATH="$HOME/.local/share/mise/shims:$PATH"' > ~/.zprofile.d/mise.zsh
+    echo 'export PATH="$HOME/.local/share/mise/shims:$PATH"' > ~/.bash_profile.d/mise.sh
     # https://stackoverflow.com/a/13864829 check if var exists
     if [ ${ZSH_VERSION+x} ];then
         source ~/.zshrc.d/mise.zsh
