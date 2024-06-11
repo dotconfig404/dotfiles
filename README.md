@@ -19,3 +19,4 @@ nm-applet? or is it due to i3blocks?
 font cache (damn, completely forgot about that!)
 nvim config (and install in arch btw btw)
 .profile -> .bash_profile
+interactive wm switcher
