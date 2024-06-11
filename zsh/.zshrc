@@ -1,5 +1,5 @@
 # no need to run this zshrc when running zsh from scripts
-#[[ $- != *i* ]] && return
+[[ $- != *i* ]] && return
 
 # history file
 HISTFILE=~/.zsh_history
