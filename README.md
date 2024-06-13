@@ -18,5 +18,6 @@ alternative to konsole or setup konsole properly
 nm-applet? or is it due to i3blocks?
 font cache (damn, completely forgot about that!)
 nvim config (and install in arch btw btw)
-.profile -> .bash_profile
-interactive wm switcher
+.profile -> .bash\_profile
+interactive wm switcher, or maybe not
+use different terminal emulator instead of konsole?
