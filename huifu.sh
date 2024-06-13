@@ -384,13 +384,14 @@ dot $software
 
 # i3
 software=i3
-packages[$software,arch]="i3-wm i3lock jgmenu nitrogen xcape i3blocks network-manager-applet"
+packages[$software,arch]="i3-wm i3lock jgmenu nitrogen xcape i3blocks network-manager-applet dmenu xorg-xinit"
 # not sure about network manager applet
-packages[$software,debian]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-applet"
-packages[$software,ubuntu]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-gnome" #${packages[$software,debian]}
+packages[$software,debian]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-applet dmenu xinit"
+packages[$software,ubuntu]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-gnome dmenu xinit" #${packages[$software,debian]}
 install ${packages[$software,$ID]}
 dot $software
 dot fonts
+dot xinit
 #echo_in blue "rebuilding font cache"
 #fc-cache -f
 #echo_in green "font cache rebuilt"
