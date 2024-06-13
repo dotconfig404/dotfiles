@@ -343,14 +343,15 @@ if ! command -v mise &> /dev/null; then
     curl https://mise.run | sh
     echo 'export PATH="$HOME/.local/share/mise/shims:$PATH"' > ~/.zprofile.d/mise.zsh
     echo 'export PATH="$HOME/.local/share/mise/shims:$PATH"' > ~/.bash_profile.d/mise.sh
-    # https://stackoverflow.com/a/13864829 check if var exists
-    if [ ${ZSH_VERSION+x} ];then
-        source ~/.zshrc.d/mise.zsh
-    elif [ ${BASH_VERSION+x} ];then
+    ## wait, why? we are always calling this script from bash, noneed to check if using zsh
+    ## https://stackoverflow.com/a/13864829 (check if var exists)
+    #if [ ${ZSH_VERSION+x} ];then
+    #    source ~/.zshrc.d/mise.zsh
+    #elif [ ${BASH_VERSION+x} ];then
         source ~/.bashrc.d/mise.sh
-    else
-        echo_in red "Could not activate mise, wrong shell?"
-    fi
+    #else
+    #    echo_in red "Could not activate mise, wrong shell?"
+    #fi
     mise use --global node
 
 fi
