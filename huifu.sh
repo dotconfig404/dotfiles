@@ -414,7 +414,7 @@ dot gtk
 if ! command -v nvim &> /dev/null; then
     case $ID in
         "arch")
-            sudo pacman install neovim
+            sudo pacman -S neovim
             ;;
         *)
             sudo apt-get install ninja-build gettext cmake unzip curl build-essential
