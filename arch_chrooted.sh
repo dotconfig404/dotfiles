@@ -32,6 +32,23 @@ useradd -m -G wheel -s /bin/zsh $username
 echo "Enter your user password: " 
 passwd -s dotconfig
 
+# network
+pacman -S iwd
+# somehow dns didnt work last time
+echo "nameserver 8.8.8.8" >> /etc/resolv.conf
+# dhcp is not enabled by default with iwd
+echo "[General]" >> /etc/iwd/main.conf
+echo "EnableNetworkConfiguration=true" >> /etc/iwd/main.conf
+echo "Next boot iwtctl will be available, connect with iwctl station wlan0 connect SSID"
+
+# pacman
+# echo "Enabling multilib repository
+sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
+pacman -Syu
+
+# info section
+echo "Now some manual instructions: "
+
 # encrypted disks
 pacman -S grub efibootmgr os-prober
 echo "Add encrypt flag to hooks in /etc/mkinitcpio.conf (before filesystems), make sure keyboard flag is there"
@@ -41,15 +58,6 @@ echo "cryptdevice=UUID={LUKSUUID}:cryptroot root=/dev/mapper/cryptroot"
 echo "Uncomment GRUB_ENABLE_CRYPTODISK=y in /etc/default/grub"
 echo "Run grub-install --target=x86_64-efi --efi-directory=/boot"
 echo "grub-mkconfig -o /boot/grub/grub.cfg"
-
-# Network
-pacman -S iwd
-# somehow dns didnt work last time
-echo "nameserver 8.8.8.8" >> /etc/resolv.conf
-# dhcp is not enabled by default with iwd
-echo "[General]" >> /etc/iwd/main.conf
-echo "EnableNetworkConfiguration=true" >> /etc/iwd/main.conf
-echo "Next boot iwtctl will be available, connect with iwctl station wlan0 connect SSID"
 
 # ssh keys
 echo "chown -R $username:$username dotfiles/_private/.ssh/"
