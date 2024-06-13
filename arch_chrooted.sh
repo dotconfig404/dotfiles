@@ -50,3 +50,9 @@ echo "nameserver 8.8.8.8" >> /etc/resolv.conf
 echo "[General]" >> /etc/iwd/main.conf
 echo "EnableNetworkConfiguration=true" >> /etc/iwd/main.conf
 echo "Next boot iwtctl will be available, connect with iwctl station wlan0 connect SSID"
+
+# ssh keys
+echo "chown -R $username:$username dotfiles/_private/.ssh/"
+echo "chmod 700 dotfiles/_private/.ssh"
+echo "chmod 644 dotfiles/_private/.ssh/dotconfig404.pub"
+echo "chmod 600 dotfiles/_private/.ssh/dotconfig404"
