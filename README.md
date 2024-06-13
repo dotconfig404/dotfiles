@@ -22,3 +22,4 @@ nvim config (and install in arch btw btw)
 interactive wm switcher, or maybe not
 use different terminal emulator instead of konsole?
 make ssh config and add ssh to huifu
+add git config
