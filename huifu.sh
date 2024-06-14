@@ -387,8 +387,8 @@ dot $software
 software=i3
 packages[$software,arch]="i3-wm i3lock jgmenu nitrogen xcape i3blocks network-manager-applet dmenu xorg-xinit"
 # not sure about network manager applet
-packages[$software,debian]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-applet dmenu xinit"
-packages[$software,ubuntu]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-gnome dmenu xinit" #${packages[$software,debian]}
+packages[$software,debian]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-applet suckless-tools xinit"
+packages[$software,ubuntu]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-gnome suckless-tools xinit" #${packages[$software,debian]}
 install ${packages[$software,$ID]}
 dot $software
 dot fonts
