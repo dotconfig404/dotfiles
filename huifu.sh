@@ -391,6 +391,7 @@ packages[$software,debian]="i3 i3lock jgmenu nitrogen xcape i3blocks network-man
 packages[$software,ubuntu]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-gnome suckless-tools xinit" #${packages[$software,debian]}
 install ${packages[$software,$ID]}
 dot $software
+dot i3blocks
 dot fonts
 dot xinit
 #echo_in blue "rebuilding font cache"
