@@ -1,24 +1,41 @@
-[click]
-full_text=Click me!
-command=echo "Got clicked with button $button"
-color=#F79494
+# little separator hack, otherwise monitor "symbol" merges with whatever is to the right
+full_text= 
+align=center
+color=#22ff22
+separator=false
+separator_block_width=3
 
 # Guess the weather hourly
 [weather]
 command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
 interval=3600
-color=#A4C2F4
 
-# Fetch the public IP address only on startup
-[public-ip]
-command=wget -qO - icanhazip.com
+[volume-pulseaudio]
+command=$SCRIPT_DIR/volume-pulseaudio/volume-pulseaudio
 interval=once
+signal=1
 
-# Update time every 5 seconds
-[time]
-command=date +%T
-interval=5
+[monitors]
+command=$SCRIPT_DIR/monitor_manager/monitor_manager
+interval=once
+#SHOW_ON_OFF=1
+#SHOW_NAMES=1
+#SHOW_PRIMARY=1
+#SHOW_MODE=1
+#SHOW_BLANKED=1
+#SHOW_DUPLICATE=1
+#SHOW_ROTATION=1
+#SHOW_REFLECTION=1
+#SHOW_BRIGHTNESS=1
+#SHOW_BRIGHTNESS_VALUE=0
+#SHOW_UP_DOWN=1
+#FONT_FAMILY=DejaVu Sans Mono
+#FONT_SIZE=11
+#CLOSE_TO_BOUNDARY_BUFFER=20
 
-[battery]
-command=battery.sh
-interval=10
+[separator]
+
+[memory]
+command=$SCRIPT_DIR/memory/memory
+label=MEM
+interval=30

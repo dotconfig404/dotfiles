@@ -385,10 +385,11 @@ dot $software
 
 # i3
 software=i3
-packages[$software,arch]="i3-wm i3lock jgmenu nitrogen xcape i3blocks network-manager-applet dmenu xorg-xinit autorandr"
+# python3-tk, xrandr, arandr, python3 for monitor manager script, fontsawesome as well + other scripts
+packages[$software,arch]="i3-wm i3lock jgmenu nitrogen xcape i3blocks network-manager-applet dmenu xorg-xinit autorandr ttf-font-awesome arandr tk python xorg-xrandr"
 # not sure about network manager applet
-packages[$software,debian]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-applet suckless-tools xinit autorandr"
-packages[$software,ubuntu]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-gnome suckless-tools xinit autorandr" #${packages[$software,debian]}
+packages[$software,debian]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-applet suckless-tools xinit autorandr fonts-font-awesome arandr python3-tk python3 x11-xserver-utils"
+packages[$software,ubuntu]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-gnome suckless-tools xinit autorandr fonts-font-awesome arandr python3-tk python3 x11-xserver-utils" 
 install ${packages[$software,$ID]}
 dot $software
 dot i3blocks
