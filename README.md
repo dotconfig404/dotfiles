@@ -23,3 +23,4 @@ interactive wm switcher, or maybe not
 use different terminal emulator instead of konsole?
 make ssh config and add ssh to huifu
 add git config
+possibly make specific arch and ubuntu files, but combine them in huifu: calling functions from each file step by step can still ensure synchronicity. downside: not as convienent as all in one file script, upside: huifu is easier to overview and distro specific stuff is easier to manage (far fewer checks, just dew it)
