@@ -1,20 +1,28 @@
 # How to run
 run huifu.sh, that should take care of it
 currently supported: Arch and Ubuntu (Debian should work as well)
+
 # TODO
-lazygit, pavucontrol?, bluemon?, arandr? (wbu wayland & x?) 
-other stuff to consider: scrot xclip dmenu other fonts
-could also do huifu for servers/ ssh machines i.e. a minimal huifu specialized on terminal usage and user specific
-setup:
-arch:
-audio
+lazygit, bluemon?
+
+screenshotting software, maybe spectacle
+
+minimal huifu for servers?
+
+host specific configurations?
+
+audio -> pipewire + pipewire-pulse, alsa as backend. thats it. (check for gui interface like pavucontrol)
+
 instruction on how and when exactly to setup repo, wbu ssh keys? \_private? 
-does mise setup work smoothly now? wbu the mise layer
-other basic software (check history, e.g. dmenu and arandr)
-alternative to konsole or setup konsole properly
-font cache (damn, completely forgot about that!)
-nvim config (and install in arch btw btw)
+
+font cache refresh upon stowing fonts. need a way to check if fonts have been changed
+
 .profile -> .bash\_profile
-interactive wm switcher, or maybe not
-use different terminal emulator instead of konsole?
+
+wm switcher or desktop manager? nah, wms should live side by side and user should use display manager for switch wms if wanted
+
 make ssh config and add ssh to huifu
+
+use different terminal emulator instead of konsole? for now konsole, because scrollbar, find function and color preview functions. 
+
+nvim config (maybe some day...)
