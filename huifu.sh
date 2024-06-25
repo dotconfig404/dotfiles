@@ -282,21 +282,17 @@ packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]}
 # need to write ~/.config/konsolerc using kwriteconfig5, not suitable for version controlling
 # as it changes contents frequently (although not so bad if we wanna do it anyways)
-kwriteconfig5 --file konsolerc --group "Desktop Entry" --key "DefaultProfile" "dotconfig.profile"
-kwriteconfig5 --file konsolerc --group "MainWindow" --group "Toolbar sessionToolbar" --key "IconSize" "16"
-kwriteconfig5 --file konsolerc --group "Toolbar sessionToolbar" --key "IconSize" "16"
-kwriteconfig5 --file konsolerc --group "UiSettings" --key "ColorScheme" "Breeze Dark"
-kwriteconfig5 --file konsolerc --group "UiSettings" --key "WindowColorScheme" "Breeze Dark"
-kwriteconfig5 --file konsolerc --group "TabBar" --key "CloseTabButton" "None"
-kwriteconfig5 --file konsolerc --group "TabBar" --key "TabBarVisibility" "AlwaysHideTabBar"
-# ok, on arch we're using plasma 6, so need t check that somehow later
-kwriteconfig6 --file konsolerc --group "Desktop Entry" --key "DefaultProfile" "dotconfig.profile"
-kwriteconfig6 --file konsolerc --group "MainWindow" --group "Toolbar sessionToolbar" --key "IconSize" "16"
-kwriteconfig6 --file konsolerc --group "Toolbar sessionToolbar" --key "IconSize" "16"
-kwriteconfig6 --file konsolerc --group "UiSettings" --key "ColorScheme" "Breeze Dark"
-kwriteconfig6 --file konsolerc --group "UiSettings" --key "WindowColorScheme" "Breeze Dark"
-kwriteconfig6 --file konsolerc --group "TabBar" --key "CloseTabButton" "None"
-kwriteconfig6 --file konsolerc --group "TabBar" --key "TabBarVisibility" "AlwaysHideTabBar"
+kconfigcmd=kwriteconfig6
+if ! command -v kwriteconfig6 &> /dev/null;then
+    kconfigcmd=kwriteconfig5
+fi
+$kconfigcmd --file konsolerc --group "Desktop Entry" --key "DefaultProfile" "dotconfig.profile"
+$kconfigcmd --file konsolerc --group "MainWindow" --group "Toolbar sessionToolbar" --key "IconSize" "16"
+$kconfigcmd --file konsolerc --group "Toolbar sessionToolbar" --key "IconSize" "16"
+$kconfigcmd --file konsolerc --group "UiSettings" --key "ColorScheme" "Breeze Dark"
+$kconfigcmd --file konsolerc --group "UiSettings" --key "WindowColorScheme" "Breeze Dark"
+$kconfigcmd --file konsolerc --group "TabBar" --key "CloseTabButton" "None"
+$kconfigcmd --file konsolerc --group "TabBar" --key "TabBarVisibility" "AlwaysHideTabBar"
 # we do not want to symlink the whole konsole dir
 if [ ! -d ~/.local/share/konsole ];then
    mkdir -p ~/.local/share/konsole 
@@ -305,21 +301,21 @@ dot $software
 
 
 # awesomewm (needs lots of testing)
-software=awesome
-packages[$software,arch]="awesome"
-packages[$software,debian]="awesome"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]}
-dot $software
-
-
-# openbox (needs lots of testing)
-software=openbox
-packages[$software,arch]="openbox"
-packages[$software,debian]="openbox"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]}
-dot $software
+#software=awesome
+#packages[$software,arch]="awesome"
+#packages[$software,debian]="awesome"
+#packages[$software,ubuntu]=${packages[$software,debian]}
+#install ${packages[$software,$ID]}
+#dot $software
+#
+#
+## openbox (needs lots of testing)
+#software=openbox
+#packages[$software,arch]="openbox"
+#packages[$software,debian]="openbox"
+#packages[$software,ubuntu]=${packages[$software,debian]}
+#install ${packages[$software,$ID]}
+#dot $software
 
 # gtk
 dot gtk
@@ -385,7 +381,7 @@ dot $software
 
 # i3
 software=i3
-# python3-tk, xrandr, arandr, python3 for monitor manager script, fontsawesome as well + other scripts
+# python3-tk, xrandr, arandr, python3 for monitor manager script (i3blocks), fontsawesome as well and needed by other scripts
 packages[$software,arch]="i3-wm i3lock jgmenu nitrogen xcape i3blocks network-manager-applet dmenu xorg-xinit autorandr ttf-font-awesome arandr tk python xorg-xrandr"
 # not sure about network manager applet
 packages[$software,debian]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-applet suckless-tools xinit autorandr fonts-font-awesome arandr python3-tk python3 x11-xserver-utils"
