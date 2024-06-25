@@ -8,6 +8,8 @@
 #dpkg-reconfigure --frontend=noninteractive locales
 #update-locale LANG=en_US.UTF-8
 
+source ./utils.sh
+
 echo "This file is meant to be run ONCE upon being chrooted in arch. Some information is spit out to do stuff manually, as some stuff is too finnicky to script."
 
 # time and locale
@@ -64,3 +66,32 @@ echo "chown -R $username:$username dotfiles/_private/.ssh/"
 echo "chmod 700 dotfiles/_private/.ssh"
 echo "chmod 644 dotfiles/_private/.ssh/dotconfig404.pub"
 echo "chmod 600 dotfiles/_private/.ssh/dotconfig404"
+
+# yay install
+echo_in yellow "Installing yay. "
+
+# Yay dependencies 
+pacman -Sy --needed git base-devel --noconfirm
+if [ $? -ne 0 ]; then
+    error "Failed to install necessary dependencies for yay. "
+fi
+
+# Clone yay repo
+git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin
+if [ $? -ne 0 ]; then
+    error "Failed to clone yay repository. "
+fi
+
+# Change to the temporary directory and build yay
+pushd /tmp/yay-bin
+if ! makepkg -si --noconfirm; then
+    popd  
+    error "Failed to build and install yay. "
+fi
+popd  
+
+# Clean up the yay build directory
+rm -rf /tmp/yay-bin
+
+echo_in green "yay is installed. "
+
