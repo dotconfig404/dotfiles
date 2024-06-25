@@ -188,15 +188,6 @@ packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]}
 
 ##############
-# git
-##############
-software=git
-packages[$software,arch]="git"
-packages[$software,debian]="git"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]}
-
-##############
 # starship and curl
 ##############
 software=curl
@@ -450,3 +441,13 @@ if [ $ID == "ubuntu" ] || [ $ID == "debian" ];then
 fi
 install ${packages[$software,$ID]} --yay
 priv_stow $software 
+
+##############
+# git
+##############
+software=git
+#packages[$software,arch]="git"
+#packages[$software,debian]="git"
+#packages[$software,ubuntu]=${packages[$software,debian]}
+#install ${packages[$software,$ID]}
+priv_stow $software
