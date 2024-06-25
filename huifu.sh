@@ -1,43 +1,45 @@
 #!/bin/bash
+
+# #############################################################################
 # -----------------------------------------------------------------------------
-# helper functions
+# #############################################################################
+# some checks and basic utilities
 
-# pretty print with colors
-echo_in() {
-    local color="$1"
-    local message="$2"
-    local no_color="\033[0m" 
-    local color_code
+# get those pretty print functions and the like
+source ./utils.sh
 
-    case $color in
-        green)
-            color_code="\033[38;2;0;255;0;48;2;0;0;0m" 
-            ;;
-        red)
-            color_code="\033[38;2;255;30;30;48;2;0;0;0m"  
-            ;;
-        blue)
-            color_code="\033[38;2;0;100;255;48;2;0;0;0m" 
-            ;;
-        yellow)
-            color_code="\033[38;2;255;255;0;48;2;0;0;0m"
-            ;;
-    esac
-
-    echo -e "${color_code}${message}${no_color}"
-}
-
-# error logging function, if argument given will print that as message
-error() {
-    if [ -z "$1" ];then
-        echo_in red "Sth went wrong. " >&2
-    else
-        echo_in red "$1" >&2
-    fi
+# not entirely sure, but i think we need to check for if bash is at least 4.3
+# associative arrays (which we use are available form 4.0 and nameref is 
+# available from 4.3
+if [ "${BASH_VERSINFO[0]}" -lt 4 ] || [ "${BASH_VERSINFO[0]}" -eq 4 -a "${BASH_VERSINFO[1]}" -lt 3 ]; then
+    echo_in red "This script requires Bash version 4.3 or greater. " >&2
     exit 1
-}
+fi
 
-# arch based specific installation
+# Source os-release for using ID and check if distro is supported
+# currently arch, debian and ubuntu, but might add fedora eventually
+source /etc/os-release
+if [ $ID != "arch" ] && [ $ID != "debian" ] && [ $ID != "ubuntu" ]; then
+    error "Unsupported distro. "
+fi
+
+# _private directory exists?
+if [ ! -d "_private" ]; then
+    error "Setup _private first. "
+fi
+#
+
+# .local may not exist, we will need it (lest it gets symlinked)
+if [ ! -d ~/.local ];then
+   mkdir ~/.local
+fi 
+
+# #############################################################################
+# -----------------------------------------------------------------------------
+# #############################################################################
+# installer functions
+
+# arch based installer function
 arch_install() {
 
     # check if already installed
@@ -58,7 +60,7 @@ arch_install() {
     echo_in green "Is installed:$1"
 }
 
-# debian based specific installation
+# debian based installer function
 debian_install() {
 
     # check if already installed
@@ -131,62 +133,10 @@ install() {
     esac
 }
 
-# yay installer function
-install_yay() {
-    echo_in yellow "Installing yay. "
-
-    # Yay dependencies 
-    sudo pacman -Sy --needed git base-devel --noconfirm
-    if [ $? -ne 0 ]; then
-        error "Failed to install necessary dependencies for yay. "
-    fi
-
-    # Clone yay repo
-    git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin
-    if [ $? -ne 0 ]; then
-        error "Failed to clone yay repository. "
-    fi
-
-    # Change to the temporary directory and build yay
-    pushd /tmp/yay-bin
-    if ! makepkg -si --noconfirm; then
-        popd  
-        error "Failed to build and install yay. "
-    fi
-    popd  
-
-    # Clean up the yay build directory
-    rm -rf /tmp/yay-bin
-
-    echo_in green "yay is installed. "
-}
-
-## nvim installer function
-## somehow the print messages are not printed in order
-## almost as if this whole function is async
-#install_nvim() {
-#    echo_in yellow "Installing nvim. "
-#
-#    # Clone nvim repo
-#    git clone https://github.com/neovim/neovim /tmp/nvim
-#    if [ $? -ne 0 ]; then
-#        error "Failed to clone nvim repository. "
-#    fi
-#
-#    # Change to the temporary directory and build yay
-#    pushd /tmp/nvim
-#    make CMAKE_BUILD_TYPE=Release
-#    if ! sudo make install; then
-#        popd  
-#        error "Failed to build and install nvim. "
-#    fi
-#    popd  
-#
-#    # Clean up the yay build directory
-#    rm -rf /tmp/nvim
-#
-#    echo_in green "nvim is installed. "
-#}
+# #############################################################################
+# -----------------------------------------------------------------------------
+# #############################################################################
+# stowing functions
 
 # stowing for versioned packages
 dot() {
@@ -218,70 +168,36 @@ priv_stow() {
     echo_in green "Is stowed: $1"
 }
 
+# #############################################################################
 # -----------------------------------------------------------------------------
-# script setup, some checks and distro specific setup
-
-# not entirely sure, but i think we need to check for if bash is at least 4.3
-# associative arrays (which we use are available form 4.0 and nameref is 
-# available from 4.3
-if [ "${BASH_VERSINFO[0]}" -lt 4 ] || [ "${BASH_VERSINFO[0]}" -eq 4 -a "${BASH_VERSINFO[1]}" -lt 3 ]; then
-    echo_in red "This script requires Bash version 4.3 or greater. " >&2
-    exit 1
-fi
-
-# Source os-release for using ID and check if distro is supported
-# currently arch, debian and ubuntu, but might add fedora eventually
-source /etc/os-release
-if [ $ID != "arch" ] && [ $ID != "debian" ] && [ $ID != "ubuntu" ]; then
-    error "Unsupported distro. "
-fi
-
-# _private directory exists?
-if [ ! -d "_private" ]; then
-    error "Setup _private first. "
-fi
+# #############################################################################
+# generic software installation 
 
 # Declare packages array
 # contains package list depending on software name and distro ID
 declare -A packages
 
-# Distro specific preparations
-echo_in yellow "Doing distro specific preparations. "
-case $ID in 
-    "arch")
-        if ! command -v yay &> /dev/null; then
-            install_yay
-        fi
-    ;;
-    *)
-        echo_in green "No preparations to be done. "
-    ;;
-esac
-
-# We need stow to manage our symlinks
+##############
+# stow
+##############
 software=stow
 packages[$software,arch]="stow"
 packages[$software,debian]="stow"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]}
 
-# git is also necessary for yay
+##############
+# git
+##############
 software=git
 packages[$software,arch]="git"
 packages[$software,debian]="git"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]}
 
-# .local may not exist, we will need it here:
-if [ ! -d ~/.local ];then
-   mkdir ~/.local
-fi 
-
-# -----------------------------------------------------------------------------
-# -------------------------------------
-# package specific from here on
-
+##############
 # starship and curl
+##############
 software=curl
 packages[$software,arch]="curl"
 packages[$software,debian]="curl"
@@ -292,16 +208,19 @@ if ! command -v starship &> /dev/null; then
 fi
 dot starship
 
-
+##############
 # profile
+##############
 dot profile
 
-
+##############
 # bash (needs starship)
+##############
 dot bash
 
-
+##############
 # zsh (needs starship)
+##############
 software=zsh
 packages[$software,arch]="zsh"
 packages[$software,debian]="zsh"
@@ -309,10 +228,9 @@ packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]}
 dot $software
 
-
-# vim
-
+##############
 # konsole
+##############
 software=konsole
 packages[$software,arch]="konsole kconfig"
 packages[$software,debian]="konsole libkf5config-bin"
@@ -338,7 +256,9 @@ fi
 dot $software
 
 
-# awesomewm (needs lots of testing)
+###############
+## awesomewm (needs lots of testing)
+###############
 #software=awesome
 #packages[$software,arch]="awesome"
 #packages[$software,debian]="awesome"
@@ -347,7 +267,9 @@ dot $software
 #dot $software
 #
 #
+###############
 ## openbox (needs lots of testing)
+###############
 #software=openbox
 #packages[$software,arch]="openbox"
 #packages[$software,debian]="openbox"
@@ -355,24 +277,32 @@ dot $software
 #install ${packages[$software,$ID]}
 #dot $software
 
+##############
 # gtk
+##############
 dot gtk
 
+##############
 # python dev
+##############
 software=python
 packages[$software,arch]="python"
 packages[$software,debian]="python3 python3-venv"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]}
 
+##############
 # silversearcher
+##############
 software=silversearcher-ag
 packages[$software,arch]="the_silver_searcher"
 packages[$software,debian]="silversearcher-ag"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]}
 
+##############
 # mise, node
+##############
 if ! command -v mise &> /dev/null; then
     curl https://mise.run | sh
     echo 'export PATH="$HOME/.local/share/mise/shims:$PATH"' > ~/.zprofile.d/mise.zsh
@@ -390,7 +320,9 @@ if ! command -v mise &> /dev/null; then
 
 fi
 
+##############
 # vim, for ubuntu and debian we'll use a ppa to get the latest...
+##############
 software=vim
 packages[$software,arch]="vim"
 packages[$software,debian]="vim"
@@ -401,8 +333,9 @@ vim -c 'PlugInstall' -c 'qa!'
 vim -c 'CocInstall coc-pyright' -c 'qa!'
 echo_in red "check if cocinstall really worked"
 
-
+##############
 # tmux
+##############
 software=tmux
 packages[$software,arch]="tmux"
 packages[$software,debian]="tmux"
@@ -410,8 +343,9 @@ packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]}
 dot $software
 
-
+##############
 # i3
+##############
 software=i3
 # python3-tk, xrandr, arandr, python3 for monitor manager script (i3blocks), fontsawesome as well and needed by other scripts
 packages[$software,arch]="i3-wm i3lock jgmenu nitrogen xcape i3blocks network-manager-applet dmenu xorg-xinit autorandr ttf-font-awesome arandr tk python xorg-xrandr"
@@ -429,7 +363,9 @@ dot autorandr
 #echo_in green "font cache rebuilt"
 
 
+##############
 # emacs (needs testing)
+##############
 software=emacs
 packages[$software,arch]="emacs"
 packages[$software,debian]="emacs"
@@ -438,20 +374,28 @@ install ${packages[$software,$ID]}
 dot $software
 
 
+##############
 # gtk
+##############
 dot gtk
 
+##############
 # neovim
+##############
 software=neovim
 packages[$software,arch]="neovim"
 packages[$software,debian]="neovim"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]} --debian_ppas=ppa:neovim-ppa/unstable --ubuntu_ppas=ppa:neovim-ppa/unstable
 
-# -------------------------------------
+# #############################################################################
+# -----------------------------------------------------------------------------
+# #############################################################################
 # _private packages
 
+##############
 # firefox
+##############
 software=firefox
 packages[$software,arch]="firefox"
 packages[$software,debian]="firefox"
@@ -460,7 +404,9 @@ install ${packages[$software,$ID]}
 priv_stow $software 
 
 
+##############
 # thunderbird
+##############
 software=thunderbird
 packages[$software,arch]="thunderbird"
 packages[$software,debian]="thunderbird"
@@ -469,7 +415,9 @@ install ${packages[$software,$ID]}
 priv_stow $software 
 
 
+##############
 # chromium
+##############
 software=chromium
 packages[$software,arch]="chromium"
 packages[$software,debian]="chromium"
@@ -480,7 +428,9 @@ install ${packages[$software,$ID]}
 priv_stow $software 
 
 
+##############
 # brave
+##############
 software=brave
 packages[$software,arch]="brave-bin"
 packages[$software,debian]="brave-browser"
