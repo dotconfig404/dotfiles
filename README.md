@@ -9,11 +9,9 @@ setup:
 arch:
 audio
 instruction on how and when exactly to setup repo, wbu ssh keys? \_private? 
-file manager
 does mise setup work smoothly now? wbu the mise layer
 other basic software (check history, e.g. dmenu and arandr)
 alternative to konsole or setup konsole properly
-"stragglers" in huifu
 font cache (damn, completely forgot about that!)
 nvim config (and install in arch btw btw)
 .profile -> .bash\_profile

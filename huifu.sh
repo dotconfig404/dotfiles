@@ -144,6 +144,7 @@ dot() {
     if stow $1; then
         echo_in green "Is stowed: $1"
     else
+        # the git hack: replaces files from repo by forcing the symlink and then restore the files from repo
         echo_in red "Can't stow, do you want to try the super git hack? Remember to git commit your dotfiles. y/N" >&2
         read -p " " response
         case "$response" in 
@@ -255,7 +256,6 @@ if [ ! -d ~/.local/share/konsole ];then
 fi 
 dot $software
 
-
 ###############
 ## awesomewm (needs lots of testing)
 ###############
@@ -265,7 +265,6 @@ dot $software
 #packages[$software,ubuntu]=${packages[$software,debian]}
 #install ${packages[$software,$ID]}
 #dot $software
-#
 #
 ###############
 ## openbox (needs lots of testing)
@@ -362,7 +361,6 @@ dot autorandr
 #fc-cache -f
 #echo_in green "font cache rebuilt"
 
-
 ##############
 # emacs (needs testing)
 ##############
@@ -372,7 +370,6 @@ packages[$software,debian]="emacs"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]}
 dot $software
-
 
 ##############
 # gtk
@@ -387,6 +384,18 @@ packages[$software,arch]="neovim"
 packages[$software,debian]="neovim"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]} --debian_ppas=ppa:neovim-ppa/unstable --ubuntu_ppas=ppa:neovim-ppa/unstable
+
+##############
+# dolphin
+##############
+# briefly considered making custom config, but this is terrible with kdes configs. 
+# konsole was bad enough. at some point i gotta decide what to just leave 
+# as it is. it is not worth it trying to dotify all software. 
+software=dolphin
+packages[$software,arch]="dolphin"
+packages[$software,debian]="dolphin"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]} 
 
 # #############################################################################
 # -----------------------------------------------------------------------------
@@ -403,7 +412,6 @@ packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]}
 priv_stow $software 
 
-
 ##############
 # thunderbird
 ##############
@@ -413,7 +421,6 @@ packages[$software,debian]="thunderbird"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]}
 priv_stow $software 
-
 
 ##############
 # chromium
@@ -426,7 +433,6 @@ packages[$software,debian]="chromium"
 packages[$software,ubuntu]="chromium-browser"
 install ${packages[$software,$ID]}
 priv_stow $software 
-
 
 ##############
 # brave
