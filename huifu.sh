@@ -19,6 +19,9 @@ echo_in() {
         blue)
             color_code="\033[38;2;0;100;255;48;2;0;0;0m" 
             ;;
+        yellow)
+            color_code="\033[38;2;255;255;0;48;2;0;0;0m"
+            ;;
     esac
 
     echo -e "${color_code}${message}${no_color}"
@@ -36,9 +39,13 @@ error() {
 
 # arch based specific installation
 arch_install() {
-    echo_in blue "Installing:$1"
+
+    # check if already installed
     if ! pacman -Q $1 &> /dev/null; then
-        if [ $2 == "yay" ];then
+
+        # we might want to use yay for some AUR packages
+        echo_in yellow "Installing:$1"
+        if yay_flag;then
             if ! yay -S --noconfirm $1; then
                 error "Couldnt install $1 using yay. "
             fi
@@ -53,8 +60,32 @@ arch_install() {
 
 # debian based specific installation
 debian_install() {
-    echo_in blue "Installing:$1"
+
+    # check if already installed
     if ! dpkg -s $1 &> /dev/null; then
+
+        # get all ppas if there are any and add them
+        if [ $2 != "" ];then
+            IFS=',' read -ra ppa_array <<< "$2"
+            for ppa in "${ppa_array[@]}"; do
+                
+                # check if ppa already added
+                if grep -q "^deb .*${ppa#ppa:}" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
+                    continue
+                fi
+                
+                # if not added, add it now
+                echo_in yellow "Adding PPA: $ppa"
+                if ! sudo add-apt-repository -y "$ppa"; then
+                    error "Couldn't add PPA: $ppa"
+                fi
+                sudo apt update
+                echo_in green "PPA is added: $ppa"
+            done
+        fi
+
+        # attempt installation
+        echo_in yellow "Installing:$1"
         if ! sudo apt install -y $1; then
             error "Couldnt install $1 using apt. "
         fi
@@ -64,13 +95,21 @@ debian_install() {
 
 # generic installer function, can add --yay to order yay usage on arch
 install() {
-    # check flags and get package list
+    # parse all arguments into flags and package list
     local package_list
-    local use_yay=1
+    local yay=1
+    local ubuntu_ppas=""
+    local debian_ppas=""
     for arg in "$@"; do
         case $arg in
             --yay)
-                use_yay=0
+                yay=0
+                ;;
+            --ubuntu_ppas=*)
+                ubuntu_ppas=${arg#--ubuntu_ppas=}
+                ;;
+            --debian_ppas=*)
+                debian_ppas=${arg#--debian_ppas=}
                 ;;
             *)
                 package_list="$package_list $arg"
@@ -81,21 +120,20 @@ install() {
     # depending on distro and flags use specific installer functions
     case $ID in
         "arch")
-            if [ $use_yay ]; then
-                arch_install "$package_list" "yay"
-            else
-                arch_install "$package_list"
-            fi
+            arch_install "$package_list" $yay
         ;;
-        "debian"|"ubuntu")
-            debian_install "$package_list"
+        "debian")
+            debian_install "$package_list" $debian_ppas 
+        ;;
+        "ubuntu")
+            debian_install "$package_list" $ubuntu_ppas 
         ;;
     esac
 }
 
 # yay installer function
 install_yay() {
-    echo_in blue "Installing yay. "
+    echo_in yellow "Installing yay. "
 
     # Yay dependencies 
     sudo pacman -Sy --needed git base-devel --noconfirm
@@ -123,38 +161,38 @@ install_yay() {
     echo_in green "yay is installed. "
 }
 
-# nvim installer function
-# somehow the print messages are not printed in order
-# almost as if this whole function is async
-install_nvim() {
-    echo_in blue "Installing nvim. "
-
-    # Clone nvim repo
-    git clone https://github.com/neovim/neovim /tmp/nvim
-    if [ $? -ne 0 ]; then
-        error "Failed to clone nvim repository. "
-    fi
-
-    # Change to the temporary directory and build yay
-    pushd /tmp/nvim
-    make CMAKE_BUILD_TYPE=Release
-    if ! sudo make install; then
-        popd  
-        error "Failed to build and install nvim. "
-    fi
-    popd  
-
-    # Clean up the yay build directory
-    rm -rf /tmp/nvim
-
-    echo_in green "nvim is installed. "
-}
+## nvim installer function
+## somehow the print messages are not printed in order
+## almost as if this whole function is async
+#install_nvim() {
+#    echo_in yellow "Installing nvim. "
+#
+#    # Clone nvim repo
+#    git clone https://github.com/neovim/neovim /tmp/nvim
+#    if [ $? -ne 0 ]; then
+#        error "Failed to clone nvim repository. "
+#    fi
+#
+#    # Change to the temporary directory and build yay
+#    pushd /tmp/nvim
+#    make CMAKE_BUILD_TYPE=Release
+#    if ! sudo make install; then
+#        popd  
+#        error "Failed to build and install nvim. "
+#    fi
+#    popd  
+#
+#    # Clean up the yay build directory
+#    rm -rf /tmp/nvim
+#
+#    echo_in green "nvim is installed. "
+#}
 
 # stowing for versioned packages
 dot() {
     echo_in blue  "Stowing $1"
     if stow $1; then
-        echo_in green "$1 is stowed. "
+        echo_in green "Is stowed: $1"
     else
         echo_in red "Can't stow, do you want to try the super git hack? Remember to git commit your dotfiles. y/N" >&2
         read -p " " response
@@ -177,7 +215,7 @@ priv_stow() {
     if ! stow -d _private -t ~ $1; then
         error "Cant stow $1, need manual intervention"
     fi
-    echo_in green "$1 is stowed. "
+    echo_in green "Is stowed: $1"
 }
 
 # -----------------------------------------------------------------------------
@@ -208,7 +246,7 @@ fi
 declare -A packages
 
 # Distro specific preparations
-echo_in blue "Doing distro specific preparations. "
+echo_in yellow "Doing distro specific preparations. "
 case $ID in 
     "arch")
         if ! command -v yay &> /dev/null; then
@@ -353,17 +391,11 @@ if ! command -v mise &> /dev/null; then
 fi
 
 # vim, for ubuntu and debian we'll use a ppa to get the latest...
-if [ $ID == "ubuntu" ] || [ $ID == "debian" ];then
-    if ! command -v vim > /dev/null; then
-        sudo add-apt-repository ppa:jonathonf/vim
-        sudo apt update
-    fi
-fi
 software=vim
 packages[$software,arch]="vim"
 packages[$software,debian]="vim"
 packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]}
+install ${packages[$software,$ID]} --debian_ppas=ppa:jonathonf/vim --ubuntu_ppas=ppa:jonathonf/vim
 dot $software
 vim -c 'PlugInstall' -c 'qa!'
 vim -c 'CocInstall coc-pyright' -c 'qa!'
@@ -392,7 +424,7 @@ dot i3blocks
 dot fonts
 dot xinit
 dot autorandr
-#echo_in blue "rebuilding font cache"
+#echo_in yellow "rebuilding font cache"
 #fc-cache -f
 #echo_in green "font cache rebuilt"
 
@@ -409,19 +441,12 @@ dot $software
 # gtk
 dot gtk
 
-# nvim from source for ubuntu, as they have very wow out of date version
-# we need to revise this
-if ! command -v nvim &> /dev/null; then
-    case $ID in
-        "arch")
-            sudo pacman -S neovim
-            ;;
-        *)
-            sudo apt-get install ninja-build gettext cmake unzip curl build-essential
-            install_nvim
-            ;;
-    esac
-fi
+# neovim
+software=neovim
+packages[$software,arch]="neovim"
+packages[$software,debian]="neovim"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]} --debian_ppas=ppa:neovim-ppa/unstable --ubuntu_ppas=ppa:neovim-ppa/unstable
 
 # -------------------------------------
 # _private packages
