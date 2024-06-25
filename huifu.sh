@@ -81,7 +81,7 @@ debian_install() {
                 if ! sudo add-apt-repository -y "$ppa"; then
                     error "Couldn't add PPA: $ppa"
                 fi
-                sudo apt update
+                sudo apt update -y
                 echo_in green "PPA is added: $ppa"
             done
         fi
