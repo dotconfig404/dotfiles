@@ -203,7 +203,7 @@ dot starship
 ##############
 # profile
 ##############
-dot profile
+#dot profile
 
 ##############
 # bash (needs starship)
