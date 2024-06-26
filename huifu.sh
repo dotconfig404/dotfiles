@@ -307,7 +307,6 @@ if ! command -v mise &> /dev/null; then
     #    echo_in red "Could not activate mise, wrong shell?"
     #fi
     mise use --global node
-
 fi
 
 ##############

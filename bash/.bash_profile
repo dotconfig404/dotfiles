@@ -18,9 +18,8 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
-if [ -d $HOME/.bash_profile.d ]
 
-then
+if [ -d $HOME/.bash_profile.d ];then
     for f in $HOME/.bash_profile.d/*.sh; do
        source $f
     done
