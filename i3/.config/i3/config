@@ -185,7 +185,7 @@ exec nitrogen --restore
 # wallpaper
 
 exec --no-startup-id "setxkbmap eu"
-exec --no-startup-id "xcape -e 'Alt_R=Escape' &"
+exec --no-startup-id "xcape -e 'ISO_Level3_Shift=Escape' &"
 exec --no-startup-id "nm-applet"
 
 bindsym $mod+Escape exec "i3lock -c 000000"
