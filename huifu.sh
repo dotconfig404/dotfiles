@@ -451,3 +451,13 @@ software=git
 #packages[$software,ubuntu]=${packages[$software,debian]}
 #install ${packages[$software,$ID]}
 priv_stow $software
+
+##############
+# git
+##############
+software=ssh
+packages[$software,arch]="openssh"
+packages[$software,debian]="openssh-client openssh-server"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]}
+priv_stow $software

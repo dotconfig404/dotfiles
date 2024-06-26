@@ -17,11 +17,7 @@ instructions on how and when exactly to setup repo, wbu ssh keys? \_private?
 
 font cache refresh upon stowing fonts. need a way to check if fonts have been changed
 
-.profile -> .bash\_profile
-
 display manager setup for convienent wm/de switching
-
-make ssh config and add ssh to huifu
 
 use different terminal emulator instead of konsole? for now konsole, because scrollbar, find function and color preview functions. 
 
