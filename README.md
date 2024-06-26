@@ -1,7 +1,3 @@
-# How to run
-run huifu.sh, that should take care of it
-currently supported: Arch and Ubuntu (Debian should work as well)
-
 # TODO
 lazygit, bluemon?
 

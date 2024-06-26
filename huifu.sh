@@ -453,7 +453,7 @@ software=git
 priv_stow $software
 
 ##############
-# git
+# ssh
 ##############
 software=ssh
 packages[$software,arch]="openssh"
