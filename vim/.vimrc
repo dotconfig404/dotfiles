@@ -304,7 +304,7 @@ endfunc
 ""########################################################
 
 call plug#begin()
-" start of vundle plugin manager
+" start of vim-plug plugin manager
 
 " latex in vim, quite good
 Plug 'lervag/vimtex'
@@ -426,7 +426,17 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'Exafunction/codeium.vim'
 " copilot alternative 
 
+"Plug 'https://git.netizen.se/vim-ipxe'
+Plug 'ssh://anonymous@git.netizen.se/vim-ipxe'
+" ipxe syntax highlighting
+
 call plug#end()
+
+"################################################################################
+"########################## manually installed plugins ##########################
+"################################################################################
+set rtp+=~/.vim/manually_installed_plugins/vim-ipxe
+source ~/.vim/manually_installed_plugins/vim-ipxe/scripts.vim
 
 "#################################################################
 "####################### coc config ##############################

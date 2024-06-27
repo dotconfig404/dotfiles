@@ -1,0 +1,11 @@
+*ipxe.txt*               Plugin providing syntax highlighing of ipxe scripts
+
+                                                          *ft-ipxe-syntax*
+iPXE is an open source network boot firmware, with a scriptable command line
+interface for which language this plugin provides syntax highlighting. As these
+files might either have "txt" or simply no file extension, filetype detection
+relies on their first line being `#!ipxe`.
+
+                                                           *ipxe-settings*
+This plugin doesn't have any settings.
+
