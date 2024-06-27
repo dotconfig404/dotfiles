@@ -30,3 +30,5 @@ keyboard: eu with chinese input, traditional and not. need to research ibus, fci
 syncthing or similar syncing agent for phone and other stuff
 
 monitor config (per host)
+
+move away from using submodules (security hazard)
