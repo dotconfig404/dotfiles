@@ -1,5 +1,5 @@
 ################################################################################
-#################################### AUDIO #####################################
+#################################### audio #####################################
 ################################################################################
 
 # pipewire-audio-client-libraries = pipewire-alsa and pipewire-jack in debian 12 and newer
@@ -13,3 +13,8 @@ systemctl --user daemon-reload
 systemctl --user --now disable pulseaudio.service pulseaudio.socket
 systemctl --user --now enable pipewire pipewire-pulse
 systemctl --user --now enable wireplumber.service
+
+################################################################################
+################################### keyboard ###################################
+################################################################################
+sudo apt install fcitx5 fcitx5-configtool fcitx5-chinese-addons
