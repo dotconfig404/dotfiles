@@ -1,3 +1,0 @@
-[submodule "i3blocks/.config/i3blocks/scripts"]
-	path = i3blocks/.config/i3blocks/scripts
-	url = git@github.com:vivien/i3blocks-contrib.git
