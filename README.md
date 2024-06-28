@@ -7,8 +7,6 @@ minimal huifu for servers?
 
 host specific configurations?
 
-audio -> pipewire + pipewire-pulse, alsa as backend. thats it. (check for gui interface like pavucontrol)
-
 instructions on how and when exactly to setup repo, wbu ssh keys? \_private? 
 
 font cache refresh upon stowing fonts. need a way to check if fonts have been changed
@@ -30,5 +28,3 @@ keyboard: eu with chinese input, traditional and not. need to research ibus, fci
 syncthing or similar syncing agent for phone and other stuff
 
 monitor config (per host)
-
-move away from using submodules (security hazard)
