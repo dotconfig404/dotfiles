@@ -1,8 +1,6 @@
 # TODO
 lazygit, bluemon?
 
-screenshotting software, maybe spectacle
-
 minimal huifu for servers?
 
 host specific configurations?

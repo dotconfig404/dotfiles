@@ -387,6 +387,15 @@ packages[$software,debian]="dolphin"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]} 
 
+##############
+# flameshot
+##############
+software=flameshot
+packages[$software,arch]="flameshot"
+packages[$software,debian]="flameshot"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]} 
+
 # #############################################################################
 # -----------------------------------------------------------------------------
 # #############################################################################
