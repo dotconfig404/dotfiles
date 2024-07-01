@@ -22,3 +22,5 @@ keyboard: eu with chinese input, traditional and not. need to research ibus, fci
 syncthing or similar syncing agent for phone and other stuff
 
 host specific monitor setup using arandr and nitrogen/feh -> goes to i3 config
+
+fn keys on laptops?
