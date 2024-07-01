@@ -396,6 +396,24 @@ packages[$software,debian]="flameshot"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]} 
 
+##############
+# gthumb
+##############
+software=gthumb
+packages[$software,arch]="gthumb"
+packages[$software,debian]="gthumb"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]} 
+
+##############
+# nomacs
+##############
+software=nomacs
+packages[$software,arch]="nomacs"
+packages[$software,debian]="nomacs"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]} 
+
 # #############################################################################
 # -----------------------------------------------------------------------------
 # #############################################################################
