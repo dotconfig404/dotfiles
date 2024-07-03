@@ -24,3 +24,11 @@ syncthing or similar syncing agent for phone and other stuff
 host specific monitor setup using arandr and nitrogen/feh -> goes to i3 config
 
 fn keys on laptops?
+
+darkmode switching and/or red light shift
+
+fancy screensaver
+
+terminal transparency and i3 gaps?
+
+alternative to nm-applet -> freeze on click issue?

@@ -17,4 +17,7 @@ systemctl --user --now enable wireplumber.service
 ################################################################################
 ################################### keyboard ###################################
 ################################################################################
+# IMF = Input Method Framework
+# most commonly used: IBus (mostly used in GTK-based environments) and Fcitx5 (mostly used in Qt-based environments)
+# IME = Input Method Editor
 sudo apt install fcitx5 fcitx5-configtool fcitx5-chinese-addons
