@@ -29,6 +29,6 @@ darkmode switching and/or red light shift
 
 fancy screensaver
 
-terminal transparency and i3 gaps?
+i3 gaps?
 
 alternative to nm-applet -> freeze on click issue?

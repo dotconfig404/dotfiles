@@ -188,6 +188,7 @@ exec --no-startup-id "setxkbmap eu"
 exec --no-startup-id "xcape -e 'Alt_L=Escape' &"
 exec --no-startup-id "xcape -e 'ISO_Level3_Shift=Escape' &"
 exec --no-startup-id "nm-applet"
+exec --no-startup-id "picom"
 
 bindsym $mod+Escape exec "i3lock -c 000000"
 bindsym $mod+Shift+S exec "i3lock -c 000000; systemctl suspend"
