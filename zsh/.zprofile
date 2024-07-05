@@ -1,8 +1,12 @@
-# source all zsh files in zprofile.d
-if [ -d $HOME/.zprofile.d ];then
-    for f in $HOME/.zprofile.d/*.zsh; do
-       source $f
-    done
+# if dir exists and if string returned from ls -A (list without . and ..) is not null, 
+# then source all the output from cat
+if [ -d "$HOME/.zprofile.d" ] && [ ! -z "$(ls -A $HOME/.zprofile.d)" ]; then
+    source <(cat "$HOME/.zprofile.d/*")
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
 fi
 
 # history file location

@@ -1,12 +1,10 @@
 # no need to run this zshrc when running zsh from scripts
 [[ $- != *i* ]] && return
 
-# source all zsh files in .zshrc.d
-if [ -d $HOME/.zshrc.d ]
-then
-    for f in $HOME/.zshrc.d/*.zsh; do
-       source $f
-    done
+# if dir exists and if string returned from ls -A (list without . and ..) is not null, 
+# then source all the output from cat
+if [ -d "$HOME/.zshrc.d" ] && [ ! -z "$(ls -A $HOME/.zshrc.d)" ]; then
+    source <(cat "$HOME/.zshrc.d/*")
 fi
 
 # needs to be at the end
