@@ -1,7 +1,7 @@
 # if dir exists and if string returned from ls -A (list without . and ..) is not null, 
 # then source all the output from cat
 if [ -d "$HOME/.zprofile.d" ] && [ ! -z "$(ls -A $HOME/.zprofile.d)" ]; then
-    source <(cat "$HOME/.zprofile.d/*")
+    source <(cat $HOME/.zprofile.d/*.zsh)
 fi
 
 # set PATH so it includes user's private bin if it exists

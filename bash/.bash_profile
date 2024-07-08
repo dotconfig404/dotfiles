@@ -1,7 +1,7 @@
 # if dir exists and if string returned from ls -A (list without . and ..) is not null, 
 # then source all the output from cat
 if [ -d "$HOME/.bash_profile.d" ] && [ ! -z "$(ls -A $HOME/.bash_profile.d)" ]; then
-    source <(cat "$HOME/.bash_profile.d/*")
+    source <(cat $HOME/.bash_profile.d/*.sh)
 fi
 
 # set PATH so it includes user's private bin if it exists
