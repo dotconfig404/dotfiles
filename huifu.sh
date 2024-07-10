@@ -67,7 +67,8 @@ debian_install() {
     if ! dpkg -s $1 &> /dev/null; then
 
         # get all ppas if there are any and add them
-        if [ $2 != "" ];then
+        # != "" doesnt work
+        if [ -n $2 ];then
             IFS=',' read -ra ppa_array <<< "$2"
             for ppa in "${ppa_array[@]}"; do
                 
@@ -163,7 +164,7 @@ dot() {
 # stowing for _private
 priv_stow() {
     echo_in blue  "Stowing $1"
-    if ! stow -d --ignore=swp _private -t ~ $1; then
+    if ! stow -d  _private -t ~ $1 --ignore=swp; then
         error "Cant stow $1, need manual intervention"
     fi
     echo_in green "Is stowed: $1"
