@@ -416,6 +416,15 @@ packages[$software,debian]="nomacs"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]} 
 
+##############
+# numlockx
+##############
+software=numlockx
+packages[$software,arch]="numlockx"
+packages[$software,debian]="numlockx"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]} 
+
 # #############################################################################
 # -----------------------------------------------------------------------------
 # #############################################################################
