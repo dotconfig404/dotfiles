@@ -4,6 +4,9 @@ case $- in
       *) return;;
 esac
 
+# we have most configuration in bash_profile
+source ~/.bash_profile
+
 
 # if dir exists and if string returned from ls -A (list without . and ..) is not null, 
 # then source all the output from cat
