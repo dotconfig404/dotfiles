@@ -141,7 +141,7 @@ install() {
 # stowing for versioned packages
 dot() {
     echo_in blue  "Stowing $1"
-    if stow $1; then
+    if stow $1 --ignore=swp; then
         echo_in green "Is stowed: $1"
     else
         # the git hack: replaces files from repo by forcing the symlink and then restore the files from repo
@@ -149,7 +149,7 @@ dot() {
         read -p " " response
         case "$response" in 
             [yY])
-                stow --adopt $1
+                stow --adopt $1 --ignore=swp
                 git restore .
                 ;;
             *)
@@ -163,7 +163,7 @@ dot() {
 # stowing for _private
 priv_stow() {
     echo_in blue  "Stowing $1"
-    if ! stow -d _private -t ~ $1; then
+    if ! stow -d --ignore=swp _private -t ~ $1; then
         error "Cant stow $1, need manual intervention"
     fi
     echo_in green "Is stowed: $1"
