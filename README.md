@@ -13,7 +13,7 @@ use different terminal emulator instead of konsole? for now konsole, because scr
 
 nvim config (maybe some day...)
 
-qt theming
+themes and darkmode switching and/or red light shift
 
 anki
 
@@ -25,14 +25,11 @@ host specific monitor setup using arandr and nitrogen/feh -> goes to i3 config
 
 fn keys on laptops?
 
-darkmode switching and/or red light shift
-
 fancy screensaver
 
 i3 gaps?
 
 alternative to nm-applet -> freeze on click issue?
-<<<<<<< HEAD
 
 blur in terminal, maybe other ones with opacity and blur, or maybe set background image for every window individually (no showing of window thats behind)
 
@@ -41,3 +38,5 @@ rmt = rm trash
 find clarity about what to put in profile files instead of rc files
 
 KSSAskPass and other wallet systems need to be examined (pops up during vimrc sourcing)
+
+zsh history based greyed out completion showing
