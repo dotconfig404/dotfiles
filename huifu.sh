@@ -425,7 +425,7 @@ install ${packages[$software,$ID]}
 ##############
 software=numlockx
 packages[$software,arch]="numlockx"
-packages[$software,debian]="numlockx neofetch"
+packages[$software,debian]="numlockx"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]} 
 
