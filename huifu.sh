@@ -25,7 +25,7 @@ fi
 
 # _private directory exists?
 if [ ! -d "_private" ]; then
-    error "Setup _private first. "
+    error "Set up _private first. "
 fi
 #
 
@@ -46,18 +46,18 @@ arch_install() {
     if ! pacman -Q $1 &> /dev/null; then
 
         # we might want to use yay for some AUR packages
-        echo_in yellow "Installing:$1"
+        echo_in yellow "Installing: $1"
         if yay_flag;then
             if ! yay -S --noconfirm $1; then
-                error "Couldnt install $1 using yay. "
+                error "Couldn't install $1 with yay. "
             fi
         else
             if ! sudo pacman -S --noconfirm $1; then
-                error "Couldnt install $1 using pacman. "
+                error "Couldn't install $1 with pacman. "
             fi
         fi
     fi
-    echo_in green "Is installed:$1"
+    echo_in green "Is installed: $1 "
 }
 
 # debian based installer function
@@ -80,20 +80,20 @@ debian_install() {
                 # if not added, add it now
                 echo_in yellow "Adding PPA: $ppa"
                 if ! sudo add-apt-repository -y "$ppa"; then
-                    error "Couldn't add PPA: $ppa"
+                    error "Couldn't add PPA: $ppa "
                 fi
                 sudo apt update -y
-                echo_in green "PPA is added: $ppa"
+                echo_in green "PPA is added: $ppa "
             done
         fi
 
         # attempt installation
-        echo_in yellow "Installing:$1"
+        echo_in yellow "Installing: $1 "
         if ! sudo apt install -y $1; then
-            error "Couldnt install $1 using apt. "
+            error "Couldn't install $1 with apt. "
         fi
     fi
-    echo_in green "Is installed:$1"
+    echo_in green "Is installed: $1"
 }
 
 # generic installer function, can add --yay to order yay usage on arch
@@ -119,6 +119,9 @@ install() {
                 ;;
         esac
     done
+    
+    # get rid of leading space :)
+    package_list=${package_list:1}
 
     # depending on distro and flags use specific installer functions
     case $ID in
@@ -141,12 +144,12 @@ install() {
 
 # stowing for versioned packages
 dot() {
-    echo_in blue  "Stowing $1"
+    echo_in blue  "Stowing $1 "
     if stow $1 --ignore=swp; then
-        echo_in green "Is stowed: $1"
+        echo_in green "Is stowed: $1 "
     else
         # the git hack: replaces files from repo by forcing the symlink and then restore the files from repo
-        echo_in red "Can't stow, do you want to try the super git hack? Remember to git commit your dotfiles. y/N" >&2
+        echo_in red "Can't stow, do you want to try the super git hack? Remember to git commit your dotfiles. y/N " >&2
         read -p " " response
         case "$response" in 
             [yY])
@@ -154,7 +157,7 @@ dot() {
                 git restore .
                 ;;
             *)
-                error "Aborting as requested. "
+                error "Aborting, as requested. "
                 ;;
         esac
         echo_in green "Should be good now. "
@@ -163,11 +166,11 @@ dot() {
 
 # stowing for _private
 priv_stow() {
-    echo_in blue  "Stowing $1"
+    echo_in blue  "Stowing $1 "
     if ! stow -d  _private -t ~ $1 --ignore=swp; then
-        error "Cant stow $1, need manual intervention"
+        error "Can't stow $1, need manual intervention "
     fi
-    echo_in green "Is stowed: $1"
+    echo_in green "Is stowed: $1 "
 }
 
 # #############################################################################
@@ -422,7 +425,7 @@ install ${packages[$software,$ID]}
 ##############
 software=numlockx
 packages[$software,arch]="numlockx"
-packages[$software,debian]="numlockx"
+packages[$software,debian]="numlockx neofetch"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]} 
 
