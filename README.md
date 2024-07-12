@@ -13,7 +13,7 @@ use different terminal emulator instead of konsole? for now konsole, because scr
 
 nvim config (maybe some day...)
 
-themes and darkmode switching and/or red light shift
+themes and darkmode switching and/or red light shift (add gtk, qt, other related files to WM section.)
 
 anki
 
