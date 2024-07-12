@@ -46,7 +46,7 @@ arch_install() {
     if ! pacman -Q $1 &> /dev/null; then
 
         # we might want to use yay for some AUR packages
-        echo_in yellow "Installing: $1"
+        echo_in yellow "Installing: $1 "
         if yay_flag;then
             if ! yay -S --noconfirm $1; then
                 error "Couldn't install $1 with yay. "
@@ -78,7 +78,7 @@ debian_install() {
                 fi
                 
                 # if not added, add it now
-                echo_in yellow "Adding PPA: $ppa"
+                echo_in yellow "Adding PPA: $ppa "
                 if ! sudo add-apt-repository -y "$ppa"; then
                     error "Couldn't add PPA: $ppa "
                 fi
@@ -93,7 +93,7 @@ debian_install() {
             error "Couldn't install $1 with apt. "
         fi
     fi
-    echo_in green "Is installed: $1"
+    echo_in green "Is installed: $1 "
 }
 
 # generic installer function, can add --yay to order yay usage on arch
