@@ -424,6 +424,20 @@ packages[$software,debian]="numlockx"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]} 
 
+##############
+# fcitx5
+##############
+# also added environment variables to zprofile
+# more or less followed this: https://medium.com/@brightoning/cozy-ubuntu-24-04-install-fcitx5-for-chinese-input-f4278b14cf6f
+echo "run_im fcitx5" > ~/.xinputrc
+software=fcitx5
+# this is prolly wrong
+packages[$software,arch]="fcitx5 fcitx5-chinese-addons fonts-noto-cjk fonts-noto-cjk-extra im-config"
+packages[$software,debian]="fcitx5 fcitx5-chinese-addons fonts-noto-cjk fonts-noto-cjk-extra im-config"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]} 
+# also need to go into fcitx5-configtool, start fcitx5 and add pinyin to current input method
+
 # #############################################################################
 # -----------------------------------------------------------------------------
 # #############################################################################
