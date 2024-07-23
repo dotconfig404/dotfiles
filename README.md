@@ -17,8 +17,6 @@ themes and darkmode switching and/or red light shift (add gtk, qt, other related
 
 anki
 
-keyboard: eu with chinese input, traditional and not. need to research ibus, fcitx5 
-
 syncthing or similar syncing agent for phone and other stuff
 
 host specific monitor setup using arandr and nitrogen/feh -> goes to i3 config
@@ -40,3 +38,7 @@ find clarity about what to put in profile files instead of rc files
 KSSAskPass and other wallet systems need to be examined (pops up during vimrc sourcing)
 
 zsh history based greyed out completion showing
+
+traditional hanzi still need to be setup in fcitx5
+
+auto monitor disconnect at work
