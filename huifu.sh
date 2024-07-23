@@ -437,7 +437,7 @@ packages[$software,arch]="fcitx5 fcitx5-chinese-addons fonts-noto-cjk fonts-noto
 packages[$software,debian]="fcitx5 fcitx5-chinese-addons fonts-noto-cjk fonts-noto-cjk-extra im-config"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]} 
-# also need to go into fcitx5-configtool, start fcitx5 and add pinyin to current input method
+dot $software
 
 # #############################################################################
 # -----------------------------------------------------------------------------
