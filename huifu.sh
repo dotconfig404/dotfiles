@@ -427,6 +427,7 @@ install ${packages[$software,$ID]}
 ##############
 # fcitx5
 ##############
+# keyboard setup (under X so far): eurkey and pinyin
 # also added environment variables to zprofile
 # more or less followed this: https://medium.com/@brightoning/cozy-ubuntu-24-04-install-fcitx5-for-chinese-input-f4278b14cf6f
 echo "run_im fcitx5" > ~/.xinputrc
