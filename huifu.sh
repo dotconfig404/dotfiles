@@ -47,7 +47,7 @@ arch_install() {
 
         # we might want to use yay for some AUR packages
         echo_in yellow "Installing: $1 "
-        if yay_flag;then
+        if [[ $2 == 0 ]];then
             if ! yay -S --noconfirm $1; then
                 error "Couldn't install $1 with yay. "
             fi
@@ -409,11 +409,11 @@ install ${packages[$software,$ID]}
 ##############
 # nomacs
 ##############
-software=nomacs
-packages[$software,arch]="nomacs"
-packages[$software,debian]="nomacs"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]} 
+#software=nomacs
+#packages[$software,arch]="nomacs"
+#packages[$software,debian]="nomacs"
+#packages[$software,ubuntu]=${packages[$software,debian]}
+#install ${packages[$software,$ID]}
 
 ##############
 # numlockx
