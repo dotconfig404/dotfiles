@@ -433,7 +433,7 @@ install ${packages[$software,$ID]}
 echo "run_im fcitx5" > ~/.xinputrc
 software=fcitx5
 # this is prolly wrong
-packages[$software,arch]="fcitx5 fcitx5-chinese-addons fonts-noto-cjk fonts-noto-cjk-extra im-config"
+packages[$software,arch]="fcitx5 fcitx5-chinese-addons noto-fonts-cjk"
 packages[$software,debian]="fcitx5 fcitx5-chinese-addons fonts-noto-cjk fonts-noto-cjk-extra im-config"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]} 
