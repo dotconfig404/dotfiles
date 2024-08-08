@@ -439,6 +439,13 @@ packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]} 
 dot $software
 
+##############
+# kde
+##############
+# for lack of a better place to put this, ill add some random config files of kde here
+software=kde
+dot $software
+
 # #############################################################################
 # -----------------------------------------------------------------------------
 # #############################################################################
