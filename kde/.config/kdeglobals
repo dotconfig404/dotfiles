@@ -1,9 +1,14 @@
+[$Version]
+update_info=filepicker.upd:filepicker-remove-old-previews-entry,fonts_global.upd:Fonts_Global,fonts_global_toolbar.upd:Fonts_Global_Toolbar,icons_remove_effects.upd:IconsRemoveEffects,kwin.upd:animation-speed,style_widgetstyle_default_breeze.upd:StyleWidgetStyleDefaultBreeze
+
 [ColorEffects:Disabled]
+ChangeSelectionColor=
 Color=56,56,56
 ColorAmount=0
 ColorEffect=0
 ContrastAmount=0.65
 ContrastEffect=1
+Enable=
 IntensityAmount=0.1
 IntensityEffect=2
 
@@ -131,23 +136,8 @@ ForegroundPositive=39,174,96
 ForegroundVisited=155,89,182
 
 [General]
-ColorScheme=BreezeLight
-Name=Breeze Light
-shadeSortColumn=true
-widgetStyle=Breeze
+ColorSchemeHash=0d37ac7d257c7643ff5540889d5368b99875ad6b
 BrowserApplication[$e]=!firefox
-
-[Icons]
-Theme=breeze
-
-[KDE]
-ShowIconsInMenuItems=true
-ShowIconsOnPushButtons=true
-contrast=4
-
-[Toolbar style]
-ToolButtonStyle=TextBesideIcon
-ToolButtonStyleOtherToolbars=TextBesideIcon
 
 [WM]
 activeBackground=227,229,231
