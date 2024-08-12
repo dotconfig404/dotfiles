@@ -44,3 +44,5 @@ traditional hanzi still need to be setup in fcitx5
 auto monitor disconnect at work
 
 spotify lag -> gets better when disabling notifications, need to look into it
+
+https://www.reddit.com/r/linux/comments/1em8biv/psa_pipewire_has_been_halving_your_battery_life/
