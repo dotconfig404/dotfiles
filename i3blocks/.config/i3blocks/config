@@ -33,6 +33,13 @@ interval=once
 #FONT_SIZE=11
 #CLOSE_TO_BOUNDARY_BUFFER=20
 
+[battery]
+label=BAT
+command=acpi
+label=⚡
+instance=0
+interval=30 
+
 [separator]
 
 [memory]
