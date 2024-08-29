@@ -446,6 +446,32 @@ dot $software
 software=kde
 dot $software
 
+##############
+# nix
+##############
+# THIS NEEDS ADJUSTMENT!!! it will create nixbld users with UIDs in a given range that is taken by my work
+# adjust another day (TM)
+sh <(curl -L https://nixos.org/nix/install) --daemon
+
+##############
+# wget 
+##############
+software=numlockx
+packages[$software,arch]="wget"
+packages[$software,debian]="wget"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]} 
+
+# ANKI
+# wow such hack
+# srsly, this si obv bad, will do with nix 
+wget https://github.com/ankitects/anki/releases/download/24.06.3/anki-24.06.3-linux-qt6.tar.zst
+tar xaf *.tar.zst
+cd anki-24.06.3-linux-qt6
+sudo ./install.sh
+cd ..
+
+
 # #############################################################################
 # -----------------------------------------------------------------------------
 # #############################################################################
