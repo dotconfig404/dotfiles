@@ -427,8 +427,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " copilot alternative 
 
 "Plug 'https://git.netizen.se/vim-ipxe'
-Plug 'ssh://anonymous@git.netizen.se/vim-ipxe'
+"Plug 'ssh://anonymous@git.netizen.se/vim-ipxe'
 " ipxe syntax highlighting
+" is manually installed
 
 call plug#end()
 

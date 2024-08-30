@@ -35,8 +35,6 @@ rmt = rm trash
 
 find clarity about what to put in profile files instead of rc files
 
-KSSAskPass and other wallet systems need to be examined (pops up during vimrc sourcing)
-
 zsh history based greyed out completion showing
 
 traditional hanzi still need to be setup in fcitx5
