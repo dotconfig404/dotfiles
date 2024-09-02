@@ -451,25 +451,39 @@ dot $software
 ##############
 # THIS NEEDS ADJUSTMENT!!! it will create nixbld users with UIDs in a given range that is taken by my work
 # adjust another day (TM)
-sh <(curl -L https://nixos.org/nix/install) --daemon
+#if ! command -v nix-env > /dev/null; then
+#    sh <(curl -L https://nixos.org/nix/install) --daemon
+#fi
 
 ##############
 # wget 
 ##############
-software=numlockx
+software=wget
 packages[$software,arch]="wget"
 packages[$software,debian]="wget"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]} 
 
+##############
+# flatpak
+##############
+software=flatpak
+packages[$software,arch]="flatpak"
+packages[$software,debian]="flatpak"
+packages[$software,ubuntu]=${packages[$software,debian]}
+flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+install ${packages[$software,$ID]} 
+
 # ANKI
 # wow such hack
 # srsly, this si obv bad, will do with nix 
-wget https://github.com/ankitects/anki/releases/download/24.06.3/anki-24.06.3-linux-qt6.tar.zst
-tar xaf *.tar.zst
-cd anki-24.06.3-linux-qt6
-sudo ./install.sh
-cd ..
+#wget https://github.com/ankitects/anki/releases/download/24.06.3/anki-24.06.3-linux-qt6.tar.zst
+#tar xaf *.tar.zst
+#cd anki-24.06.3-linux-qt6
+#sudo ./install.sh
+#cd ..
+flatpak install --user flathub net.ankiweb.Anki
+flatpak install --user org.freedesktop.Sdk.Extension.texlive
 
 
 # #############################################################################
