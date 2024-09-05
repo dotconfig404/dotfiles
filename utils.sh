@@ -1,10 +1,7 @@
-# functions that havent found a home yet go here
-# often too insignificant to matter to anyone and thus they just gather around here.
-# sitting by the pretty lights of this terminal window and tell each other stories 
-# to surpress the unquenchable desire to belong. some day, echo_in, some day.
-#
-# beware, there also some uncommented functions... they live in the shadows, discarded
-# and deemed unworthy by their owners, one should not linger there too long...
+# #############################################################################
+# -----------------------------------------------------------------------------
+# #############################################################################
+# echo wrappers
 
 # pretty print with colors
 echo_in() {
@@ -40,6 +37,148 @@ error() {
     fi
     exit 1
 }
+
+# #############################################################################
+# -----------------------------------------------------------------------------
+# #############################################################################
+# installer functions
+
+# arch based installer function
+arch_install() {
+
+    # check if already installed
+    if ! pacman -Q $1 &> /dev/null; then
+
+        # we might want to use yay for some AUR packages
+        echo_in yellow "Installing: $1 "
+        if [[ $2 == 0 ]];then
+            if ! yay -S --noconfirm $1; then
+                error "Couldn't install $1 with yay. "
+            fi
+        else
+            if ! sudo pacman -S --noconfirm $1; then
+                error "Couldn't install $1 with pacman. "
+            fi
+        fi
+    fi
+    echo_in green "Is installed: $1 "
+}
+
+# debian based installer function
+debian_install() {
+
+    # check if already installed
+    if ! dpkg -s $1 &> /dev/null; then
+
+        # get all ppas if there are any and add them
+        # != "" doesnt work
+        if [ -n $2 ];then
+            IFS=',' read -ra ppa_array <<< "$2"
+            for ppa in "${ppa_array[@]}"; do
+                
+                # check if ppa already added
+                if grep -q "^deb .*${ppa#ppa:}" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
+                    continue
+                fi
+                
+                # if not added, add it now
+                echo_in yellow "Adding PPA: $ppa "
+                if ! sudo add-apt-repository -y "$ppa"; then
+                    error "Couldn't add PPA: $ppa "
+                fi
+                sudo apt update -y
+                echo_in green "PPA is added: $ppa "
+            done
+        fi
+
+        # attempt installation
+        echo_in yellow "Installing: $1 "
+        if ! sudo apt install -y $1; then
+            error "Couldn't install $1 with apt. "
+        fi
+    fi
+    echo_in green "Is installed: $1 "
+}
+
+
+# generic installer function, can add --yay to order yay usage on arch
+install() {
+    # parse all arguments into flags and package list
+    local package_list
+    local yay=1
+    local ubuntu_ppas=""
+    local debian_ppas=""
+    for arg in "$@"; do
+        case $arg in
+            --yay)
+                yay=0
+                ;;
+            --ubuntu_ppas=*)
+                ubuntu_ppas=${arg#--ubuntu_ppas=}
+                ;;
+            --debian_ppas=*)
+                debian_ppas=${arg#--debian_ppas=}
+                ;;
+            *)
+                package_list="$package_list $arg"
+                ;;
+        esac
+    done
+    
+    # get rid of leading space :)
+    package_list=${package_list:1}
+
+    # depending on distro and flags use specific installer functions
+    case $ID in
+        "arch")
+            arch_install "$package_list" $yay
+        ;;
+        "debian")
+            debian_install "$package_list" $debian_ppas 
+        ;;
+        "ubuntu")
+            debian_install "$package_list" $ubuntu_ppas 
+        ;;
+    esac
+}
+
+
+# #############################################################################
+# -----------------------------------------------------------------------------
+# #############################################################################
+# stowing functions
+
+# stowing for versioned packages
+dot() {
+    echo_in blue  "Stowing $1 "
+    if stow $1 --ignore=swp; then
+        echo_in green "Is stowed: $1 "
+    else
+        # the git hack: replaces files from repo by forcing the symlink and then restore the files from repo
+        echo_in red "Can't stow, do you want to try the super git hack? Remember to git commit your dotfiles. y/N " >&2
+        read -p " " response
+        case "$response" in 
+            [yY])
+                stow --adopt $1 --ignore=swp
+                git restore .
+                ;;
+            *)
+                error "Aborting, as requested. "
+                ;;
+        esac
+        echo_in green "Should be good now. "
+    fi
+}
+
+# stowing for _private
+priv_stow() {
+    echo_in blue  "Stowing $1 "
+    if ! stow -d  _private -t ~ $1 --ignore=swp; then
+        error "Can't stow $1, need manual intervention "
+    fi
+    echo_in green "Is stowed: $1 "
+}
+
 
 # yay installer function
 #install_yay() {
