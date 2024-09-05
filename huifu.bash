@@ -5,7 +5,7 @@
 # some checks and basic utilities
 
 # get those pretty print functions and the like
-source ./utils.sh
+source ./functions.bash
 
 # not entirely sure, but i think we need to check for if bash is at least 4.3
 # associative arrays (which we use are available form 4.0 and nameref is 
