@@ -342,9 +342,8 @@ install ${packages[$software,$ID]}
 #cd anki-24.06.3-linux-qt6
 #sudo ./install.sh
 #cd ..
-flatpak install --user flathub net.ankiweb.Anki
-flatpak install --user org.freedesktop.Sdk.Extension.texlive
-
+#flatpak install --user -y flathub net.ankiweb.Anki
+#flatpak install --user -y  flathub org.freedesktop.Sdk.Extension.texlive 
 
 # #############################################################################
 # -----------------------------------------------------------------------------
@@ -419,3 +418,12 @@ packages[$software,debian]="openssh-client openssh-server"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]}
 priv_stow $software
+
+##############
+# hippo
+##############
+software=hippo
+source _private/hippo/.hippo/hippo.bash
+priv_stow $software
+
+# nix testing

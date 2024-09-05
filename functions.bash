@@ -100,6 +100,11 @@ debian_install() {
     echo_in green "Is installed: $1 "
 }
 
+nix_install() {
+
+
+}
+
 
 # generic installer function, can add --yay to order yay usage on arch
 install() {
