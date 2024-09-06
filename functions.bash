@@ -101,8 +101,7 @@ debian_install() {
 }
 
 nix_install() {
-
-
+    echo "dummy"
 }
 
 

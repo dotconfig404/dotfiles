@@ -309,11 +309,54 @@ dot $software
 ##############
 # nix
 ##############
-# THIS NEEDS ADJUSTMENT!!! it will create nixbld users with UIDs in a given range that is taken by my work
-# adjust another day (TM)
+# getting it to work with the standard installer is not easy in enterprise environments, ultimately 
+# i moved on to the determinate nix installer as soon as i found it. the issue with the following is
+# that there seems to be some kind of timeout for the sudo prompt after creating or even checking if 
+# a user/group exists or possibly the error message is related to something suddently complaining 
+# "hey, this user needs a password", not sure. latest example error output:
+#~~> Setting up the build user nixbld5
+#            Exists:     Yes
+#            Hidden:     Yes
+#    Home Directory:     /var/empty
+#              Note:     Nix build user 5
+#sudo: PAM account management error: Unknown error -1
+#sudo: a password is required
+# it worked for the user creation to turn off networking to stop contacting NSS, but the installer 
+# fails regardless of whether the group and users already exists 
+# edit: no, its a timeout. when running the determinate installer and then also using sudo somewehre else
+# i got the same error message, albeit with code -2 instead of -1
+
 #if ! command -v nix-env > /dev/null; then
-#    sh <(curl -L https://nixos.org/nix/install) --daemon
+#    sudo nmcli networking off
+#
+#    echo_in blue "Adding nixbld group."
+#    sudo groupadd -r -g 3000000 nixbld
+#
+#    for n in $(seq 1 32); do
+#        echo_in blue "Adding nixbld$n user."
+#        sudo useradd -c "Nix build user $n" \
+#        -d /var/empty -g nixbld -G nixbld -M -N -r -s "$(which nologin)" \
+#        -u $((3000000 + n)) nixbld$n
+#    done
+#
+#    sudo nmcli networking on
+#
+#    echo_in blue "Waiting for network to be back online..."
+#
+#    while ! ping -c 1 8.8.8.8 &> /dev/null; do
+#        echo_in blue "Waiting for network to be back online..."
+#        sleep 1
+#    done
+#
+#    NIX_FIRST_BUILD_UID=3000001 NIX_BUILD_GROUP_ID=3000000 sh <(curl -L https://nixos.org/nix/install) --daemon --yes
 #fi
+if ! command -v nix-env > /dev/null; then
+    echo_in blue "installing nix"
+    curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | \
+    sh -s -- install --nix-build-group-id 3000000 --nix-build-user-id-base 3000000 --no-confirm
+fi
+echo_in green "Is installed: nix"
+
 
 ##############
 # wget 
@@ -324,26 +367,7 @@ packages[$software,debian]="wget"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]} 
 
-##############
-# flatpak
-##############
-software=flatpak
-packages[$software,arch]="flatpak"
-packages[$software,debian]="flatpak"
-packages[$software,ubuntu]=${packages[$software,debian]}
-flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-install ${packages[$software,$ID]} 
-
 # ANKI
-# wow such hack
-# srsly, this si obv bad, will do with nix 
-#wget https://github.com/ankitects/anki/releases/download/24.06.3/anki-24.06.3-linux-qt6.tar.zst
-#tar xaf *.tar.zst
-#cd anki-24.06.3-linux-qt6
-#sudo ./install.sh
-#cd ..
-#flatpak install --user -y flathub net.ankiweb.Anki
-#flatpak install --user -y  flathub org.freedesktop.Sdk.Extension.texlive 
 
 # #############################################################################
 # -----------------------------------------------------------------------------
@@ -426,4 +450,3 @@ software=hippo
 source _private/hippo/.hippo/hippo.bash
 priv_stow $software
 
-# nix testing
