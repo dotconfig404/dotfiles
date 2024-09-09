@@ -354,6 +354,14 @@ if ! command -v nix-env > /dev/null; then
     echo_in blue "installing nix"
     curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | \
     sh -s -- install --nix-build-group-id 3000000 --nix-build-user-id-base 3000000 --no-confirm
+
+    # update the PATh
+    source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+
+    # install home manager
+    nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+    nix-channel --update
+    nix-shell '<home-manager>' -A install
 fi
 echo_in green "Is installed: nix"
 
@@ -368,6 +376,11 @@ packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]} 
 
 # ANKI
+software=anki
+install [anki,any] --nix-env
+
+
+
 
 # #############################################################################
 # -----------------------------------------------------------------------------
