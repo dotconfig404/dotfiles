@@ -299,6 +299,10 @@ func! CompileRunGcc()
     endif
 endfunc
 
+"#autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+"autocmd Filetype python nnoremap <buffer> <F9> :w<CR>:ter python2 "%"<CR>
+autocmd Filetype python nnoremap <buffer> <F9> :w<CR>:vert ter python3 "%"<CR>
+
 ""########################################################
 ""######## vim-plug ######################################
 ""########################################################
