@@ -44,6 +44,11 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+# trash setup
+trm() {
+  mv "$1" ~/.trash
+}
+
 export XMODIFIERS=@im=fcitx5
 export GTK_IM_MODULE=fcitx5
 export QT_IM_MODULE=fcitx5

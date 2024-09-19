@@ -376,10 +376,12 @@ packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]} 
 
 # ANKI
-software=anki
-install [anki,any] --nix-env
+#software=anki
+#install [anki,any] --nix-env
 
-
+if [ ! -d ~/.trash ]; then
+    mkdir ~/.trash
+fi
 
 
 # #############################################################################
