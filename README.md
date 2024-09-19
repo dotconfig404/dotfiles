@@ -31,8 +31,6 @@ alternative to nm-applet -> freeze on click issue?
 
 blur in terminal, maybe other ones with opacity and blur, or maybe set background image for every window individually (no showing of window thats behind)
 
-rmt = rm trash
-
 find clarity about what to put in profile files instead of rc files
 
 zsh history based greyed out completion showing
@@ -47,4 +45,4 @@ https://www.reddit.com/r/linux/comments/1em8biv/psa_pipewire_has_been_halving_yo
 
 check if stowed -> do not output "Stowing X"
 
-vim-terminator not working?
+m vim-terminator not working?
