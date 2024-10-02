@@ -1,44 +1,46 @@
-# TODO
-lazygit, bluemon?
+# How to use this repo
+This is a dotfiles repo streamlined primarily for Arch and Ubuntu. Should work for Debian as well. 
 
-minimal huifu for servers?
+It also includes some system setup that is usually not in dotfiles repos. 
 
-instructions on how and when exactly to setup repo, wbu ssh keys? \_private? 
+- arch\_prechroot.sh is a guiding file for arch installations
+- arch\_chrooted.sh is meant for the chrooted environemnt you use during arch installation
+- ubuntu\_postinstall.sh should be run when you have a freshly installed system,  this will probably be removed later and moved to huifu
+- huifu.bash is the script that actually setups the whole dotfiles repo, it sources functions.bash to get some 
 
-font cache refresh upon stowing fonts. need a way to check if fonts have been changed
+# Wishlist and Personal Notes
+Minimal huifu for servers - exclude Anki, X, etc
 
-display manager setup for convienent wm/de switching
+Not updating font cache on every huifu run, potentially version-check font directory using git?
 
-use different terminal emulator instead of konsole? for now konsole, because scrollbar, find function and color preview functions. 
+Convienent WM/ DE switching 
 
-nvim config (maybe some day...)
+Other terminal emulator with simpler/ more transparent config file than konsole. Need scrollbar and find function, might also just use any+tmux?
 
-themes and darkmode switching and/or red light shift (add gtk, qt, other related files to WM section.)
+Move vim config to nvim
 
-anki
+Theme and darmode switching, mayeb red shift as well. Should this be constrained to WM?
 
-syncthing or similar syncing agent for phone and other stuff
+Nix for software which has greatly varying versions in different distros repos or has no package at all in the repo. This includes lazygit and Anki. Maybe move most, if not all, of software installations to nix-based huifu using home-manager?
 
-host specific monitor setup using arandr and nitrogen/feh -> goes to i3 config
+Syncthing or similar syncing agent for phone and other stuff like \_private.
 
-fn keys on laptops?
+Smart monitor detection and configuration using xrandr, maybe arandr and nitrogen or feh. Goes to i3 config?
 
-fancy screensaver
+Fix special keys on some keyboards (e.g. volume wheel).
 
-i3 gaps?
+Fancy screensaver.
 
-alternative to nm-applet -> freeze on click issue?
+i3 gaps for home computer. 
 
-blur in terminal, maybe other ones with opacity and blur, or maybe set background image for every window individually (no showing of window thats behind)
+Fix freezing nm-applet. May has to do with spotify lag and notification system, so setting up dunst or similar might fix it.
 
-find clarity about what to put in profile files instead of rc files
+Fix pipewire i3 bar plugin not working properly at home PC
 
-auto monitor disconnect at work
+Show only wallpaper behind terminals, not other windows.
 
-spotify lag -> gets better when disabling notifications, need to look into it
+Move environment variables, aliases and functions in a dedicated file and source that from zhsrc and bashrc, keep only strictly bash/zsh specific stuff in rc/profile. 
 
-https://www.reddit.com/r/linux/comments/1em8biv/psa_pipewire_has_been_halving_your_battery_life/
+Check if this is an issue: https://www.reddit.com/r/linux/comments/1em8biv/psa_pipewire_has_been_halving_your_battery_life/
 
-check if stowed -> do not output "Stowing X"
-
-m vim-terminator not working?
+Do not output "Stowing X" if already stowed
