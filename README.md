@@ -41,6 +41,4 @@ Show only wallpaper behind terminals, not other windows.
 
 Move environment variables, aliases and functions in a dedicated file and source that from zhsrc and bashrc, keep only strictly bash/zsh specific stuff in rc/profile. 
 
-Check if this is an issue: https://www.reddit.com/r/linux/comments/1em8biv/psa_pipewire_has_been_halving_your_battery_life/
-
 Do not output "Stowing X" if already stowed
