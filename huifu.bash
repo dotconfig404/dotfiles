@@ -197,10 +197,10 @@ dot $software
 software=i3
 # python3-tk, xrandr, arandr, python3 for monitor manager script (i3blocks), fontsawesome as well and needed by other scripts
 # transparency using picom (fork of compton)
-packages[$software,arch]="i3-wm i3lock jgmenu nitrogen xcape i3blocks network-manager-applet dmenu xorg-xinit autorandr ttf-font-awesome arandr tk python xorg-xrandr picom"
+packages[$software,arch]="i3-wm i3lock jgmenu nitrogen xcape i3blocks network-manager-applet dmenu xorg-xinit autorandr ttf-font-awesome arandr tk python xorg-xrandr picom blueman"
 # not sure about network manager applet
-packages[$software,debian]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-applet suckless-tools xinit autorandr fonts-font-awesome arandr python3-tk python3 x11-xserver-utils picom"
-packages[$software,ubuntu]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-gnome suckless-tools xinit autorandr fonts-font-awesome arandr python3-tk python3 x11-xserver-utils picom" 
+packages[$software,debian]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-applet suckless-tools xinit autorandr fonts-font-awesome arandr python3-tk python3 x11-xserver-utils picom blueman"
+packages[$software,ubuntu]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-gnome suckless-tools xinit autorandr fonts-font-awesome arandr python3-tk python3 x11-xserver-utils picom blueman" 
 install ${packages[$software,$ID]}
 dot $software
 dot i3blocks
@@ -384,13 +384,14 @@ if [ ! -d ~/.trash ]; then
 fi
 
 ##############
-# blueman - bluetooth stuff
+# lazygit
 ##############
-software=blueman
-packages[$software,arch]="blueman"
-packages[$software,debian]="blueman"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]} 
+if ! command -v lazygit > /dev/null;then
+    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+    curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+    tar xf lazygit.tar.gz lazygit
+    sudo install lazygit /usr/local/bin
+fi
 
 
 # #############################################################################
