@@ -8,7 +8,7 @@
 #dpkg-reconfigure --frontend=noninteractive locales
 #update-locale LANG=en_US.UTF-8
 
-source ./utils.sh
+source ./functions.bash
 
 echo "This file is meant to be run ONCE upon being chrooted in arch. Some information is spit out to do stuff manually, as some stuff is too finnicky to script."
 
