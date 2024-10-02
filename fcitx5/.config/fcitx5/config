@@ -1,10 +1,10 @@
 [Hotkey]
+# Trigger Input Method
+TriggerKeys=
 # Enumerate when press trigger key repeatedly
 EnumerateWithTriggerKeys=True
 # Temporally switch between first and current Input Method
 AltTriggerKeys=
-# Enumerate Input Method Forward
-EnumerateForwardKeys=
 # Enumerate Input Method Backward
 EnumerateBackwardKeys=
 # Skip first input method while enumerating
@@ -13,19 +13,15 @@ EnumerateSkipFirst=False
 EnumerateGroupForwardKeys=
 # Enumerate Input Method Group Backward
 EnumerateGroupBackwardKeys=
+# Activate Input Method
+ActivateKeys=
+# Deactivate Input Method
+DeactivateKeys=
 # Toggle embedded preedit
 TogglePreedit=
 
-[Hotkey/TriggerKeys]
+[Hotkey/EnumerateForwardKeys]
 0=Control+space
-1=Zenkaku_Hankaku
-2=Hangul
-
-[Hotkey/ActivateKeys]
-0=Hangul_Hanja
-
-[Hotkey/DeactivateKeys]
-0=Hangul_Romaja
 
 [Hotkey/PrevPage]
 0=Up

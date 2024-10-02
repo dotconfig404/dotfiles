@@ -33,10 +33,6 @@ blur in terminal, maybe other ones with opacity and blur, or maybe set backgroun
 
 find clarity about what to put in profile files instead of rc files
 
-zsh history based greyed out completion showing
-
-traditional hanzi still need to be setup in fcitx5
-
 auto monitor disconnect at work
 
 spotify lag -> gets better when disabling notifications, need to look into it
