@@ -383,6 +383,15 @@ if [ ! -d ~/.trash ]; then
     mkdir ~/.trash
 fi
 
+##############
+# blueman - bluetooth stuff
+##############
+software=blueman
+packages[$software,arch]="blueman"
+packages[$software,debian]="blueman"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]} 
+
 
 # #############################################################################
 # -----------------------------------------------------------------------------

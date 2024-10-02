@@ -189,6 +189,7 @@ exec --no-startup-id "numlockx"
 exec --no-startup-id "xcape -e 'Alt_L=Escape'"
 exec --no-startup-id "xcape -e 'ISO_Level3_Shift=Escape'"
 exec --no-startup-id "nm-applet"
+exec --no-startup-id "blueman-applet"
 exec --no-startup-id "picom"
 exec --no-startup-id "fcitx5 -d"
 
