@@ -10,10 +10,25 @@ separator_block_width=3
 command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
 interval=3600
 
-[volume-pulseaudio]
+[volume-pipewire]
 command=$SCRIPT_DIR/volume-pipewire/volume-pipewire
 interval=once
 signal=1
+USE_ALSA_NAME=1
+
+[volume-pulseaudio]
+command=$SCRIPT_DIR/volume-pulseaudio/volume-pulseaudio
+interval=once
+signal=1
+USE_ALSA_NAME=1
+
+[volume]
+LABEL=VOL
+command=$SCRIPT_DIR/volume/volume
+interval=once
+signal=10
+
+[separator]
 
 [monitors]
 command=$SCRIPT_DIR/monitor_manager/monitor_manager
