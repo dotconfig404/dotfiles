@@ -152,13 +152,21 @@ install ${packages[$software,$ID]}
 ##############
 # mise, node
 ##############
-if ! command -v mise &> /dev/null; then
-    curl https://mise.run | sh
-    echo 'export PATH="$HOME/.local/share/mise/shims:$PATH"' > ~/.zprofile.d/mise.zsh
-    echo 'export PATH="$HOME/.local/share/mise/shims:$PATH"' > ~/.bash_profile.d/mise.sh
-    source ~/.bashrc.d/mise.sh
-    mise use --global node
-fi
+#if ! command -v mise &> /dev/null; then
+#    curl https://mise.run | sh
+#    echo 'export PATH="$HOME/.local/share/mise/shims:$PATH"' > ~/.zprofile.d/mise.zsh
+#    echo 'export PATH="$HOME/.local/share/mise/shims:$PATH"' > ~/.bash_profile.d/mise.sh
+#    export PATH="$HOME/.local/share/mise/shims:$PATH"
+#    source ~/.bashrc.d/mise.sh
+#    mise use --global node
+#fi
+# since the upgrade to ubuntu 24 we get a newer version, so mise is not that needed
+# also we want to move away from it to nix-env eventually
+software=nodejs
+packages[$software,arch]="nodejs"
+packages[$software,debian]="nodejs"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]} #--debian_ppas=ppa:jonathonf/vim --ubuntu_ppas=ppa:jonathonf/vim
 
 ##############
 # vim
@@ -171,7 +179,6 @@ install ${packages[$software,$ID]} #--debian_ppas=ppa:jonathonf/vim --ubuntu_ppa
 dot $software
 vim -c 'PlugInstall' -c 'qa!'
 vim -c 'CocInstall coc-pyright' -c 'qa!'
-echo_in red "check if cocinstall really worked"
 
 ##############
 # tmux
