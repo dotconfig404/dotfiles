@@ -354,6 +354,9 @@ if ! command -v nix-env > /dev/null; then
     nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
     nix-channel --update
     nix-shell '<home-manager>' -A install
+    if [ $ID == "ubuntu" ];then
+        sudo cp _system/etc/bash.bashrc.d/nix.bash /etc/bash/bashrc.d/nix.bash
+    fi
 fi
 echo_in green "Is installed: nix"
 
