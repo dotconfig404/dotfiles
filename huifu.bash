@@ -355,6 +355,7 @@ if ! command -v nix-env > /dev/null; then
     nix-channel --update
     nix-shell '<home-manager>' -A install
     if [ $ID == "ubuntu" ];then
+	sudo mkdir /etc/bash.bashrc.d
         sudo cp _system/etc/bash.bashrc.d/nix.bash /etc/bash/bashrc.d/nix.bash
     fi
 fi
@@ -393,6 +394,17 @@ fi
 # -----------------------------------------------------------------------------
 # #############################################################################
 # _private packages
+
+echo_in blue "Do you want to clean before stowing _private?"
+read -p " " response
+case "$response" in
+    [yY])
+        source _private/clean.bash
+        ;;
+    *)
+	echo_in green "Skipping cleaning. "
+	;;
+esac
 
 ##############
 # firefox
