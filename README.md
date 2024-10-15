@@ -42,3 +42,5 @@ Show only wallpaper behind terminals, not other windows.
 Move environment variables, aliases and functions in a dedicated file and source that from zhsrc and bashrc, keep only strictly bash/zsh specific stuff in rc/profile. 
 
 Do not output "Stowing X" if already stowed
+
+Error checking for adding PPA
