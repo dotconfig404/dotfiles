@@ -156,26 +156,18 @@ if ! command -v mise &> /dev/null; then
     curl https://mise.run | sh
     echo 'export PATH="$HOME/.local/share/mise/shims:$PATH"' > ~/.zprofile.d/mise.zsh
     echo 'export PATH="$HOME/.local/share/mise/shims:$PATH"' > ~/.bash_profile.d/mise.sh
-    ## wait, why? we are always calling this script from bash, noneed to check if using zsh
-    ## https://stackoverflow.com/a/13864829 (check if var exists)
-    #if [ ${ZSH_VERSION+x} ];then
-    #    source ~/.zshrc.d/mise.zsh
-    #elif [ ${BASH_VERSION+x} ];then
-        source ~/.bashrc.d/mise.sh
-    #else
-    #    echo_in red "Could not activate mise, wrong shell?"
-    #fi
+    source ~/.bashrc.d/mise.sh
     mise use --global node
 fi
 
 ##############
-# vim, for ubuntu and debian we'll use a ppa to get the latest...
+# vim
 ##############
 software=vim
 packages[$software,arch]="vim"
 packages[$software,debian]="vim"
 packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]} --debian_ppas=ppa:jonathonf/vim --ubuntu_ppas=ppa:jonathonf/vim
+install ${packages[$software,$ID]} #--debian_ppas=ppa:jonathonf/vim --ubuntu_ppas=ppa:jonathonf/vim
 dot $software
 vim -c 'PlugInstall' -c 'qa!'
 vim -c 'CocInstall coc-pyright' -c 'qa!'
@@ -234,7 +226,7 @@ software=neovim
 packages[$software,arch]="neovim"
 packages[$software,debian]="neovim"
 packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]} --debian_ppas=ppa:neovim-ppa/unstable --ubuntu_ppas=ppa:neovim-ppa/unstable
+install ${packages[$software,$ID]} #--debian_ppas=ppa:neovim-ppa/unstable --ubuntu_ppas=ppa:neovim-ppa/unstable
 
 ##############
 # dolphin
