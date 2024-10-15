@@ -448,10 +448,10 @@ priv_stow $software
 # git
 ##############
 software=git
-#packages[$software,arch]="git"
-#packages[$software,debian]="git"
-#packages[$software,ubuntu]=${packages[$software,debian]}
-#install ${packages[$software,$ID]}
+packages[$software,arch]="git"
+packages[$software,debian]="git"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]}
 priv_stow $software
 
 ##############
