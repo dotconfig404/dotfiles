@@ -356,7 +356,7 @@ if ! command -v nix-env > /dev/null; then
     nix-shell '<home-manager>' -A install
     if [ $ID == "ubuntu" ];then
 	sudo mkdir /etc/bash.bashrc.d
-        sudo cp _system/etc/bash.bashrc.d/nix.bash /etc/bash/bashrc.d/nix.bash
+        sudo cp _system/etc/bash.bashrc.d/nix.bash /etc/bash.bashrc.d/nix.bash
     fi
 fi
 echo_in green "Is installed: nix"
