@@ -275,11 +275,11 @@ install ${packages[$software,$ID]}
 #install ${packages[$software,$ID]}
 
 ##############
-# numlockx
+# misc
 ##############
-software=numlockx
-packages[$software,arch]="numlockx"
-packages[$software,debian]="numlockx"
+software=misc
+packages[$software,arch]="numlockx tree thunar"
+packages[$software,debian]="numlockx tree thunar"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]} 
 
@@ -304,6 +304,8 @@ dot $software
 # for lack of a better place to put this, ill add some random config files of kde here
 software=kde
 dot $software
+
+
 
 ##############
 # nix
