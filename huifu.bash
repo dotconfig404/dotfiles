@@ -149,24 +149,6 @@ packages[$software,debian]="silversearcher-ag"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]}
 
-##############
-# mise, node
-##############
-#if ! command -v mise &> /dev/null; then
-#    curl https://mise.run | sh
-#    echo 'export PATH="$HOME/.local/share/mise/shims:$PATH"' > ~/.zprofile.d/mise.zsh
-#    echo 'export PATH="$HOME/.local/share/mise/shims:$PATH"' > ~/.bash_profile.d/mise.sh
-#    export PATH="$HOME/.local/share/mise/shims:$PATH"
-#    source ~/.bashrc.d/mise.sh
-#    mise use --global node
-#fi
-# since the upgrade to ubuntu 24 we get a newer version, so mise is not that needed
-# also we want to move away from it to nix-env eventually
-software=nodejs
-packages[$software,arch]="nodejs"
-packages[$software,debian]="nodejs"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]} #--debian_ppas=ppa:jonathonf/vim --ubuntu_ppas=ppa:jonathonf/vim
 
 ##############
 # vim
@@ -248,24 +230,6 @@ packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]} 
 
 ##############
-# flameshot
-##############
-software=flameshot
-packages[$software,arch]="flameshot"
-packages[$software,debian]="flameshot"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]} 
-
-##############
-# gthumb
-##############
-software=gthumb
-packages[$software,arch]="gthumb"
-packages[$software,debian]="gthumb"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]} 
-
-##############
 # nomacs
 ##############
 #software=nomacs
@@ -278,8 +242,8 @@ install ${packages[$software,$ID]}
 # misc
 ##############
 software=misc
-packages[$software,arch]="numlockx tree thunar wireshark-qt sshuttle spectacle gthumb"
-packages[$software,debian]="numlockx tree thunar wireshark sshuttle spectacle gthumb"
+packages[$software,arch]="numlockx tree thunar wireshark-qt sshuttle spectacle gthumb flameshot nodejs"
+packages[$software,debian]="numlockx tree thunar wireshark sshuttle spectacle gthumb flameshot nodejs"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]} 
 
