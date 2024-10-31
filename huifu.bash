@@ -278,8 +278,8 @@ install ${packages[$software,$ID]}
 # misc
 ##############
 software=misc
-packages[$software,arch]="numlockx tree thunar"
-packages[$software,debian]="numlockx tree thunar"
+packages[$software,arch]="numlockx tree thunar wireshark-qt sshuttle spectacle gthumb"
+packages[$software,debian]="numlockx tree thunar wireshark sshuttle spectacle gthumb"
 packages[$software,ubuntu]=${packages[$software,debian]}
 install ${packages[$software,$ID]} 
 
