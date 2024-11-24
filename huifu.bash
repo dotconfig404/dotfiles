@@ -189,6 +189,11 @@ dot fonts
 dot xinit
 dot autorandr
 dot picom
+if [ "$HOSTNAME" == "noxy" ];then
+    dot xresources
+    xrdb ~/.Xresources
+
+fi
 #echo_in yellow "rebuilding font cache"
 #fc-cache -f
 #echo_in green "font cache rebuilt"
@@ -363,6 +368,8 @@ if ! command -v lazygit > /dev/null;then
     rm lazygit.tar.gz
     rm -rf lazygit
 fi
+
+
 
 
 # #############################################################################
