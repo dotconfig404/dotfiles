@@ -56,8 +56,8 @@ set smarttab
 set shiftround
 " when indenting rounds the indetn to a multiple of shiftwidth
 
-autocmd FileType html inoremap <Space><Space> <Esc>/<++><Enter>"_c4l
-autocmd FileType html inoremap ;i <em></em><Space><++><Esc>FeT>i
+" autocmd FileType html inoremap <Space><Space> <Esc>/<++><Enter>"_c4l
+" autocmd FileType html inoremap ;i <em></em><Space><++><Esc>FeT>i
 
 " set colorcolumn=72
 
