@@ -358,6 +358,24 @@ if [ ! -d ~/.trash ]; then
 fi
 
 ##############
+# irc
+##############
+software=wget
+packages[$software,arch]="irssi"
+packages[$software,debian]="irssi"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]} 
+
+##############
+# ftp
+##############
+software=wget
+packages[$software,arch]="ftp"
+packages[$software,debian]="ftp"
+packages[$software,ubuntu]=${packages[$software,debian]}
+install ${packages[$software,$ID]} 
+
+##############
 # lazygit
 ##############
 if ! command -v lazygit > /dev/null;then
