@@ -241,7 +241,7 @@ install ${packages[$ID]}
 # misc
 ##############
 packages[arch]="numlockx tree thunar wireshark-qt sshuttle spectacle gthumb flameshot nodejs thunar-archive-plugin"
-packages[debian]="numlockx tree thunar wireshark sshuttle kde-spectacle gthumb flameshot nodejs"
+packages[debian]="numlockx tree thunar wireshark sshuttle kde-spectacle gthumb flameshot nodejs thunar-archive-plugin"
 packages[ubuntu]=${packages[debian]}
 install ${packages[$ID]} 
 
