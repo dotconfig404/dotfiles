@@ -39,30 +39,36 @@ fi
 # generic software installation 
 
 # Declare packages array
-# contains package list depending on software name and distro ID
 declare -A packages
 
 ##############
 # stow
 ##############
-software=stow
-packages[$software,arch]="stow"
-packages[$software,debian]="stow"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]}
+packages[arch]="stow"
+packages[debian]="stow"
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]}
 
 ##############
 # starship and curl
 ##############
-software=curl
-packages[$software,arch]="curl"
-packages[$software,debian]="curl"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]}
+packages[arch]="curl"
+packages[debian]="curl"
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]}
 if ! command -v starship &> /dev/null; then
     curl -sS https://starship.rs/install.sh | sh
 fi
 dot starship
+
+##############
+# basics 
+##############
+packages[arch]="less unzip 7zip"
+packages[debian]="less unzip 7zip"z
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]}
+
 
 ##############
 # bash (needs starship)
@@ -72,21 +78,19 @@ dot bash
 ##############
 # zsh (needs starship)
 ##############
-software=zsh
-packages[$software,arch]="zsh"
-packages[$software,debian]="zsh"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]}
-dot $software
+packages[arch]="zsh"
+packages[debian]="zsh"
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]}
+dot zsh
 
 ##############
 # konsole
 ##############
-software=konsole
-packages[$software,arch]="konsole kconfig"
-packages[$software,debian]="konsole libkf5config-bin"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]}
+packages[arch]="konsole kconfig"
+packages[debian]="konsole libkf5config-bin"
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]}
 # need to write ~/.config/konsolerc using kwriteconfig5, not suitable for version controlling
 # as it changes contents frequently (although not so bad if we wanna do it anyways)
 kconfigcmd=kwriteconfig6
@@ -104,26 +108,24 @@ $kconfigcmd --file konsolerc --group "TabBar" --key "TabBarVisibility" "AlwaysHi
 if [ ! -d ~/.local/share/konsole ];then
    mkdir -p ~/.local/share/konsole 
 fi 
-dot $software
+dot konsole
 
 ###############
 ## awesomewm (needs lots of testing)
 ###############
-#software=awesome
-#packages[$software,arch]="awesome"
-#packages[$software,debian]="awesome"
-#packages[$software,ubuntu]=${packages[$software,debian]}
-#install ${packages[$software,$ID]}
+#packages[arch]="awesome"
+#packages[debian]="awesome"
+#packages[ubuntu]=${packages[debian]}
+#install ${packages[$ID]}
 #dot $software
 #
 ###############
 ## openbox (needs lots of testing)
 ###############
-#software=openbox
-#packages[$software,arch]="openbox"
-#packages[$software,debian]="openbox"
-#packages[$software,ubuntu]=${packages[$software,debian]}
-#install ${packages[$software,$ID]}
+#packages[arch]="openbox"
+#packages[debian]="openbox"
+#packages[ubuntu]=${packages[debian]}
+#install ${packages[$ID]}
 #dot $software
 
 ##############
@@ -134,56 +136,51 @@ dot gtk
 ##############
 # python dev
 ##############
-software=python
-packages[$software,arch]="python"
-packages[$software,debian]="python3 python3-venv"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]}
+packages[arch]="python"
+packages[debian]="python3 python3-venv"
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]}
 
 ##############
 # silversearcher
 ##############
-software=silversearcher-ag
-packages[$software,arch]="the_silver_searcher"
-packages[$software,debian]="silversearcher-ag"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]}
+packages[arch]="the_silver_searcher"
+packages[debian]="silversearcher-ag"
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]}
 
 
 ##############
 # vim
 ##############
-software=vim
-packages[$software,arch]="vim"
-packages[$software,debian]="vim"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]} #--debian_ppas=ppa:jonathonf/vim --ubuntu_ppas=ppa:jonathonf/vim
-dot $software
+packages[arch]="vim"
+packages[debian]="vim"
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]} #--debian_ppas=ppa:jonathonf/vim --ubuntu_ppas=ppa:jonathonf/vim
+dot vim 
 vim -c 'PlugInstall' -c 'qa!'
 vim -c 'CocInstall coc-pyright' -c 'qa!'
 
 ##############
 # tmux
 ##############
-software=tmux
-packages[$software,arch]="tmux"
-packages[$software,debian]="tmux"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]}
-dot $software
+packages[arch]="tmux"
+packages[debian]="tmux"
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]}
+dot tmux
 
 ##############
 # i3
 ##############
-software=i3
 # python3-tk, xrandr, arandr, python3 for monitor manager script (i3blocks), fontsawesome as well and needed by other scripts
 # transparency using picom (fork of compton)
-packages[$software,arch]="xorg-server i3-wm i3lock jgmenu nitrogen xcape i3blocks network-manager-applet dmenu xorg-xinit autorandr ttf-font-awesome arandr tk python xorg-xrandr picom blueman"
+packages[arch]="xorg-server i3-wm i3lock jgmenu nitrogen xcape i3blocks network-manager-applet dmenu xorg-xinit autorandr ttf-font-awesome arandr tk python xorg-xrandr picom blueman"
 # not sure about network manager applet
-packages[$software,debian]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-applet suckless-tools xinit autorandr fonts-font-awesome arandr python3-tk python3 x11-xserver-utils picom blueman"
-packages[$software,ubuntu]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-gnome suckless-tools xinit autorandr fonts-font-awesome arandr python3-tk python3 x11-xserver-utils picom blueman" 
-install ${packages[$software,$ID]}
-dot $software
+packages[debian]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-applet suckless-tools xinit autorandr fonts-font-awesome arandr python3-tk python3 x11-xserver-utils picom blueman"
+packages[ubuntu]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-gnome suckless-tools xinit autorandr fonts-font-awesome arandr python3-tk python3 x11-xserver-utils picom blueman" 
+install ${packages[$ID]}
+dot i3
 dot i3blocks
 dot fonts
 dot xinit
@@ -201,12 +198,11 @@ fi
 ##############
 # emacs (needs testing)
 ##############
-software=emacs
-packages[$software,arch]="emacs"
-packages[$software,debian]="emacs"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]}
-dot $software
+packages[arch]="emacs"
+packages[debian]="emacs"
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]}
+dot emacs
 
 ##############
 # gtk
@@ -216,11 +212,10 @@ dot gtk
 ##############
 # neovim
 ##############
-software=neovim
-packages[$software,arch]="neovim"
-packages[$software,debian]="neovim"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]} #--debian_ppas=ppa:neovim-ppa/unstable --ubuntu_ppas=ppa:neovim-ppa/unstable
+packages[arch]="neovim"
+packages[debian]="neovim"
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]} #--debian_ppas=ppa:neovim-ppa/unstable --ubuntu_ppas=ppa:neovim-ppa/unstable
 
 ##############
 # dolphin
@@ -228,29 +223,26 @@ install ${packages[$software,$ID]} #--debian_ppas=ppa:neovim-ppa/unstable --ubun
 # briefly considered making custom config, but this is terrible with kdes configs. 
 # konsole was bad enough. at some point i gotta decide what to just leave 
 # as it is. it is not worth it trying to dotify all software. 
-software=dolphin
-packages[$software,arch]="dolphin"
-packages[$software,debian]="dolphin"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]} 
+packages[arch]="dolphin"
+packages[debian]="dolphin"
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]} 
 
 ##############
 # nomacs
 ##############
-#software=nomacs
-#packages[$software,arch]="nomacs"
-#packages[$software,debian]="nomacs"
-#packages[$software,ubuntu]=${packages[$software,debian]}
-#install ${packages[$software,$ID]}
+#packages[arch]="nomacs"
+#packages[debian]="nomacs"
+#packages[ubuntu]=${packages[debian]}
+#install ${packages[$ID]}
 
 ##############
 # misc
 ##############
-software=misc
-packages[$software,arch]="numlockx tree thunar wireshark-qt sshuttle spectacle gthumb flameshot nodejs"
-packages[$software,debian]="numlockx tree thunar wireshark sshuttle kde-spectacle gthumb flameshot nodejs"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]} 
+packages[arch]="numlockx tree thunar wireshark-qt sshuttle spectacle gthumb flameshot nodejs thunar-archive-plugin"
+packages[debian]="numlockx tree thunar wireshark sshuttle kde-spectacle gthumb flameshot nodejs"
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]} 
 
 ##############
 # fcitx5
@@ -259,21 +251,18 @@ install ${packages[$software,$ID]}
 # also added environment variables to zprofile
 # more or less followed this: https://medium.com/@brightoning/cozy-ubuntu-24-04-install-fcitx5-for-chinese-input-f4278b14cf6f
 echo "run_im fcitx5" > ~/.xinputrc
-software=fcitx5
 # this is prolly wrong
-packages[$software,arch]="fcitx5 fcitx5-chinese-addons noto-fonts-cjk"
-packages[$software,debian]="fcitx5 fcitx5-chinese-addons fonts-noto-cjk fonts-noto-cjk-extra im-config"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]} 
-dot $software
+packages[arch]="fcitx5 fcitx5-chinese-addons noto-fonts-cjk"
+packages[debian]="fcitx5 fcitx5-chinese-addons fonts-noto-cjk fonts-noto-cjk-extra im-config"
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]} 
+dot fcitx5
 
 ##############
 # kde
 ##############
 # for lack of a better place to put this, ill add some random config files of kde here
-software=kde
-dot $software
-
+dot kde
 
 
 ##############
@@ -343,14 +332,12 @@ echo_in green "Is installed: nix"
 ##############
 # wget 
 ##############
-software=wget
-packages[$software,arch]="wget"
-packages[$software,debian]="wget"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]} 
+packages[arch]="wget"
+packages[debian]="wget"
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]} 
 
 # ANKI
-#software=anki
 #install [anki,any] --nix-env
 
 if [ ! -d ~/.trash ]; then
@@ -360,20 +347,18 @@ fi
 ##############
 # irc
 ##############
-software=wget
-packages[$software,arch]="irssi"
-packages[$software,debian]="irssi"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]} 
+packages[arch]="irssi"
+packages[debian]="irssi"
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]} 
 
 ##############
 # ftp
 ##############
-software=wget
-packages[$software,arch]="ftp"
-packages[$software,debian]="ftp"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]} 
+packages[arch]="lftp filezilla"
+packages[debian]="lftp filezilla"
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]} 
 
 ##############
 # lazygit
@@ -386,7 +371,6 @@ if ! command -v lazygit > /dev/null;then
     rm lazygit.tar.gz
     rm -rf lazygit
 fi
-
 
 
 
@@ -409,42 +393,38 @@ esac
 ##############
 # firefox
 ##############
-software=firefox
-packages[$software,arch]="firefox"
-packages[$software,debian]="firefox"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]}
-priv_stow $software 
+packages[arch]="firefox"
+packages[debian]="firefox"
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]}
+priv_stow firefox
 
 ##############
 # thunderbird
 ##############
-software=thunderbird
-packages[$software,arch]="thunderbird"
-packages[$software,debian]="thunderbird"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]}
-priv_stow $software 
+packages[arch]="thunderbird"
+packages[debian]="thunderbird"
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]}
+priv_stow thunderbird
 
 ##############
 # chromium
 ##############
-software=chromium
-packages[$software,arch]="chromium"
-packages[$software,debian]="chromium"
+packages[arch]="chromium"
+packages[debian]="chromium"
 # on ubuntu using i3 this seems to be broken. ubuntu package for chromium is 
 # actually just a snap package and that has problems with ibus
-packages[$software,ubuntu]="chromium-browser"
-install ${packages[$software,$ID]}
-priv_stow $software 
+packages[ubuntu]="chromium-browser"
+install ${packages[$ID]}
+priv_stow chromium
 
 ##############
 # brave
 ##############
-software=brave
-packages[$software,arch]="brave-bin"
-packages[$software,debian]="brave-browser"
-packages[$software,ubuntu]="brave-browser"
+packages[arch]="brave-bin"
+packages[debian]="brave-browser"
+packages[ubuntu]="brave-browser"
 # setup repo for debian and ubuntu (if brave-browser not installed)
 if [ $ID == "ubuntu" ] || [ $ID == "debian" ];then
     if ! command -v brave-browser > /dev/null; then
@@ -453,33 +433,30 @@ if [ $ID == "ubuntu" ] || [ $ID == "debian" ];then
             sudo apt update -y
     fi
 fi
-install ${packages[$software,$ID]} --yay
-priv_stow $software 
+install ${packages[$ID]} --yay
+priv_stow brave
 
 ##############
 # git
 ##############
-software=git
-packages[$software,arch]="git"
-packages[$software,debian]="git"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]}
-priv_stow $software
+packages[arch]="git"
+packages[debian]="git"
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]}
+priv_stow git
 
 ##############
 # ssh
 ##############
-software=ssh
-packages[$software,arch]="openssh"
-packages[$software,debian]="openssh-client openssh-server"
-packages[$software,ubuntu]=${packages[$software,debian]}
-install ${packages[$software,$ID]}
-priv_stow $software
+packages[arch]="openssh"
+packages[debian]="openssh-client openssh-server"
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]}
+priv_stow ssh
 
 ##############
 # hippo
 ##############
-software=hippo
 source _private/hippo/.hippo/hippo.bash
-priv_stow $software
+priv_stow hippo
 
