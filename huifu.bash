@@ -160,6 +160,7 @@ install ${packages[$ID]} #--debian_ppas=ppa:jonathonf/vim --ubuntu_ppas=ppa:jona
 dot vim 
 vim -c 'PlugInstall' -c 'qa!'
 vim -c 'CocInstall coc-pyright' -c 'qa!'
+vim -c 'CocInstall coc-rust-analyzer' -c 'qa!'
 
 ##############
 # tmux
@@ -372,7 +373,34 @@ if ! command -v lazygit > /dev/null;then
     rm -rf lazygit
 fi
 
+##############
+# rust
+##############
+#curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
+##############
+# code
+##############
+packages[arch]="code"
+packages[debian]="code"
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]} 
+
+##############
+# chromium
+##############
+packages[arch]="chromium"
+packages[debian]="chromium"
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]} 
+
+##############
+# pavucontrol
+##############
+packages[arch]="pavucontrol"
+packages[debian]="pavucontrol"
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]} 
 
 # #############################################################################
 # -----------------------------------------------------------------------------
