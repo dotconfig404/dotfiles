@@ -211,7 +211,7 @@ install ${packages[$ID]}
 # more or less followed this: https://medium.com/@brightoning/cozy-ubuntu-24-04-install-fcitx5-for-chinese-input-f4278b14cf6f
 echo "run_im fcitx5" > ~/.xinputrc
 # this is prolly wrong
-packages[arch]="fcitx5 fcitx5-chinese-addons noto-fonts-cjk"
+packages[arch]="fcitx5 fcitx5-qt fcitx5-gtk fcitx5-chinese-addons noto-fonts-cjk"
 packages[debian]="fcitx5 fcitx5-chinese-addons fonts-noto-cjk fonts-noto-cjk-extra im-config"
 packages[ubuntu]=${packages[debian]}
 install ${packages[$ID]} 
