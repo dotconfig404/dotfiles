@@ -1,5 +1,5 @@
 #!/bin/bash
-source huifu_common.bash
+source jichu.bash
 
 ##############
 # stow

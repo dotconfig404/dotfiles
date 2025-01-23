@@ -3,6 +3,7 @@
 # -----------------------------------------------------------------------------
 # #############################################################################
 # _private packages
+source jichu.bash
 
 echo_in blue "Do you want to clean before stowing _private?"
 read -p " " response
