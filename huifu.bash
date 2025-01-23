@@ -198,8 +198,8 @@ install ${packages[$ID]}
 ##############
 # misc
 ##############
-packages[arch]="numlockx tree thunar wireshark-qt sshuttle spectacle gthumb flameshot nodejs thunar-archive-plugin"
-packages[debian]="numlockx tree thunar wireshark sshuttle kde-spectacle gthumb flameshot nodejs thunar-archive-plugin"
+packages[arch]="numlockx tree thunar wireshark-qt sshuttle spectacle gthumb flameshot nodejs thunar-archive-plugin mplayer"
+packages[debian]="numlockx tree thunar wireshark sshuttle kde-spectacle gthumb flameshot nodejs thunar-archive-plugin mplayer"
 packages[ubuntu]=${packages[debian]}
 install ${packages[$ID]} 
 
