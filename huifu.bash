@@ -1,4 +1,6 @@
 #!/bin/bash
+source huifu_common.bash
+
 ##############
 # stow
 ##############
