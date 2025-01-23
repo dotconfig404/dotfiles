@@ -201,7 +201,7 @@ install ${packages[$ID]}
 # misc
 ##############
 packages[arch]="numlockx tree thunar wireshark-qt sshuttle spectacle gthumb flameshot nodejs thunar-archive-plugin mplayer wqy-zenhei"
-packages[debian]="numlockx tree thunar wireshark sshuttle kde-spectacle gthumb flameshot nodejs thunar-archive-plugin mplayer ttf-wqy-zenhei"
+packages[debian]="numlockx tree thunar wireshark sshuttle kde-spectacle gthumb flameshot nodejs thunar-archive-plugin mplayer fonts-wqy-zenhei"
 packages[ubuntu]=${packages[debian]}
 install ${packages[$ID]} 
 
@@ -350,7 +350,7 @@ install ${packages[$ID]}
 # chromium
 ##############
 packages[arch]="chromium"
-packages[debian]="chromium"
+packages[debian]="chromium-browser"
 packages[ubuntu]=${packages[debian]}
 install ${packages[$ID]} 
 
