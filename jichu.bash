@@ -272,9 +272,12 @@ if [ ! -d "_private" ]; then
 fi
 #
 
-# .local may not exist, we will need it (lest it gets symlinked)
+# setup up some dirs that should not be symlinked
 if [ ! -d ~/.local ];then
    mkdir ~/.local
+fi 
+if [ ! -d ~/.config/gtk-3.0/];then
+   mkdir -p ~/config/gtk-3.0/
 fi 
 
 # #############################################################################

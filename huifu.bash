@@ -25,7 +25,7 @@ dot starship
 # basics 
 ##############
 packages[arch]="less unzip 7zip"
-packages[debian]="less unzip 7zip"z
+packages[debian]="less unzip 7zip"
 packages[ubuntu]=${packages[debian]}
 install ${packages[$ID]}
 
