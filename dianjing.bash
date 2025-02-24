@@ -86,3 +86,12 @@ priv_stow ssh
 source _private/hippo/.hippo/hippo.bash
 priv_stow hippo
 
+##############
+# rclone
+##############
+packages[arch]="rclone"
+packages[debian]="rclone"
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]}
+priv_stow rclone
+

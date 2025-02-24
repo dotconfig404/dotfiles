@@ -276,7 +276,7 @@ fi
 if [ ! -d ~/.local ];then
    mkdir ~/.local
 fi 
-if [ ! -d ~/.config/gtk-3.0/];then
+if [ ! -d ~/.config/gtk-3.0/ ];then
    mkdir -p ~/config/gtk-3.0/
 fi 
 
