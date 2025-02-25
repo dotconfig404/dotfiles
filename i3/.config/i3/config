@@ -181,8 +181,12 @@ bar {
 	}
 }
 
-exec nitrogen --restore
 # wallpaper
+exec nitrogen --restore
+
+# google drive
+exec [ ! -d "$HOME/gdrive" ] && mkdir -p "$HOME/gdrive"
+exec rclone mount google_drive:/ $HOME/gdrive
 
 exec --no-startup-id "setxkbmap eu"
 exec --no-startup-id "numlockx"
