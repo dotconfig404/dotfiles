@@ -89,8 +89,12 @@ Color=226,170,87
 Color=252,191,97
 
 [General]
+Anchor=0.5,0.5
 Blur=false
 ColorRandomization=false
 Description=Sandy
-Opacity=0.9
+FillStyle=Tile
+Opacity=0.89
 Wallpaper=
+WallpaperFlipType=NoFlip
+WallpaperOpacity=1
