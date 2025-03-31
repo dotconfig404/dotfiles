@@ -70,6 +70,7 @@ dps()  {
   }' | less -FSX;
 }
 dpsa() { dps -a $@; }
+alias vim='nvim'
 
 # hack for now, fix kbd later
 #setxkbmap eu
