@@ -59,9 +59,9 @@ set shiftround
 " autocmd FileType html inoremap <Space><Space> <Esc>/<++><Enter>"_c4l
 " autocmd FileType html inoremap ;i <em></em><Space><++><Esc>FeT>i
 
-" set colorcolumn=72
+"set colorcolumn=72
 
-hi CursorLine   cterm=NONE ctermbg=brown ctermfg=lightgray guibg=brown guifg=white
+"hi CursorLine   cterm=NONE ctermbg=brown ctermfg=lightgray guibg=brown guifg=white
 
 
 ""#########################################################
@@ -132,7 +132,7 @@ set laststatus=2
 set history=700
 " because why not (command history)
 
-set background=dark
+"set background=dark
 " just in case something is wrong with the theme, not needed usually
 
 highlight ExtraWhitespace ctermbg=red guibg=red
@@ -312,6 +312,10 @@ Plug 'lervag/vimtex'
 
 " nice colors
 Plug 'flazz/vim-colorschemes'
+Plug 'projekt0n/github-nvim-theme'
+Plug 'rebelot/kanagawa.nvim'
+Plug 'folke/tokyonight.nvim'
+Plug 'matveyt/vim-modest'
 
 Plug 'Shougo/neocomplete'
 " keyword completion with a cache in current buffer
@@ -344,7 +348,8 @@ Plug 'itchyny/lightline.vim'
 " alternative to airline, much lighter.
 " setting theme:
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'one',
+      \ 'background': 'light'
       \ }
 
 ""##### git and tmux ########################################
@@ -612,7 +617,7 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 
 " if using a colorscheme from the plugin, this needs to go in the end
-colorscheme xian
+colorscheme github_light_default
 
 " using single click for opening files etc in nerdtree
 let NERDTreeMouseMode=3
