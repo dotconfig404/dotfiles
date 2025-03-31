@@ -17,40 +17,40 @@ Color=49,54,59
 Color=127,140,141
 
 [Color1]
-Color=237,21,21
+Color=255,76,79
 
 [Color1Faint]
-Color=120,50,40
+Color=179,53,58
 
 [Color1Intense]
-Color=192,57,43
+Color=255,76,79
 
 [Color2]
-Color=255,119,0
+Color=247,209,117
 
 [Color2Faint]
-Color=168,122,30
+Color=211,174,94
 
 [Color2Intense]
-Color=244,179,50
+Color=251,212,116
 
 [Color3]
-Color=246,116,0
+Color=255,170,127
 
 [Color3Faint]
-Color=182,86,25
+Color=188,125,94
 
 [Color3Intense]
-Color=253,188,75
+Color=255,170,127
 
 [Color4]
-Color=29,153,243
+Color=25,132,209
 
 [Color4Faint]
-Color=27,102,143
+Color=30,112,157
 
 [Color4Intense]
-Color=127,140,141
+Color=183,202,203
 
 [Color5]
 Color=155,89,182
@@ -80,19 +80,19 @@ Color=99,104,109
 Color=255,255,255
 
 [Foreground]
-Color=252,191,97
+Color=240,247,172
 
 [ForegroundFaint]
-Color=226,170,87
+Color=209,214,149
 
 [ForegroundIntense]
-Color=252,191,97
+Color=240,247,172
 
 [General]
 Anchor=0.5,0.5
 Blur=false
 ColorRandomization=false
-Description=Sandy
+Description=Yeen
 FillStyle=Tile
 Opacity=0.89
 Wallpaper=

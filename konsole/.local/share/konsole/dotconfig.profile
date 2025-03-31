@@ -1,6 +1,8 @@
 [Appearance]
-ColorScheme=Sandy
+BoldIntense=false
+ColorScheme=Tempus Totus
 Font=FiraCode Nerd Font,9,-1,5,50,0,0,0,0,0
+UseFontLineChararacters=false
 
 [General]
 Command=/bin/zsh
