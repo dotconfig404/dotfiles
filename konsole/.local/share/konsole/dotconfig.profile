@@ -1,6 +1,6 @@
 [Appearance]
 BoldIntense=false
-ColorScheme=Tempus Totus
+ColorScheme=BlackOnLightYellow
 Font=FiraCode Nerd Font,9,-1,5,50,0,0,0,0,0
 UseFontLineChararacters=false
 

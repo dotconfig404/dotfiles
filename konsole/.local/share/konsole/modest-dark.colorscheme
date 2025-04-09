@@ -1,0 +1,100 @@
+[Background]
+Color=22,22,29
+
+[BackgroundFaint]
+Color=39,39,51
+
+[BackgroundIntense]
+Color=0,0,0
+
+[Color0]
+Color=38,38,51    ; Darker Grey (Grey19)
+
+[Color0Faint]
+Color=39,39,51
+
+[Color0Intense]
+Color=74,74,80    ; Faded Grey (LightGrey)
+
+[Color1]
+Color=255,76,76   ; Red (similar to Firebrick)
+
+[Color1Faint]
+Color=179,53,58
+
+[Color1Intense]
+Color=255,76,76
+
+[Color2]
+Color=116,196,103  ; Green (Mantis)
+
+[Color2Faint]
+Color=211,174,94
+
+[Color2Intense]
+Color=116,196,103
+
+[Color3]
+Color=255,170,127   ; Peach (similar to LightSeaGreen)
+
+[Color3Faint]
+Color=188,125,94
+
+[Color3Intense]
+Color=255,170,127
+
+[Color4]
+Color=16,52,166    ; Blue (EgyptianBlue)
+
+[Color4Faint]
+Color=30,112,157
+
+[Color4Intense]
+Color=183,202,203
+
+[Color5]
+Color=152,105,96    ; Brown (DarkChestnut)
+
+[Color5Faint]
+Color=97,74,115
+
+[Color5Intense]
+Color=167,131,182
+
+[Color6]
+Color=178,190,181    ; Light Grey (AshGrey)
+
+[Color6Faint]
+Color=74,75,74
+
+[Color6Intense]
+Color=156,158,156
+
+[Color7]
+Color=178,190,181    ; Light Grey (AshGrey)
+
+[Color7Faint]
+Color=99,104,109
+
+[Color7Intense]
+Color=230,230,207   ; Bright Grey (Grey85)
+
+[Foreground]
+Color=178,190,181   ; Normal Text (AshGrey)
+
+[ForegroundFaint]
+Color=178,190,181   ; Faint Text (AshGrey)
+
+[ForegroundIntense]
+Color=178,190,181   ; Intense Text (AshGrey)
+
+[General]
+Anchor=0.5,0.5
+Blur=false
+ColorRandomization=false
+Description=Modest Dark Theme
+FillStyle=Tile
+Opacity=0.89
+Wallpaper=
+WallpaperFlipType=NoFlip
+WallpaperOpacity=1

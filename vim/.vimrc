@@ -617,7 +617,7 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 
 " if using a colorscheme from the plugin, this needs to go in the end
-colorscheme github_light_default
+colorscheme koehler
 
 " using single click for opening files etc in nerdtree
 let NERDTreeMouseMode=3

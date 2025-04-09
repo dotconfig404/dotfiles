@@ -1,0 +1,100 @@
+[Background]
+Color=245,245,220   ; Beige background
+
+[BackgroundFaint]
+Color=249,250,251   ; Very Light Background
+
+[BackgroundIntense]
+Color=255,255,255   ; White background
+
+[Color0]
+Color=16,52,166     ; Blue (EgyptianBlue)
+
+[Color0Faint]
+Color=39,39,51
+
+[Color0Intense]
+Color=74,74,80      ; Faded Grey (LightGrey)
+
+[Color1]
+Color=152,105,96    ; Brown (DarkChestnut)
+
+[Color1Faint]
+Color=179,53,58
+
+[Color1Intense]
+Color=255,76,79     ; Red
+
+[Color2]
+Color=32,178,170    ; Green (LightSeaGreen)
+
+[Color2Faint]
+Color=211,174,94
+
+[Color2Intense]
+Color=251,212,116   ; Bright Yellow-ish
+
+[Color3]
+Color=255,170,127    ; Peach (LightSeaGreen)
+
+[Color3Faint]
+Color=188,125,94
+
+[Color3Intense]
+Color=255,170,127
+
+[Color4]
+Color=16,52,166     ; Blue (EgyptianBlue)
+
+[Color4Faint]
+Color=30,112,157
+
+[Color4Intense]
+Color=183,202,203
+
+[Color5]
+Color=155,89,182    ; Purple
+
+[Color5Faint]
+Color=97,74,115
+
+[Color5Intense]
+Color=167,131,182
+
+[Color6]
+Color=178,190,181    ; Light Grey (AshGrey)
+
+[Color6Faint]
+Color=74,75,74       ; Faint Grey
+
+[Color6Intense]
+Color=156,158,156    ; Intensified Light Grey
+
+[Color7]
+Color=16,52,166      ; Foreground contrast color (EgyptianBlue)
+
+[Color7Faint]
+Color=99,104,109     ; Faint Color
+
+[Color7Intense]
+Color=245,245,220    ; Bright (similar to Beige)
+
+[Foreground]
+Color=16,52,166      ; Normal Text (EgyptianBlue)
+
+[ForegroundFaint]
+Color=178,190,181    ; Faint Text (AshGrey)
+
+[ForegroundIntense]
+Color=16,52,166      ; Intense Text (EgyptianBlue)
+
+[General]
+Anchor=0.5,0.5
+Blur=false
+ColorRandomization=false
+Description=Modest Light Theme
+FillStyle=Tile
+Opacity=0.89
+Wallpaper=
+WallpaperFlipType=NoFlip
+WallpaperOpacity=1

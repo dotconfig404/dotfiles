@@ -28,19 +28,20 @@ $line_break$character"""
 
 palette = 'idk'
 
+# order: blue green yellow orange dark
 [palettes.idk]
-dark_bg = '#112233'
-white_fg = '#ccffcc'
-green_fg = '#22ff22'
-green_bg = '#225522'
-red_bg = '#552222'
-red_fg = '#ff2222'
-blue_bg = '#222255'
+blue_bg = '#eeeed0'
 blue_fg = '#2222ff'
-yellow_fg = '#ffff22'
-yellow_bg = '#555522'
+green_bg = '#fdefb2'
+green_fg = '#225522'
+yellow_fg = '#f1c232'
+yellow_bg = '#ffda03'
 orange_fg = '#ffff22'
-orange_bg = '#663322'
+orange_bg = '#fde992'
+dark_bg = '#ffda03'
+white_fg = '#737000'
+red_bg = '#000000'
+red_fg = '#000000'
 
 [os]
 disabled = false
