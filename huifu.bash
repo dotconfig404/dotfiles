@@ -363,10 +363,11 @@ packages[ubuntu]=${packages[debian]}
 install ${packages[$ID]} 
 
 ##############
-# pavucontrol
+# keychain
 ##############
 packages[arch]="keychain"
 packages[debian]="keychain"
 packages[ubuntu]=${packages[debian]}
 install ${packages[$ID]} 
 
+mandb
