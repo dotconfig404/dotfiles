@@ -185,8 +185,8 @@ bar {
 exec nitrogen --restore
 
 # google drive
-exec [ ! -d "$HOME/gdrive" ] && mkdir -p "$HOME/gdrive"
-exec rclone mount google_drive:/ $HOME/gdrive
+#exec [ ! -d "$HOME/gdrive" ] && mkdir -p "$HOME/gdrive"
+#exec rclone mount google_drive:/ $HOME/gdrive
 
 exec --no-startup-id "setxkbmap eu"
 exec --no-startup-id "numlockx"
@@ -197,6 +197,5 @@ exec --no-startup-id "blueman-applet"
 exec --no-startup-id "picom"
 exec --no-startup-id "fcitx5 -d"
 
-bindsym $mod+Escape exec "i3lock -c 000000"
-bindsym $mod+Shift+S exec "i3lock -c 000000; systemctl suspend"
+#bindsym $mod+Shift+S exec "i3lock -c 000000; systemctl suspend"
 bindsym $mod+p exec "bash $HOME/.config/i3/switchdisplay.sh"
