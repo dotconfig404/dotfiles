@@ -10,4 +10,4 @@ Name=dotconfig
 Parent=FALLBACK/
 
 [Scrolling]
-HistorySize=100000
+HistorySize=1000000

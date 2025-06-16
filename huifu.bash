@@ -370,4 +370,9 @@ packages[debian]="keychain"
 packages[ubuntu]=${packages[debian]}
 install ${packages[$ID]} 
 
-mandb
+sudo mandb
+
+packages[arch]="gnome"
+packages[debian]="gnome"
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]} 
