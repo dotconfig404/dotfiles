@@ -362,3 +362,11 @@ packages[debian]="pavucontrol"
 packages[ubuntu]=${packages[debian]}
 install ${packages[$ID]} 
 
+##############
+# pavucontrol
+##############
+packages[arch]="keychain"
+packages[debian]="keychain"
+packages[ubuntu]=${packages[debian]}
+install ${packages[$ID]} 
+
