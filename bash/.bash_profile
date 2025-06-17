@@ -85,4 +85,4 @@ set -o vi
 if [[ $iatest > 0 ]]; then bind "set bell-style visible"; fi
 . "$HOME/.cargo/env"
 
-eval $(keychain --eval --agents ssh ~/.ssh/*.pri --nogui -Q)
+eval $(keychain --eval --agents ssh ~/.ssh/*.pri --nogui -Q --noask)
