@@ -59,8 +59,7 @@ _install() {
 
 
 
-_link_configs() {
-	return 0
+_link_configs-WIP() {
     local source_dir="$1"
 	echo_in red $source_dir
 	if [ ! -d $source_dir ]; then
@@ -94,7 +93,7 @@ _link_configs() {
 	done
 }
 
-_link_configs2() {
+_link_configs() {
 	if [ ! -d $1 ]; then
 		return 0
 	fi
@@ -119,91 +118,49 @@ _link_configs2() {
 
 }
 
-
-
-new_package() {
-    declare -A args=()
-    for arg in "$@"; do
-        [[ "$arg" == *=* ]] || continue
-        key="${arg%%=*}" value="${arg#*=}"
-        args[$key]="$value"
-    done
-
-    local name="${args[name]}"
-    local config_dir="${args[config_dir]}"
-    local native_packages="${args[native_packages]}"
-    local custom_install_command="${args[custom_install_command]}"
-    local custom_install_check="${args[custom_install_check]}"
-    local post_link_command="${args[post_link_command]}"
-
-    if [[ -z "$name" || ! "$name" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]]; then
-        echo_in red "Invalid package name: $name"
-        return 1
-    fi
-
-    local native_install_command="${NATIVE_INSTALL[$ID]} $native_packages"
-    local native_install_check="${NATIVE_INSTALL_CHECK[$ID]} $native_packages"
+install() {
+    local native_install_command="${NATIVE_INSTALL[$ID]} ${packages[$ID]}"
+    local native_install_check="${NATIVE_INSTALL_CHECK[$ID]} ${packages[$ID]}"
 
 	local commands=(
         "_install $name $custom_install_command $custom_install_check"
         "_install $name \"$native_install_command\" \"$native_install_check\""
-        "_link_configs $name"
-#        "$post_link_command"
+        "_link_configs $config_dir"
+        "$post_link_command"
     )
 
-    package["$name"]="$(IFS=';'; echo "${commands[*]}")"
+    install_func="$(IFS=';'; echo "${commands[*]}")"
+	eval $install_func
+
+	unset name
+	unset config_dir
+	unset packages[$ID]
+	unset custom_check
+	unset custom_install_command
+	unset post_link_command
 }
 
 
-declare -A pkgs
+declare -A packages
 
 name=basics
-pkgs[ubuntu]="curl wget less unzip zip python3 python3-venv silversearcher-ag"
-pkgs[arch]="curl wget less unzip zip python the_silver_searcher"
-new_package \
-	name=$name \
-	config_dir=$name \
-	native_packages="${pkgs[$ID]}" \
-	#custom_install_command=${name}_install \
-	#custom_install_check=${name}_check \
-	#post_link_command=${name}_post_link \
-eval "${package[$name]}"
-
+packages[ubuntu]="curl wget less unzip zip python3 python3-venv silversearcher-ag cowsay"
+packages[arch]="curl wget less unzip zip python the_silver_searcher cowsay"
+config_dir=$name
+install
 
 name=zsh
-pkgs[ubuntu]="zsh"
-pkgs[arch]="zsh"
-custom_installer() {
+packages[ubuntu]="zsh"
+packages[arch]="zsh"
+custom_install_command() {
 	curl -sS https://starship.rs/install.sh | sh
 }
-custom_check() {
+custom_install_check() {
 	! command -v starship &> /dev/null
 }
-new_package \
-	name=$name \
-	config_dir=$name \
-	native_packages="${pkgs[$ID]}" \
-	custom_install_command=custom_installer \
-	custom_install_check=custom_check \
-	#custom_install_check=custom_check \
-	#post_link_command=${name}_post_link \
-eval "${package[$name]}"
+config_dir=$name
+install
 
-#name=zsh
-#pkgs[ubuntu]="zsh"
-#pkgs[arch]="zsh"
-##custom_installer() {
-##	curl -sS https://starship.rs/install.sh | echo
-##}
-##custom_check() {
-##	! command -v starship &> /dev/null
-##}
-#new_package \
-#	name=$name \
-#	config_dir=$name \
-#	native_packages=${pkgs[$ID]} \
-#	custom_install_command=custom_installer \
-#	custom_install_check=custom_check \
-#	#post_link_command=${name}_post_link \
-#echo "${package[$name]}"
-#eval "${package[$name]}"
+#name=basics
+config_dir=testing_parent
+install
