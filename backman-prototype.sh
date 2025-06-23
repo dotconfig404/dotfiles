@@ -123,8 +123,8 @@ install() {
     local native_install_check="${NATIVE_INSTALL_CHECK[$ID]} ${packages[$ID]}"
 
 	local commands=(
-        "_install $name $custom_install_command $custom_install_check"
-        "_install $name \"$native_install_command\" \"$native_install_check\""
+        "_install ${name:-${packages[$ID]}} \"$native_install_command\" \"$native_install_check\""
+        "_install ${name:-\"undefined\"} $custom_install_command $custom_install_check"
         "_link_configs $config_dir"
         "$post_link_command"
     )
@@ -149,7 +149,7 @@ packages[arch]="curl wget less unzip zip python the_silver_searcher cowsay"
 config_dir=$name
 install
 
-name=zsh
+#name=zsh
 packages[ubuntu]="zsh"
 packages[arch]="zsh"
 custom_install_command() {
@@ -158,7 +158,7 @@ custom_install_command() {
 custom_install_check() {
 	! command -v starship &> /dev/null
 }
-config_dir=$name
+config_dir=zsh
 install
 
 #name=basics
