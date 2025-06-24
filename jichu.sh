@@ -117,7 +117,9 @@ _link_file_or_dir() {
     ln -sf "$source" "$target"
     # target does not exist and source is a directory
   elif [ ! -e "$target" ] && [ -d "$source" ]; then
-    _prompt_create_dir_or_link_dir "$source" "$target"
+    #_prompt_create_dir_or_link_dir "$source" "$target"
+    mkdir "$target"
+    _link_files_in_dir "$source" $target"
     # target already points to source
   elif [ "$(realpath "$target")" == "$(realpath "$source")" ]; then
     #echo_in green "bla bla bla"
