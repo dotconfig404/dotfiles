@@ -1,6 +1,4 @@
 # Notes
-Minimal huifu for servers - exclude Anki, X, etc
-
 Not updating font cache on every huifu run, potentially version-check font directory using git?
 
 Convienent WM/ DE switching 
