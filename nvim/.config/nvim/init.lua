@@ -1,3 +1,6 @@
+-- this gets overriden by lazy vim. it is also space in lazy vim, but let's have it here explicitly
+vim.g.mapleader = "<Space>"
+
 -- package manager
 require("config.lazy")
 
