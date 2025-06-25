@@ -5,4 +5,5 @@ require("config.lazy")
 vim.api.nvim_set_option("clipboard", "unnamed")
 
 -- theme
-vim.cmd 'colorscheme modest'
+--vim.cmd 'colorscheme neomodern'
+vim.wo.number = true
