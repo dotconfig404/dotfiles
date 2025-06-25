@@ -91,11 +91,11 @@ name=vim
 config_dirs=vim
 packages[ubuntu]=vim
 packages[arch]=vim
-post_install_comand(){
-  vim -c 'PlugInstall' -c 'qa!'
-  vim -c 'CocInstall coc-pyright' -c 'qa!'
-  vim -c 'CocInstall coc-rust-analyzer' -c 'qa!'
-}
+#post_install_comand(){
+#  vim -c 'PlugInstall' -c 'qa!'
+#  vim -c 'CocInstall coc-pyright' -c 'qa!'
+#  vim -c 'CocInstall coc-rust-analyzer' -c 'qa!'
+#}
 install
 
 name=tmux
