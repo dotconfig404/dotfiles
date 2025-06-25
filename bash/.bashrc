@@ -15,5 +15,5 @@ fi
 
 # this needs to be at the end, i think
 eval "$(starship init bash)"
-. "$HOME/.cargo/env"
 
+. "$HOME/.cargo/env"
