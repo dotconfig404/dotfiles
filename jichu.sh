@@ -117,12 +117,9 @@ _link_file_or_dir() {
     ln -sf "$source" "$target"
     # target does not exist and source is a directory
   elif [ ! -e "$target" ] && [ -d "$source" ]; then
-    #_prompt_create_dir_or_link_dir "$source" "$target"
-    mkdir "$target"
-    _link_files_in_dir "$source" "$target"
+    _prompt_create_dir_or_link_dir "$source" "$target"
     # target already points to source
   elif [ "$(realpath "$target")" == "$(realpath "$source")" ]; then
-    #echo_in green "bla bla bla"
     return 0
     # target is a dir and source is a dir 
   elif [ -d "$target" ] && [ -d "$source" ]; then
@@ -147,11 +144,9 @@ _link_files_in_dir() {
     return 1
   fi
 
-  #echo_in blue "Linking files in: $source_dir"
   source_dir="$(realpath "$source_dir")"
-  #echo_in blue "Using resolved source directory: $source_dir"
 
-  local source_children=($(find "$source_dir" -mindepth 1 -maxdepth 1))
+  mapfile -t source_children < <(find "$source_dir" -mindepth 1 -maxdepth 1)
 
   for source_child in "${source_children[@]}"; do
     local target_child="$target_dir/$(basename "$source_child")"
@@ -164,7 +159,7 @@ _link_config_dirs() {
 
   for dir in $config_dirs; do
     echo_in blue "Linking: $dir"
-    _link_files_in_dir $dir
+    _link_files_in_dir "$dir"
     echo_in green "Done linking: $dir"
   done
 }
@@ -190,7 +185,7 @@ install() {
   fi
 
   # linking dotfiles
-  _link_config_dirs $config_dirs
+  _link_config_dirs "$config_dirs"
 
   # post install command
   _is_set post_setup_command && post_setup_command
