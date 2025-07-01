@@ -172,7 +172,7 @@ install
 
 name=home-manager
 custom_install_command() {
-  home-manager switch --flake .#default
+  home-manager switch --flake .#default --impure
 }
 custom_install_check() {
   false
