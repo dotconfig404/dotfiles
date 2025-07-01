@@ -170,7 +170,6 @@ custom_install_command() {
 custom_install_check() {
   command -v home-manager > /dev/null
 }
-config_dirs="home-manager confidential/home-manager"
 install
 
 name=home-manager-update
