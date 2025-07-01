@@ -133,14 +133,6 @@ custom_install_command() {
 
     source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 
-    # install home manager
-    nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-    nix-channel --update
-    nix-shell '<home-manager>' -A install
-    if [ $ID == "ubuntu" ];then
-  	sudo mkdir /etc/bash.bashrc.d
-        sudo cp _system/etc/bash.bashrc.d/nix.bash /etc/bash.bashrc.d/nix.bash
-    fi
 }
 custom_install_check() {
   command -v nix-env > /dev/null
@@ -172,10 +164,21 @@ install
 
 name=home-manager
 custom_install_command() {
-  home-manager switch --flake .#default --impure
+  nix run home-manager/master -- init --switch .
+  sed  -i 's/\.\/home\.nix/\.\/home\.nix \.\/home-general\.nix \.\/confidential\/home-confidential\.nix/g' ./flake.nix
 }
+custom_install_check() {
+  command -v home-manager > /dev/null
+}
+config_dirs="home-manager confidential/home-manager"
+install
+
+name=home-manager-update
+custom_install_command() {
+  home-manager switch --flake .
+}
+# lets just always run thsi command
 custom_install_check() {
   false
 }
 install
-
