@@ -12,8 +12,8 @@ packages[ubuntu]="numlockx tree thunar wireshark sshuttle kde-spectacle gthumb f
 install
 
 name=basics3
-packages[arch]="code chromium pavucontrol keychain gnome"
-packages[ubuntu]="code chromium-browser pavucontrol keychain gnome"
+packages[arch]="code chromium pavucontrol keychain gnome sshfs"
+packages[ubuntu]="code chromium-browser pavucontrol keychain gnome sshfs"
 install
 
 name=starship
