@@ -138,7 +138,7 @@ custom_install_command() {
     nix-channel --update
     nix-shell '<home-manager>' -A install
     if [ $ID == "ubuntu" ];then
-	sudo mkdir /etc/bash.bashrc.d
+  	sudo mkdir /etc/bash.bashrc.d
         sudo cp _system/etc/bash.bashrc.d/nix.bash /etc/bash.bashrc.d/nix.bash
     fi
 }
@@ -170,4 +170,12 @@ custom_install_check() {
 }
 install
 
+name=home-manager
+custom_install_command() {
+  home-manager switch --flake .#default
+}
+custom_install_check() {
+  false
+}
+install
 
