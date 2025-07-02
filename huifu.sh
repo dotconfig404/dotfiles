@@ -187,11 +187,3 @@ name=wezterm
 #}
 config_dirs=wezterm
 install
-
-###################
-name=fish
-###################
-packages[ubuntu]="fish 
-packages[ubuntu]=
-config_dirs=$name
-install
