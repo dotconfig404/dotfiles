@@ -74,6 +74,8 @@ custom_install_check() {
 config_dirs=nvim
 install
 
+# OSC52 support soon! https://bugs.kde.org/show_bug.cgi?id=372116
+# but not soon enough, wezterm for now? besides the config sucks
 ###################
 name=konsole
 ###################
@@ -172,3 +174,16 @@ custom_install_check() {
 }
 install
 
+#OSC52 support soon? https://github.com/wezterm/wezterm/pull/6239/files
+###################
+name=wezterm
+###################
+#custom_install_command() {
+#curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg
+#echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list
+#sudo chmod 644 /usr/share/keyrings/wezterm-fury.gpg
+#sudo apt update
+#sudo apt install wezterm
+#}
+config_dirs=wezterm
+install
