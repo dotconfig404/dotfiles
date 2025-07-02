@@ -1,0 +1,3 @@
+[submodule "confidential"]
+	path = confidential
+	url = git@github.com:dotconfig404/confidential.git
