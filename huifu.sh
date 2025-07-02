@@ -126,18 +126,16 @@ packages[arch]="fcitx5 fcitx5-qt fcitx5-gtk fcitx5-chinese-addons noto-fonts-cjk
 packages[ubuntu]="fcitx5 fcitx5-chinese-addons fonts-noto-cjk fonts-noto-cjk-extra im-config"
 install 
 
-name=nix
-custom_install_command() {
-    curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | \
-    sh -s -- install --nix-build-group-id 3000000 --nix-build-user-id-base 3000000 --no-confirm
-
-    source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-
-}
-custom_install_check() {
-  command -v nix-env > /dev/null
-}
-install
+#name=nix
+#custom_install_command() {
+#    curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | \
+#    sh -s -- install --nix-build-group-id 3000000 --nix-build-user-id-base 3000000 --no-confirm
+#    source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+#}
+#custom_install_check() {
+#  command -v nix-env > /dev/null
+#}
+#install
 
 name=lazygit
 custom_install_command() {
@@ -162,22 +160,27 @@ custom_install_check() {
 }
 install
 
-name=home-manager
-custom_install_command() {
-  nix run home-manager/master -- init --switch .
-#  sed  -i 's/\.\/home\.nix/\.\/home\.nix \.\/home-general\.nix \.\/confidential\/home-confidential\.nix/g' ./confidential/flake.nix
-}
-custom_install_check() {
-  command -v home-manager > /dev/null
-}
-install
+#name=home-manager
+#custom_install_command() {
+# flake based install
+#  nix run home-manager/master -- init --switch . --impure
+#channel based install
+#nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+#nix-channel --update
+#nix-shell '<home-manager>' -A install
+#sed  -i 's/\.\/home\.nix/\.\/home\.nix \.\/home-sthsthsth\.nix \.\/confidential\/home-confidentialsthsthexample\.nix/g' ./config/home-manager/flake.nix
+#}
+#custom_install_check() {
+#  command -v home-manager > /dev/null
+#}
+#install
 
-name=home-manager-update
-custom_install_command() {
-  home-manager switch --flake .
-}
-# lets just always run thsi command
-custom_install_check() {
-  false
-}
-install
+#name=home-manager-update
+#custom_install_command() {
+#  home-manager switch --flake .
+#}
+## lets just always run thsi command
+#custom_install_check() {
+#  false
+#}
+#install
