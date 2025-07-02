@@ -5,8 +5,8 @@
   home.stateVersion = "25.05";
 
   # User specific
-  username = builtins.getEnv "USER";
-  homeDirectory = builtins.getEnv "HOME";
+  home.username = builtins.getEnv "USER";
+  home.homeDirectory = builtins.getEnv "HOME";
   xdg.cacheHome = builtins.getEnv "XDG_CACHE_HOME";
 
   # Let home manager install and manage itself.
@@ -45,7 +45,7 @@
       g = "git";
     };
 
-    initExtra = ''
+    initContent = ''
       export PATH="$HOME/bin:$PATH"
       bindkey '^R' history-incremental-search-backward
     '';

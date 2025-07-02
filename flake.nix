@@ -15,14 +15,16 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+      user = builtins.getEnv "USER";
     in
     {
-      homeConfigurations."default" = home-manager.lib.homeManagerConfiguration {
+      
+      homeConfigurations.${user} = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
         # Specify your home configuration modules here, for example,
         # the path to your home.nix.
-        modules = [ ./home.nix ./home-general.nix ./home-confidential.nix  ];
+        modules = [ ./home.nix ./confidential/home.nix ];
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
