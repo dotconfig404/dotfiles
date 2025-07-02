@@ -1,0 +1,11 @@
+{
+  "github-theme": { "branch": "main", "commit": "c106c9472154d6b2c74b74565616b877ae8ed31d" },
+  "gitsigns.nvim": { "branch": "main", "commit": "588264bee92993df92535b6742576f5655c91b1c" },
+  "iceberg.vim": { "branch": "master", "commit": "23835d5ed696436f716cbfdb56a93a7850fe3b18" },
+  "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
+  "leap.nvim": { "branch": "main", "commit": "897a9adbec7ac5d0900d4d13980c3f06c16b9092" },
+  "modus-themes.nvim": { "branch": "master", "commit": "61b8c10ec636f42baf6c845edb14b9ae2723711f" },
+  "plenary.nvim": { "branch": "master", "commit": "857c5ac632080dba10aae49dba902ce3abf91b35" },
+  "telescope.nvim": { "branch": "master", "commit": "b4da76be54691e854d3e0e02c36b0245f945c2c7" },
+  "which-key.nvim": { "branch": "main", "commit": "370ec46f710e058c9c1646273e6b225acf47cbed" }
+}
