@@ -37,8 +37,9 @@ install
 ###################
 name=shell
 ###################
-packages[arch]="bash-completion pinentry-curses"
-packages[ubuntu]="bash-completion pinentry-curses"
+# bat and fd for fzf in fish
+packages[arch]="bash-completion pinentry-curses fd bat"
+packages[ubuntu]="bash-completion pinentry-curses fd-find bat"
 custom_install_command() {
   [ -d $HOME/gitclones ] || mkdir ~/gitclones
   [ -d $HOME/.local/bin ] || mkdir ~/.local/bin
@@ -47,12 +48,11 @@ custom_install_command() {
   ln -s $HOME/gitclones/fzf/bin/fzf $HOME/.local/bin/
 }
 custom_install_check() {
-  command -v fzf &> /dev/null
+  command -v fzf &> /dev/null 
 }
 post_install_command() {
   update-alternatives --set pinentry /usr/bin/pinentry-curses
 }
-# fzf has custom entry in 
 config_dirs="bash zsh fzf"
 install
 
@@ -186,4 +186,12 @@ name=wezterm
 #sudo apt install wezterm
 #}
 config_dirs=wezterm
+install
+
+###################
+name=fish
+###################
+packages[ubuntu]="fish 
+packages[ubuntu]=
+config_dirs=$name
 install
