@@ -1,9 +1,6 @@
 *.swp
 _private/
 vim/.vim/plugged/
-home.nix
-flake.nix
-flake.lock
 
 # fcitx5
 fcitx5/.config/fcitx5/conf/cached_layouts

@@ -165,7 +165,7 @@ install
 name=home-manager
 custom_install_command() {
   nix run home-manager/master -- init --switch .
-  sed  -i 's/\.\/home\.nix/\.\/home\.nix \.\/home-general\.nix \.\/confidential\/home-confidential\.nix/g' ./flake.nix
+#  sed  -i 's/\.\/home\.nix/\.\/home\.nix \.\/home-general\.nix \.\/confidential\/home-confidential\.nix/g' ./confidential/flake.nix
 }
 custom_install_check() {
   command -v home-manager > /dev/null
