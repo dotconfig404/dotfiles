@@ -84,5 +84,4 @@ set -o vi
 # Disable the bell
 if [[ $iatest > 0 ]]; then bind "set bell-style visible"; fi
 
-eval $(keychain --eval --agents ssh ~/.ssh/*.pri --nogui -Q --noask)
 . "$HOME/.cargo/env"

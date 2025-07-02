@@ -1,12 +1,13 @@
-# if dir exists and if string returned from ls -A (list without . and ..) is not null, 
-# then source all the output from cat
-if [ -d "$HOME/.zprofile.d" ] && [ ! -z "$(ls -A $HOME/.zprofile.d)" ]; then
-    source <(cat $HOME/.zprofile.d/*.zsh)
-fi
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
+fi
+#
+# if dir exists and if string returned from ls -A (list without . and ..) is not null, 
+# then source all the output from cat
+if [ -d "$HOME/.zprofile.d" ] && [ ! -z "$(ls -A $HOME/.zprofile.d)" ]; then
+    source <(cat $HOME/.zprofile.d/*.zsh)
 fi
 
 # history file location
@@ -58,5 +59,3 @@ trm() {
 export XMODIFIERS=@im=fcitx5
 export GTK_IM_MODULE=fcitx5
 export QT_IM_MODULE=fcitx5
-eval $(keychain --eval --agents ssh ~/.ssh/*.pri --nogui -Q --noask)
-#eval $(keychain --eval --agents ssh ~/.ssh/*.pub)
