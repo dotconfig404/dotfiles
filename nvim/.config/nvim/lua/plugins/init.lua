@@ -71,4 +71,7 @@ return {
     vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
   end,
   },
+
+  -- view directory as buffer
+  "elihunter173/dirbuf.nvim",
 }
