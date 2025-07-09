@@ -74,4 +74,7 @@ return {
 
   -- view directory as buffer
   "elihunter173/dirbuf.nvim",
+
+  -- puppet syntax
+  "rodjek/vim-puppet",
 }
