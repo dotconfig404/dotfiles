@@ -5,3 +5,6 @@ vim/.vim/plugged/
 # fcitx5
 fcitx5/.config/fcitx5/conf/cached_layouts
 fcitx5/.config/fcitx5/conf/pinyin.conf
+
+fonts/.local/share/fonts/*/*/.uuid
+gtk/.config/gtk-3.0/bookmarks
