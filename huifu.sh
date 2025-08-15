@@ -18,8 +18,8 @@ install
 ###################
 name=basics3
 ###################
-packages[arch]="code chromium pavucontrol gnome sshfs"
-packages[ubuntu]="code chromium-browser pavucontrol gnome sshfs"
+packages[arch]="code chromium pavucontrol gnome sshfs cmake"
+packages[ubuntu]="code chromium-browser pavucontrol gnome sshfs cmake"
 install
 
 ###################
