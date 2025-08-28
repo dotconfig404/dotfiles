@@ -199,3 +199,5 @@ exec --no-startup-id "fcitx5 -d"
 
 #bindsym $mod+Shift+S exec "i3lock -c 000000; systemctl suspend"
 bindsym $mod+p exec "bash $HOME/.config/i3/switchdisplay.sh"
+
+ exec --no-startup-id lxpolkit
