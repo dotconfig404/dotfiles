@@ -129,7 +129,7 @@ install
 ###################
 name=emacs
 ###################
-config_dirs=$name
+config_dirs="emacs spacemacs"
 packages[ubuntu]=$name
 packages[arch]=$name
 install
