@@ -50,9 +50,10 @@ custom_install_command() {
 custom_install_check() {
   command -v fzf &> /dev/null 
 }
-post_install_command() {
-  sudo update-alternatives --set pinentry /usr/bin/pinentry-curses
-}
+# now done for each program individually: gpg and ssh
+#post_install_command() {
+#  sudo update-alternatives --set pinentry /usr/bin/pinentry-curses
+#}
 config_dirs="bash zsh fzf"
 install
 
