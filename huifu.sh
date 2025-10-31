@@ -51,7 +51,7 @@ custom_install_check() {
   command -v fzf &> /dev/null 
 }
 post_install_command() {
-  update-alternatives --set pinentry /usr/bin/pinentry-curses
+  sudo update-alternatives --set pinentry /usr/bin/pinentry-curses
 }
 config_dirs="bash zsh fzf"
 install
