@@ -59,6 +59,8 @@ install
 ###################
 name=nvim
 ###################
+packages[arch]="xclip"
+packages[ubuntu]="xclip"
 custom_install_command() {
   [ -d $HOME/gitclones ] || mkdir ~/gitclones
   [ -d $HOME/.local/bin ] || mkdir ~/.local/bin
