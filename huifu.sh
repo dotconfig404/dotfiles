@@ -190,3 +190,9 @@ name=wezterm
 #}
 config_dirs=wezterm
 install
+
+###################
+name=rust
+###################
+config_dirs=ruby
+install
