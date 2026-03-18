@@ -52,6 +52,7 @@ _install() {
   else
     if eval "$install_command"; then
       echo_in green "Installed: $name"
+      _newly_installed=true
     else
       echo_in red "Failed installing: $name"
       exit 1
@@ -165,18 +166,20 @@ _link_config_dirs() {
 }
 
 _is_set() {
-  [ "$(type -t $1)" == function ]
+  [ "$(type -t "$1")" == function ]
 }
 
 install() {
   # pre install command
    _is_set pre_install_command && pre_install_command
 
+  local _newly_installed=false
+
   # native packages
   local native_install_command="${NATIVE_INSTALL[$ID]} ${packages[$ID]}"
   local native_install_check="${NATIVE_INSTALL_CHECK[$ID]} ${packages[$ID]}"
   if [ -n "${packages[$ID]}" ]; then
-    _install ${name:-"${packages[$ID]}"} "$native_install_command" "$native_install_check"
+    _install "${name:-${packages[$ID]}}" "$native_install_command" "$native_install_check"
   fi
 
   # custom installation
@@ -187,8 +190,8 @@ install() {
   # linking dotfiles
   _link_config_dirs "$config_dirs"
 
-  # post install command
-  _is_set post_setup_command && post_setup_command
+  # post install command: only runs on fresh install
+  $_newly_installed && _is_set post_install_command && post_install_command
 
   unset name
   unset config_dirs

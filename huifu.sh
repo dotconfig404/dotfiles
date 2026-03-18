@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-source jichu.sh
+cd "$(dirname "${BASH_SOURCE[0]}")"
+source ./jichu.sh
 
 ###################
 name=basics
@@ -23,6 +24,24 @@ packages[ubuntu]="code chromium-browser pavucontrol gnome sshfs cmake"
 install
 
 ###################
+name=gdm
+###################
+packages[arch]="gdm"
+packages[ubuntu]="gdm3"
+post_install_command() {
+  case "$ID" in
+    ubuntu|debian)
+      echo "/usr/sbin/gdm3" | sudo tee /etc/X11/default-display-manager > /dev/null
+      ;;
+    arch)
+      sudo systemctl enable gdm
+      ;;
+  esac
+  sudo systemctl set-default graphical.target
+}
+install
+
+###################
 name=starship
 ###################
 custom_install_command() {
@@ -35,17 +54,30 @@ config_dirs="starship"
 install
 
 ###################
+name=zsh
+###################
+packages[arch]="zsh"
+packages[ubuntu]="zsh"
+post_install_command() {
+  if grep -q "^$USER:" /etc/passwd; then
+    chsh -s "$(which zsh)"
+  else
+    echo_in yellow "Skipping chsh: $USER is not a local user"
+  fi
+}
+install
+
+###################
 name=shell
 ###################
 # bat and fd for fzf in fish
 packages[arch]="bash-completion pinentry-curses fd bat"
 packages[ubuntu]="bash-completion pinentry-curses fd-find bat"
 custom_install_command() {
-  [ -d $HOME/gitclones ] || mkdir ~/gitclones
-  [ -d $HOME/.local/bin ] || mkdir ~/.local/bin
-  git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/gitclones/fzf
-  ~/gitclones/fzf/install --bin
-  ln -s $HOME/gitclones/fzf/bin/fzf $HOME/.local/bin/
+  mkdir -p "$HOME/gitclones" "$HOME/.local/bin"
+  git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/gitclones/fzf"
+  "$HOME/gitclones/fzf/install" --bin
+  ln -s "$HOME/gitclones/fzf/bin/fzf" "$HOME/.local/bin/"
 }
 custom_install_check() {
   command -v fzf &> /dev/null 
@@ -63,11 +95,10 @@ name=nvim
 packages[arch]="xclip"
 packages[ubuntu]="xclip"
 custom_install_command() {
-  [ -d $HOME/gitclones ] || mkdir ~/gitclones
-  [ -d $HOME/.local/bin ] || mkdir ~/.local/bin
-  git clone https://github.com/neovim/neovim $HOME/gitclones/neovim
-  cd $HOME/gitclones/neovim
-  make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALLL_PREFIX=$HOME/.local/bin
+  mkdir -p "$HOME/gitclones" "$HOME/.local/bin"
+  git clone https://github.com/neovim/neovim "$HOME/gitclones/neovim"
+  cd "$HOME/gitclones/neovim"
+  make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX="$HOME/.local/bin"
   sudo make install
   cd -
 }
@@ -126,7 +157,7 @@ name=i3
 ###################
 packages[arch]="xorg-server i3-wm i3lock jgmenu nitrogen xcape i3blocks network-manager-applet dmenu xorg-xinit autorandr ttf-font-awesome arandr tk python xorg-xrandr picom blueman"
 packages[ubuntu]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-gnome suckless-tools xinit autorandr fonts-font-awesome arandr python3-tk python3 x11-xserver-utils picom blueman" 
-config_dirs="i3 i3blocks fonts xinit autorandr picom"
+config_dirs="i3 i3blocks fonts autorandr picom"
 install
 
 ###################
@@ -192,7 +223,33 @@ config_dirs=wezterm
 install
 
 ###################
-name=rust
+name=ruby
 ###################
 config_dirs=ruby
 install
+
+###################
+name=node
+###################
+#custom_install_command() {
+#  curl -fsSL https://get.pnpm.io/install.sh | sh -
+#  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+#}
+#custom_install_check() {
+#  command -v nvm > /dev/null
+#  command -v pnpm > /dev/null
+#}
+# better to execute manually... WHY DOES SO MUCH STUFF USE THESE DAMN CURL|SH
+#nvm install --lts
+#nvm use --lts
+config_dirs=node
+install
+
+###################
+# confidential
+###################
+_confidential="$(dirname "${BASH_SOURCE[0]}")/confidential/huifu.sh"
+if [ -f "$_confidential" ]; then
+  source "$_confidential"
+fi
+unset _confidential
