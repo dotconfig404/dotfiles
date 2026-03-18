@@ -83,27 +83,43 @@ _prompt_create_dir_or_link_dir() {
   local source="$1"
   local target="$2"
 
-  echo_in yellow "Target does not exist and source is a directory:"
-  echo_in yellow "  Source: $source"
-  echo_in yellow "  Target: $target"
-  echo_in yellow "How would you like to proceed?"
-  echo "  [1] Link entire directory (symlink $target → $source)"
-  echo "  [2] Create target directory and link contents"
-  echo "  [3] Skip"
+  # dir_link_mode can be set before calling install() to control behavior:
+  #   "link"     (default) — symlink the entire directory
+  #   "contents"           — create target dir and link contents individually
+  #   "prompt"             — ask the user
+  local mode="${dir_link_mode:-link}"
 
-  read -p "Choose an option [1/2/3]: " choice
-  case "$choice" in
-    1)
-      # we still want to force the linking, as dangling links count as non-existent files
+  case "$mode" in
+    link)
       ln -sf "$source" "$target"
       echo_in green "Linked directory: $target → $source"
       ;;
-    2)
-      mkdir "$target"
+    contents)
+      mkdir -p "$target"
       _link_files_in_dir "$source" "$target"
       ;;
-    *)
-      echo_in red "Skipped linking $target"
+    prompt)
+      echo_in yellow "Target does not exist and source is a directory:"
+      echo_in yellow "  Source: $source"
+      echo_in yellow "  Target: $target"
+      echo_in yellow "How would you like to proceed?"
+      echo "  [1] Link entire directory (symlink $target → $source)"
+      echo "  [2] Create target directory and link contents"
+      echo "  [3] Skip"
+      read -p "Choose an option [1/2/3]: " choice
+      case "$choice" in
+        1)
+          ln -sf "$source" "$target"
+          echo_in green "Linked directory: $target → $source"
+          ;;
+        2)
+          mkdir -p "$target"
+          _link_files_in_dir "$source" "$target"
+          ;;
+        *)
+          echo_in red "Skipped linking $target"
+          ;;
+      esac
       ;;
   esac
 }
@@ -173,6 +189,7 @@ install() {
   # pre install command
    _is_set pre_install_command && pre_install_command
 
+  # _newly_installed is local here but visible to _install() via bash dynamic scoping
   local _newly_installed=false
 
   # native packages
@@ -195,6 +212,7 @@ install() {
 
   unset name
   unset config_dirs
+  unset dir_link_mode
   unset packages[$ID]
   unset -f post_install_command
   unset -f pre_install_command

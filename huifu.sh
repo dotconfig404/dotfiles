@@ -155,8 +155,8 @@ install
 ###################
 name=i3
 ###################
-packages[arch]="xorg-server i3-wm i3lock jgmenu nitrogen xcape i3blocks network-manager-applet dmenu xorg-xinit autorandr ttf-font-awesome arandr tk python xorg-xrandr picom blueman"
-packages[ubuntu]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-gnome suckless-tools xinit autorandr fonts-font-awesome arandr python3-tk python3 x11-xserver-utils picom blueman" 
+packages[arch]="xorg-server i3-wm i3lock jgmenu nitrogen xcape i3blocks network-manager-applet dmenu autorandr ttf-font-awesome arandr tk python xorg-xrandr picom blueman"
+packages[ubuntu]="i3 i3lock jgmenu nitrogen xcape i3blocks network-manager-gnome suckless-tools autorandr fonts-font-awesome arandr python3-tk python3 x11-xserver-utils picom blueman" 
 config_dirs="i3 i3blocks fonts autorandr picom"
 install
 
