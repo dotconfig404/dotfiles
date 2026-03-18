@@ -1,0 +1,1 @@
+/home/frras6571/dotfiles/node/.zshrc.d/pnpm.zsh

@@ -1,0 +1,1 @@
+/home/frras6571/dotfiles/ruby/.zshrc.d/rbenv.zsh

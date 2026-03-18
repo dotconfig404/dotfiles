@@ -72,7 +72,8 @@ RedHatEnterprise = "󱄛"
 show_always = true
 style_user = "bg:blue_bg fg:white_fg"
 style_root = "bg:blue_bg fg:white_fg"
-format = '[ $user ]($style)'
+#format = '[ $user ]($style)'
+format = '[ local ]($style)'
 
 [directory]
 style = "fg:white_fg bg:green_bg"

@@ -1,0 +1,1 @@
+/home/frras6571/dotfiles/confidential/gpg/.zprofile.d/gpg.zsh

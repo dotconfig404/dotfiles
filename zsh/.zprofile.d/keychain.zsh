@@ -1,0 +1,1 @@
+/home/frras6571/dotfiles/confidential/keychain/.zprofile.d/keychain.zsh

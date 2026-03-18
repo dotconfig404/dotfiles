@@ -1,2 +1,2 @@
-eval "$(rbenv init -)"
+command -v rbenv > /dev/null && eval "$(rbenv init -)"
 

@@ -1,0 +1,1 @@
+/home/frras6571/dotfiles/fzf/.zshrc.d/fzf.zsh

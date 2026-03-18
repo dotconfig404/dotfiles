@@ -12,3 +12,7 @@ fi
 
 # needs to be at the end
 eval "$(starship init zsh)"
+
+# opencode
+export PATH=/home/frras6571/.opencode/bin:$PATH
+
