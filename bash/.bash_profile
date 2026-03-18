@@ -85,3 +85,7 @@ set -o vi
 if [[ $iatest > 0 ]]; then bind "set bell-style visible"; fi
 
 . "$HOME/.cargo/env"
+
+if [ -d "$HOME/.bashrc.d" ] && [ ! -z "$(ls -A $HOME/.bashrc.d)" ]; then
+    source <(cat $HOME/.bashrc.d/*.sh)
+fi
