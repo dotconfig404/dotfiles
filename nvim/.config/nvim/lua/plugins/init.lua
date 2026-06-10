@@ -1,80 +1,115 @@
 return {
-    {
+  {
     "folke/which-key.nvim",
     event = "VeryLazy",
-    opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-    },
+    opts = {},
     keys = {
       {
         "<leader>?",
         function()
           require("which-key").show({ global = false })
         end,
-        desc = "Buffer Local Keymaps (which-key)",
+        desc = "Buffer Local Keymaps",
       },
     },
   },
- 
+
   {
     "ggandor/leap.nvim",
     config = function()
-      require('leap').set_default_mappings()
+      local leap = require("leap")
+      leap.create_default_mappings = function() end
+      vim.keymap.set({ "n", "x", "o" }, "s", "<Plug>(leap-forward)")
+      vim.keymap.set({ "n", "x", "o" }, "S", "<Plug>(leap-backward)")
+      vim.keymap.set({ "n", "x", "o" }, "gs", "<Plug>(leap-from-window)")
     end,
   },
 
-  -- themes
   { "miikanissi/modus-themes.nvim", priority = 1000 },
   "cocopon/iceberg.vim",
+  "rebelot/kanagawa.nvim",
+  "folke/tokyonight.nvim",
+  "matveyt/vim-modest",
   {
     'projekt0n/github-nvim-theme',
     name = 'github-theme',
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
-    priority = 1000, -- make sure to load this before all the other start plugins
+    lazy = false,
+    priority = 1000,
     config = function()
-      require('github-theme').setup({
-        -- ...
-      })
-  
+      require('github-theme').setup({})
       vim.cmd('colorscheme github_light')
     end,
   },
 
-  
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      require('lualine').setup({})
+    end,
+  },
+
+  {
+    'windwp/nvim-autopairs',
+    event = "InsertEnter",
+    config = function()
+      require('nvim-autopairs').setup({})
+    end,
+  },
+
   {
     "lewis6991/gitsigns.nvim",
     event = "BufReadPre",
     config = function()
       require("gitsigns").setup({
         signs = {
-          add          = { hl = "GitSignsAdd",    text = "│", numhl = "GitSignsAddNr",    linehl = "GitSignsAddLn" },
-          change       = { hl = "GitSignsChange", text = "│", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
-          delete       = { hl = "GitSignsDelete", text = "_", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
-          topdelete    = { hl = "GitSignsDelete", text = "‾", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
-          changedelete = { hl = "GitSignsChange", text = "~", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
-          untracked    = { hl = "GitSignsAdd",    text = "┆", numhl = "GitSignsAddNr",    linehl = "GitSignsAddLn" },
+          add          = { text = "│" },
+          change       = { text = "│" },
+          delete       = { text = "_" },
+          topdelete    = { text = "‾" },
+          changedelete = { text = "~" },
+          untracked    = { text = "┆" },
         },
       })
     end,
   },
 
   {
-  "nvim-telescope/telescope.nvim",
-  dependencies = { "nvim-lua/plenary.nvim" },
-  config = function()
-    local builtin = require('telescope.builtin')
-    vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
-    vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
-    vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
-    vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
-  end,
+    "nvim-telescope/telescope.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      local builtin = require('telescope.builtin')
+      vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
+      vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
+      vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
+      vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+    end,
   },
 
-  -- view directory as buffer
-  "elihunter173/dirbuf.nvim",
+  {
+    'tpope/vim-fugitive',
+    cmd = { 'Git', 'Gwrite', 'G Commit', 'GPush', 'Gread', 'Gblame' },
+  },
 
-  -- puppet syntax
-  "rodjek/vim-puppet",
+  'christoomey/vim-tmux-navigator',
+
+  'elihunter173/dirbuf.nvim',
+
+  {
+    'neoclide/coc.nvim',
+    branch = 'release',
+    config = function()
+      require('config.coc')
+    end,
+  },
+
+  {
+    'lervag/vimtex',
+    ft = { 'tex', 'latex' },
+  },
+
+  'tomlion/vim-solidity',
+  'LnL7/vim-nix',
+  'pixelneo/vim-python-docstring',
+  'rodjek/vim-puppet',
 }
