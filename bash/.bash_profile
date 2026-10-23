@@ -4,6 +4,11 @@ if [ -d "$HOME/.bash_profile.d" ] && [ ! -z "$(ls -A $HOME/.bash_profile.d)" ]; 
     source <(cat $HOME/.bash_profile.d/*.sh)
 fi
 
+# Non-login Bash shells do not read /etc/profile, which sets up Flatpak's app directories.
+if [ -r /etc/profile.d/flatpak.sh ]; then
+    . /etc/profile.d/flatpak.sh
+fi
+
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"

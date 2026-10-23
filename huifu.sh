@@ -24,6 +24,13 @@ packages[ubuntu]="code chromium-browser pavucontrol gnome sshfs cmake"
 install
 
 ###################
+name=flatpak
+###################
+packages[arch]="flatpak"
+packages[ubuntu]="flatpak"
+install
+
+###################
 name=gdm
 ###################
 packages[arch]="gdm"
