@@ -31,6 +31,17 @@ packages[ubuntu]="flatpak"
 install
 
 ###################
+name=flathub
+###################
+custom_install_check() {
+  flatpak remotes --system --columns=name | grep -Fxq flathub
+}
+custom_install_command() {
+  sudo flatpak remote-add --system --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+}
+install
+
+###################
 name=gdm
 ###################
 packages[arch]="gdm"
