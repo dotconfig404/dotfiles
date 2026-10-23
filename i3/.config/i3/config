@@ -49,7 +49,7 @@ floating_modifier $mod
 #...........
 #
 #dmenu
-bindsym $mod+space exec dmenu_run
+bindsym $mod+space exec i3-dmenu-desktop
 # why on EARTH is space not fucking captilazible??! fucking cruel.
 
 # start a terminal
